@@ -4,7 +4,7 @@ import Editor from "./lib/Editor.jsx";
 function App() {
   return (
       <div className="flex flex-col p-20">
-        <Editor/>
+        <Editor lang="en"/>
       </div>
   )
 }

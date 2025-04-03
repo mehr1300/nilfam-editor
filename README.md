@@ -24,13 +24,13 @@ This editor is perfect for React developers looking for a lightweight yet extens
 
 ## Preview
 
-![Nilfam Editor Preview](https://raw.githubusercontent.com/mehr1300/nilfam-editor/refs/heads/master/nilfam-editor-preview-en.jpg)  
-*(Replace this placeholder with an actual screenshot of your editor for better visibility!)*
+### English (LTR)
 
-## Preview
+![Nilfam Editor Preview](https://raw.githubusercontent.com/mehr1300/nilfam-editor/refs/heads/master/nilfam-editor-preview-en.jpg)  
+
+### Persian (RTL)
 
 ![Nilfam Editor Preview RTL Persian](https://raw.githubusercontent.com/mehr1300/nilfam-editor/refs/heads/master/nilfam-editor-preview-fa.jpg)  
-*(Replace this placeholder with an actual screenshot of your editor for better visibility!)*
 
 
 ## Installation

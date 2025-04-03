@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
 
-**Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for React using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
+**Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for **React js** using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
 
 This editor is perfect for React developers looking for a lightweight yet extensible rich text editor with advanced features like syntax-highlighted code blocks, media uploads, and custom tables—all under the permissive **MIT License**.
 
@@ -40,25 +40,6 @@ To add Nilfam Editor to your React project, simply install it via npm:
 ```bash
 npm i nilfam-editor
 ```
-
-Alternatively, if you want to work with the source code:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/nilfam-editor.git
-   cd nilfam-editor
-   ```
-
-2. **Install Dependencies**:
-   Ensure you have Node.js installed, then run:
-   ```bash
-   npm install
-   ```
-
-3. **Run the Project**:
-   ```bash
-   npm start
-   ```
 
 ## Usage
 

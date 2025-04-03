@@ -162,19 +162,6 @@ const myFonts = [
 - Full RTL/LTR support with Persian optimization.
 - Tailwind CSS integration for styling.
 
-*(Add future versions here as you update the project! Example:)*
-- *Version 1.1.0: Added copy button for code blocks, improved table resizing.*
-
-## Contributing
-
-We welcome contributions from the community! To contribute:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -m "Add your feature"`).
-4. Push to your branch (`git push origin feature/your-feature`).
-5. Open a Pull Request.
-
-Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) and ensure your code adheres to the project's style guide.
 
 ## License
 

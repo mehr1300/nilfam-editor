@@ -1,6 +1,6 @@
 {
   "name": "nilfam-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A powerful, customizable rich-text editor built with TipTap, React, and Tailwind CSS. Supports RTL/LTR text, resizable media (images/videos), tables, code blocks, font styling, and more for an enhanced content creation experience.",
   "keywords": [
     "rich-text-editor",

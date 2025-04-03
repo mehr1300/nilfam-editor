@@ -1,0 +1,223 @@
+ 
+# Nilfam Editor
+
+![React](https://img.shields.io/badge/React-19.0.0-blue.svg)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0.17-38B2AC.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
+
+**Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for React using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
+
+This editor is perfect for React developers looking for a lightweight yet extensible rich text editor with advanced features like syntax-highlighted code blocks, media uploads, and custom tables—all under the permissive **MIT License**.
+
+## Features
+
+- **Multilingual Support**: Fully optimized for RTL (e.g., Persian) and LTR (e.g., English) text directions.
+- **Code Editing**: Syntax-highlighted code blocks supporting JavaScript, Python, CSS, PHP, Rust, Go, and more.
+- **Rich Text Tools**: Font family, size, alignment, text color, highlighting, bold/italic, links, and lists.
+- **Media Management**: Upload and resize images, videos, and audio files effortlessly.
+- **Custom Tables**: Create, edit, and manage tables with advanced functionality.
+- **Code Copy Button**: Easily copy code blocks with a single click (feature in progress).
+- **Extensible**: Custom extensions for line height, font size, and more.
+- **Responsive Design**: Styled with Tailwind CSS for a modern, visually appealing UI.
+- **Developer-Friendly**: Modular components and easy integration into React projects.
+
+## Preview
+
+![Nilfam Editor Preview](https://via.placeholder.com/600x300.png?text=Nilfam+Editor+Preview)  
+*(Replace this placeholder with an actual screenshot of your editor for better visibility!)*
+
+## Installation
+
+To add Nilfam Editor to your React project, simply install it via npm:
+
+```bash
+npm i nilfam-editor
+```
+
+Alternatively, if you want to work with the source code:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/nilfam-editor.git
+   cd nilfam-editor
+   ```
+
+2. **Install Dependencies**:
+   Ensure you have Node.js installed, then run:
+   ```bash
+   npm install
+   ```
+
+3. **Run the Project**:
+   ```bash
+   npm start
+   ```
+
+## Usage
+
+### Basic Usage
+After installing, import and use the `NilfamEditor` component in your React app:
+
+```javascript
+import { useEffect, useState } from 'react';
+import { NilfamEditor } from 'nilfam-editor';
+import 'nilfam-editor/nilfam-editor.css';
+
+function App() {
+  const [content, setContent] = useState('<p>Start editing...</p>');
+
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
+
+  return (
+    <div className="flex flex-col p-20">
+      <NilfamEditor value={content} onChange={setContent} />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Persian (Farsi) and RTL Support
+To enable Persian language with RTL (right-to-left) support, set the `lang` prop to `"fa"`:
+
+```javascript
+import { useEffect, useState } from 'react';
+import { NilfamEditor } from 'nilfam-editor';
+import 'nilfam-editor/nilfam-editor.css';
+
+function App() {
+  const [content, setContent] = useState('<p>شروع ویرایش...</p>');
+
+  const myFonts = [
+    { label: 'ایران سنس', value: 'IRANSansXFaNum' },
+    { label: 'فونت کلمه', value: 'Kalameh' },
+    { label: 'فونت پلاک', value: 'Pelak' },
+  ];
+
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
+
+  return (
+    <div className="flex flex-col p-20">
+      <NilfamEditor
+        lang="fa"
+        value={content}
+        onChange={setContent}
+        fonts={myFonts}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+- **Note**: Setting `lang="fa"` enables RTL mode automatically, aligning text right-to-left and using Persian as the default language.
+
+### Adding Custom Fonts
+To add custom fonts to the editor, follow these steps:
+
+#### 1. Define Fonts in CSS
+Add your font files to your project and define them using `@font-face` in your CSS file (e.g., `App.css`):
+
+```css
+@font-face {
+  font-family: 'Kalameh';
+  font-style: normal;
+  font-weight: normal;
+  src: url('assets/fonts/kalameh/Woff/KalamehWebFaNum-Regular.woff') format('woff'),
+       url('assets/fonts/kalameh/Woff2/KalamehWebFaNum-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pelak';
+  font-style: normal;
+  font-weight: bold;
+  src: url('assets/fonts/pelak/Woff/PelakFA-Bold.woff') format('woff'),
+       url('assets/fonts/pelak/Woff2/PelakFA-Bold.woff2') format('woff2');
+}
+```
+
+- **Tip**: Ensure the font file paths are correct relative to your project structure.
+
+#### 2. Pass Fonts to the Editor
+Create an array of fonts with `label` (display name) and `value` (font-family name), then pass it to the `fonts` prop:
+
+```javascript
+const myFonts = [
+  { label: 'font kalameh', value: 'Kalameh' },
+  { label: 'font pelak', value: 'Pelak' },
+];
+
+<NilfamEditor
+  lang="fa"
+  value={content}
+  onChange={setContent}
+  fonts={myFonts}
+/>;
+```
+
+- **Note**: The `value` must match the `font-family` name defined in your `@font-face` rules.
+
+### Customization
+- **Fonts**: Extend the `fonts` prop with your preferred font list as shown above.
+- **Styling**: Modify Tailwind CSS classes in `nilfam-editor/nilfam-editor.css` to match your design.
+
+## Changelog
+
+### Version 1.0.0 (Initial Release)
+- Initial release with core features: rich text editing, code blocks, tables, and media support.
+- Full RTL/LTR support with Persian optimization.
+- Tailwind CSS integration for styling.
+
+*(Add future versions here as you update the project! Example:)*
+- *Version 1.1.0: Added copy button for code blocks, improved table resizing.*
+
+## Contributing
+
+We welcome contributions from the community! To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m "Add your feature"`).
+4. Push to your branch (`git push origin feature/your-feature`).
+5. Open a Pull Request.
+
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) and ensure your code adheres to the project's style guide.
+
+## License
+
+Nilfam Editor is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as you see fit.
+
+```plaintext
+MIT License
+
+Copyright (c) 2025 [Your Name]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software...
+```
+
+## Credits
+
+- Built with [Tiptap](https://tiptap.dev/) for the editor core.
+- Styled using [Tailwind CSS](https://tailwindcss.com/).
+- Syntax highlighting powered by [highlight.js](https://highlightjs.org/) via Lowlight.
+
+## Contact
+
+Have questions or suggestions? Reach out via:
+- **GitHub Issues**: [Open an issue](https://github.com/mehr1300/nilfam-editor/issues)
+
+---
+
+### Notes
+- I updated the installation section to prioritize `npm i nilfam-editor` as the primary method, keeping the cloning option as an alternative.
+- Added a dedicated Persian/RTL section with your provided example, translated to English.
+- Included a detailed guide for adding custom fonts, matching your CSS and array structure.
+- Kept your original badges, structure, and tone intact while enhancing clarity.
+
+Let me know if you’d like me to tweak anything further or add more sections! Ready to publish this on GitHub? Just update the placeholders (like the preview image and your GitHub username).

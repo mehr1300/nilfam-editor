@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+.class-button {
+  @apply rounded text-gray-800 size-8 flex justify-center items-center hover:bg-gray-200 cursor-pointer;
+}
+
+.class-button_bubble {
+  @apply rounded  text-gray-800 size-6 flex justify-center items-center hover:bg-gray-200 cursor-pointer;
+}
+
+
+/*//////////////////*/
+
+ .ProseMirror pre.code-block {
+  @apply bg-gray-800 !text-left text-gray-200 p-4 rounded-lg overflow-x-auto font-mono whitespace-pre-wrap;
+}
+
+
+.hljs {
+  @apply text-gray-200;
+}
+
+.hljs-keyword {
+  @apply text-blue-400 font-medium;
+}
+.hljs-built_in {
+  @apply text-cyan-300;
+}
+.hljs-type {
+  @apply text-teal-300;
+}
+.hljs-class {
+  @apply text-teal-200;
+}
+.hljs-title {
+  @apply text-yellow-300;
+}
+.hljs-title.function_ {
+  @apply text-yellow-300;
+}
+.hljs-title.class_ {
+  @apply text-teal-200;
+}
+
+
+.hljs-string {
+  @apply text-orange-300;
+}
+.hljs-number {
+  @apply text-green-300;
+}
+.hljs-literal {
+  @apply text-green-200;
+}
+.hljs-regexp {
+  @apply text-red-300;
+}
+
+ .hljs-variable {
+  @apply text-gray-300;
+}
+.hljs-variable.language_ {
+  @apply text-red-400;
+}
+.hljs-params {
+  @apply text-gray-400;
+}
+
+/* عملگرها و نمادها */
+.hljs-operator {
+  @apply text-gray-400;
+}
+.hljs-punctuation {
+  @apply text-gray-500;
+}
+
+/* کامنت‌ها */
+.hljs-comment {
+  @apply text-gray-600 italic;
+}
+
+
+.hljs-tag {
+  @apply text-blue-300;
+}
+.hljs-name {
+  @apply text-blue-300;
+}
+.hljs-attr {
+  @apply text-orange-200;
+}
+.hljs-attribute {
+  @apply text-orange-200;
+}
+
+/* متفرقه */
+.hljs-meta {
+  @apply text-gray-500;
+}
+.hljs-symbol {
+  @apply text-pink-300;
+}
+.hljs-section {
+  @apply text-indigo-300;
+}
+
+.code-block {
+  @apply bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto font-mono whitespace-pre-wrap relative;
+}
+
+.copy-button {
+  @apply absolute top-2 right-2 bg-gray-700 text-white text-sm px-2 py-1 rounded hover:bg-gray-600;
+}
+/*///////////////////*/
+
+
+@font-face {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: normal;
+  src: url('assets/fonts/iranSans/Woff/IRANSansXFaNum-Regular.woff') format('woff'),
+  url('assets/fonts/iranSans/Woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
+}
+
+
+/*body {*/
+/*  font-family: IRANSansXFaNum, sans-serif;*/
+/*}*/
+
+/*.nilfam-editor{*/
+/*  font-family: IRANSansXFaNum, sans-serif;*/
+/*}*/
+
+.add-font{
+  font-family: IRANSansXFaNum, sans-serif;
+}
+
+.ProseMirror:focus {
+  outline: none !important;
+}
+
+.ProseMirror-selectednode {
+  outline: none !important;
+}
+
+.ProseMirror ul li::before {
+  content: "•";
+  position: absolute;
+  right: 0.8rem;
+  left: auto;
+  line-height: inherit;
+  color: currentColor;
+}
+
+/* RTL support */
+.rtl .ProseMirror ul li::before {
+  right: auto;
+  left: 1rem;
+}
+
+.ProseMirror ol {
+  counter-reset: item;
+}
+
+.ProseMirror ol li {
+  counter-increment: item;
+}
+
+.ProseMirror ol li::before {
+  content: counter(item) "-";
+  position: absolute;
+  right: 0.5rem;
+  left: auto ;
+  line-height: inherit;
+  color: currentColor;
+}
+
+/* Make sure paragraph is inline */
+.ProseMirror ul li > p,
+.ProseMirror ol li > p {
+  display: inline;
+  margin: 0;
+}
+
+
+
+
+

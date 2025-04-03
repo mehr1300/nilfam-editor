@@ -199,12 +199,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 Have questions or suggestions? Reach out via:
 - **GitHub Issues**: [Open an issue](https://github.com/mehr1300/nilfam-editor/issues)
 
----
-
-### Notes
-- I updated the installation section to prioritize `npm i nilfam-editor` as the primary method, keeping the cloning option as an alternative.
-- Added a dedicated Persian/RTL section with your provided example, translated to English.
-- Included a detailed guide for adding custom fonts, matching your CSS and array structure.
-- Kept your original badges, structure, and tone intact while enhancing clarity.
-
-Let me know if you’d like me to tweak anything further or add more sections! Ready to publish this on GitHub? Just update the placeholders (like the preview image and your GitHub username).

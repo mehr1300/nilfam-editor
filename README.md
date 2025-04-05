@@ -1,12 +1,14 @@
- 
+
 # Nilfam Editor
 
 ![React](https://img.shields.io/badge/React-19.0.0-blue.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0.17-38B2AC.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
+![Version](https://img.shields.io/badge/Version-1.0.4-brightgreen.svg)
 
 **Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for **React js** using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
+
+> **Note**: Nilfam Editor is designed to work seamlessly with both **React** and **Next.js**, making it a versatile choice for modern web applications.
 
 This editor is perfect for React developers looking for a lightweight yet extensible rich text editor with advanced features like syntax-highlighted code blocks, media uploads, and custom tables—all under the permissive **MIT License**.
 
@@ -43,7 +45,7 @@ npm i nilfam-editor
 
 ## Usage
 
-### Basic Usage
+### Basic Usage (react-js)
 After installing, import and use the `NilfamEditor` component in your React app:
 
 ```javascript
@@ -68,7 +70,7 @@ function App() {
 export default App;
 ```
 
-### Persian (Farsi) and RTL Support
+### Persian (Farsi) and RTL Support (react-js)
 To enable Persian language with RTL (right-to-left) support, set the `lang` prop to `"fa"`:
 
 ```javascript
@@ -103,8 +105,36 @@ function App() {
 
 export default App;
 ```
-
 - **Note**: Setting `lang="fa"` enables RTL mode automatically, aligning text right-to-left and using Persian as the default language.
+
+### English NextJS
+To enable Persian language with RTL (right-to-left) support, set the `lang` prop to `"fa"`:
+
+```javascript
+"use client"
+import React, {useEffect, useState} from 'react';
+import {NilfamEditor} from "nilfam-editor";
+import 'nilfam-editor/nilfam-editor.css';
+
+const Editor = () => {
+    const [content, setContent] = useState('<p>Start editing...</p>');
+
+    useEffect(() => {
+        console.log(content);
+    }, [content]);
+
+    return (
+        <div className="flex flex-col p-20">
+            <NilfamEditor value={content} onChange={setContent} />
+        </div>
+    );
+};
+
+export default Editor;
+```
+
+
+
 
 ### Adding Custom Fonts
 To add custom fonts to the editor, follow these steps:
@@ -157,6 +187,9 @@ const myFonts = [
 
 ## Changelog
 
+### Version 1.0.4
+- Version 1.0.5 - Fixed hook order issue, improved Next.js 15 compatibility with manual installation and Turbopack support, and updated dependencies.
+
 ### Version 1.0.0 (Initial Release)
 - Initial release with core features: rich text editing, code blocks, tables, and media support.
 - Full RTL/LTR support with Persian optimization.
@@ -170,7 +203,7 @@ Nilfam Editor is licensed under the [MIT License](LICENSE). Feel free to use, mo
 ```plaintext
 MIT License
 
-Copyright (c) 2025 [Your Name]
+Copyright (c) 2025 NilfamEditor
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software...
 ```

@@ -231,82 +231,73 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
 
     return (
         <div
-            className="fixed inset-0 z-40 backdrop-blur-xs flex items-center justify-center px-2"
+            className="tw:fixed tw:inset-0 tw:z-40 tw:backdrop-blur-xs tw:flex tw:items-center tw:justify-center tw:px-2"
             onClick={(e) => {
                 if (e.target === e.currentTarget) {
-                    console.log("Backdrop clicked, closing modal");
                     setOpenUploadVideo(false);
                 }
             }}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
-            <div className="bg-white border border-gray-200 p-5 w-full max-w-2xl flex flex-col gap-4 md:my-10 rounded-lg shadow-lg relative">
-                <div className="flex flex-row justify-between items-center mb-1">
-                    <span className="font-bold"> {t('addVideo', lang)}</span>
+            <div className="tw:bg-white tw:dark:bg-gray-600  tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:p-5 tw:w-full tw:max-w-2xl tw:flex tw:flex-col tw:gap-4 tw:md:my-10 tw:rounded-lg tw:shadow-lg tw:relative">
+                <div className="tw:flex tw:flex-row tw:justify-between tw:items-center tw:mb-1">
+                    <span className="tw:font-bold"> {t('addVideo', lang)}</span>
                     <button onClick={() => {setOpenUploadVideo(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label= {t('close', lang)}>
                         <XIcon/>
                     </button>
                 </div>
-                <div className="flex border-b border-gray-300 mb-3">
-                    <button onClick={() => {setActiveTab('upload');setErrorMessage('');}} className={`py-2 px-4 ${activeTab === 'upload' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'}`}>
+                <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
+                    <button onClick={() => {setActiveTab('upload');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('uploadFile', lang)}
                     </button>
-                    <button onClick={() => {setActiveTab('url');setErrorMessage('');}} className={`py-2 px-4 ${activeTab === 'url' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'}`}>
+                    <button onClick={() => {setActiveTab('url');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
                     </button>
-                    <button
-                        onClick={() => {
-                            console.log("Switched to embed tab");
-                            setActiveTab('embed');
-                            setErrorMessage('');
-                        }}
-                        className={`py-2 px-4 ${activeTab === 'embed' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'}`}
-                    >
-                        Embed (فقط یوتیوب/آپارات)
+                    <button onClick={() => {setActiveTab('embed');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'embed' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
+                        Embed
                     </button>
                 </div>
                 {errorMessage && (
-                    <div className="text-red-600 text-sm p-2 bg-red-50 rounded-md border border-red-200">
+                    <div className="tw:text-red-600 tw:text-sm tw:p-2 tw:bg-red-50 tw:rounded-md tw:border tw:border-red-200">
                         {errorMessage}
                     </div>
                 )}
                 {activeTab === 'upload' && (
                     <div>
                         <div
-                            className="flex flex-col text-gray-500 justify-center items-center border-2 border-dashed border-gray-400 rounded-xl p-8 hover:border-gray-700 hover:bg-gray-50 cursor-pointer transition-colors duration-200"
+                            className="tw:flex tw:flex-col tw:text-gray-500  tw:justify-center tw:items-center tw:border-2 tw:border-dashed tw:border-gray-400 tw:rounded-xl tw:p-8 tw:dark:bg-gray-700 tw:hover:dark:bg-gray-800 tw:hover:border-gray-700 tw:hover:bg-gray-50 tw:cursor-pointer tw:transition-colors tw:duration-200"
                             onClick={() => {
-                                console.log("Upload area clicked, triggering file input");
                                 document.getElementById('videoInput').click();
                             }}
                         >
-                            <p className="text-center mb-2">
+                            <p className="tw:text-center tw:mb-2">
                                 {t('dragUpload', lang)}
                             </p>
-                            <p className="text-xs text-gray-400">فرمت‌های مجاز: MP4, WebM, MOV, AVI</p>
+                            <p className="tw:text-xs tw:text-gray-400"> MP4, WebM, MOV, AVI</p>
                             <input
                                 id="videoInput"
                                 type="file"
                                 multiple
                                 accept="video/*"
-                                className="hidden"
+                                className="tw:hidden"
                                 onChange={handleFileSelect}
                             />
                         </div>
                         {videos.length > 0 && (
-                            <div className="mt-4">
-                                <p className="text-sm font-semibold mb-2">فایل‌های انتخاب شده:</p>
-                                <div className="flex flex-wrap gap-2 mt-2">
+                            <div className="tw:mt-4">
+                                <p className="tw:text-sm tw:font-semibold tw:mb-2">فایل‌های انتخاب شده:</p>
+                                <div className="tw:flex tw:flex-wrap tw:gap-2 tw:mt-2">
                                     {videos.map((file, index) => (
-                                        <div key={index} className="relative bg-gray-100 rounded-md p-2 pr-8">
-                                            <div className="text-sm truncate max-w-xs">{file.name}</div>
+                                        <div key={index} className="tw:relative tw:bg-gray-100 tw:rounded-md tw:p-2 tw:pr-8">
+                                            <div className="tw:text-sm tw:truncate tw:max-w-xs">{file.name}</div>
                                             <button
-                                                className="absolute top-1 right-1 bg-red-500 hover:bg-red-400 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
+                                                className="tw:absolute tw:top-1 tw:right-1 tw:bg-red-500 tw:hover:bg-red-400 tw:text-white tw:rounded-full tw:w-5 tw:h-5 tw:flex tw:items-center tw:justify-center tw:text-xs tw:cursor-pointer"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     handleRemoveVideo(index);
                                                 }}
-                                                aria-label="حذف فایل"
+                                                aria-label={t('delete', lang)}
                                             >
                                                 ×
                                             </button>
@@ -316,21 +307,21 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                             </div>
                         )}
                         {isUploading && (
-                            <div className="mt-4">
-                                <p className="text-sm mb-1">در حال آپلود... {uploadProgress}%</p>
-                                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div className="tw:mt-4">
+                                <p className="tw:text-sm tw:mb-1">{t('uploading', lang)} {uploadProgress}%</p>
+                                <div className="tw:w-full tw:bg-gray-200 tw:dark:bg-gray-800 tw:rounded-full tw:h-2.5 tw:dark:bg-gray-700">
                                     <div
-                                        className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+                                        className="tw:bg-blue-600 tw:h-2.5 tw:rounded-full tw:transition-all tw:duration-300"
                                         style={{ width: `${uploadProgress}%` }}
                                     ></div>
                                 </div>
                             </div>
                         )}
-                        <div className="flex flex-row gap-2 justify-end mt-4">
-                            <button className={`rounded px-4 py-2 text-white ${isUploading || videos.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-400'}`} onClick={handleUpload} disabled={isUploading || videos.length === 0}>
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${isUploading || videos.length === 0 ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-green-500 tw:hover:bg-green-400'}`} onClick={handleUpload} disabled={isUploading || videos.length === 0}>
                                 {t('add', lang)}
                             </button>
-                            <button className="rounded bg-gray-300 hover:bg-gray-200 px-4 py-2" onClick={() => {console.log("Cancel button clicked on upload tab");setOpenUploadVideo(false);}} disabled={isUploading}>
+                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on upload tab");setOpenUploadVideo(false);}} disabled={isUploading}>
                                 {t('close', lang)}
                             </button>
                         </div>
@@ -338,7 +329,7 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                 )}
                 {activeTab === 'url' && (
                     <div>
-                        <label className="flex flex-col text-sm mb-2">
+                        <label className="tw:flex tw:flex-col tw:text-sm tw:mb-2">
                             {t('addressFile', lang)}
                             <input
                                 type="url"
@@ -347,16 +338,16 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                                     console.log("Video URL changed to:", e.target.value);
                                     setVideoUrl(e.target.value);
                                 }}
-                                className="border border-gray-400 rounded px-2 py-1.5 text-sm mt-1 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+                                className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm tw:mt-1 tw:focus:border-blue-500 tw:focus:ring-1 tw:focus:ring-blue-500 tw:outline-none"
                                 placeholder="https://server.com/video.mp4"
                             />
                         </label>
 
-                        <div className="flex flex-row gap-2 justify-end mt-4">
-                            <button className={`rounded px-4 py-2 text-white ${!videoUrl.trim() ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-400'}`} onClick={handleInsertVideoFromUrl} disabled={!videoUrl.trim()}>
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!videoUrl.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertVideoFromUrl} disabled={!videoUrl.trim()}>
                                 {t('add', lang)}
                             </button>
-                            <button className="rounded bg-gray-300 hover:bg-gray-200 px-4 py-2" onClick={() => {console.log("Cancel button clicked on URL tab");setOpenUploadVideo(false);}}>
+                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on URL tab");setOpenUploadVideo(false);}}>
                                 {t('close', lang)}
                             </button>
                         </div>
@@ -364,11 +355,11 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                 )}
                 {activeTab === 'embed' && (
                     <div>
-                        <label className="flex flex-col text-sm mb-2">
-                            کد iframe (فقط Youtube یا Aparat):
+                        <label className="tw:flex tw:flex-col tw:text-sm tw:mb-2">
+                            iframe
                             <textarea
                                 rows={4}
-                                className="border border-gray-400 rounded px-2 py-1.5 text-sm mt-1 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+                                className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm tw:mt-1 tw:focus:border-blue-500 tw:focus:ring-1 tw:focus:ring-blue-500 tw:outline-none"
                                 placeholder='<iframe src="https://www.aparat.com/video/..."></iframe>'
                                 value={embedCode}
                                 onChange={(e) => {
@@ -377,14 +368,14 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                                 }}
                             />
                         </label>
-                        <p className="text-xs text-gray-500 mb-4">
+                        <p className="tw:text-xs tw:text-gray-500 tw:mb-4">
                             {t('embedDesc', lang)}
                         </p>
-                        <div className="flex flex-row gap-2 justify-end mt-4">
-                            <button className={`rounded px-4 py-2 text-white ${!embedCode.trim() ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-400'}`} onClick={handleInsertEmbedCode} disabled={!embedCode.trim()}>
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!embedCode.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertEmbedCode} disabled={!embedCode.trim()}>
                                 {t('add', lang)}
                             </button>
-                            <button className="rounded bg-gray-300 hover:bg-gray-200 px-4 py-2" onClick={() => {setOpenUploadVideo(false);}}>
+                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {setOpenUploadVideo(false);}}>
                                 {t('close', lang)}
                             </button>
                         </div>

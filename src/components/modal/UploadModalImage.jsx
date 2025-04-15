@@ -127,26 +127,26 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
 
     return (
         <div
-            className="fixed inset-0 z-40 backdrop-blur-xs flex items-center justify-center px-2"
+            className="tw:fixed tw:inset-0 tw:z-40 tw:backdrop-blur-xs tw:flex tw:items-center tw:justify-center tw:px-2"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
-            <div className="bg-white border border-gray-200 p-5 w-full max-w-2xl flex flex-col gap-4 md:my-10 rounded relative">
+            <div className="tw:bg-white tw:dark:bg-gray-600  tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:p-5 tw:w-full tw:max-w-2xl tw:flex tw:flex-col tw:gap-4 tw:md:my-10 tw:rounded tw:relative">
                 {/* هدر مودال */}
-                <div className="flex flex-row justify-between items-center">
-                    <span className="font-bold">{t('addImage', lang)}</span>
+                <div className="tw:flex tw:flex-row tw:justify-between tw:items-center">
+                    <span className="tw:font-bold">{t('addImage', lang)}</span>
                     <span
                         onClick={() => setOpenUploadImage(false)}
-                        className="cursor-pointer text-gray-700 hover:text-gray-500"
+                        className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500"
                     >
             <XIcon/>
           </span>
                 </div>
-                <div className="flex border-b border-gray-300 mb-2">
-                    <button onClick={() => setActiveTab('upload')} className={`py-2 px-4 ${activeTab === 'upload' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'}`}>
+                <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
+                    <button onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('uploadFile', lang)}
                     </button>
-                    <button onClick={() => setActiveTab('url')} className={`py-2 px-4 ${activeTab === 'url' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'}`}>
+                    <button onClick={() => setActiveTab('url')} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
                     </button>
                 </div>
@@ -154,23 +154,23 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
                 {/* محتوای تب‌ها */}
                 {activeTab === 'upload' && (
                     <div>
-                        <div className="flex flex-col text-gray-500 justify-center items-center border-2 border-dashed border-gray-500 rounded-xl h-30 hover:border-gray-700 hover:bg-gray-200 cursor-pointer p-5" onClick={() => {document.getElementById('fileInput').click()}}>
+                        <div className="tw:flex tw:flex-col tw:text-gray-500 tw:justify-center tw:items-center tw:border-2 tw:border-dashed tw:border-gray-500 tw:rounded-xl tw:h-30 tw:hover:border-gray-700 tw:hover:bg-gray-200 tw:dark:bg-gray-700 tw:hover:dark:bg-gray-800 tw:cursor-pointer tw:p-5" onClick={() => {document.getElementById('fileInput').click()}}>
                             {t('dragUpload', lang)}
-                            <input id="fileInput" type="file" multiple className="hidden" onChange={handleFileSelect} />
+                            <input id="fileInput" type="file" multiple className="tw:hidden" onChange={handleFileSelect} />
                         </div>
 
                         {/* پیش‌نمایش تصاویر انتخاب شده */}
                         {images.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-2">
+                            <div className="tw:flex tw:flex-wrap tw:gap-2 tw:mt-2">
                                 {images.map((file, index) => (
-                                    <div key={index} className="relative">
+                                    <div key={index} className="tw:relative">
                                         <img
                                             src={URL.createObjectURL(file)}
                                             alt="preview"
-                                            className="w-20 h-20 object-cover rounded"
+                                            className="tw:w-20 tw:h-20 tw:object-cover tw:rounded"
                                         />
                                         <button
-                                            className="absolute top-1 right-1 bg-red-500 hover:bg-red-400 text-white rounded-full p-1 text-xs cursor-pointer"
+                                            className="tw:absolute tw:top-1 tw:right-1 tw:bg-red-500 tw:hover:bg-red-400 tw:text-white tw:rounded-full tw:p-1 tw:text-xs tw:cursor-pointer"
                                             onClick={() => handleRemoveImage(index)}
                                         >
                                             حذف
@@ -182,29 +182,29 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
 
                         {/* نوار پیشرفت آپلود (در صورت در حال آپلود بودن) */}
                         {isUploading && (
-                            <div className="w-full bg-gray-200 rounded h-4 mt-2">
-                                <div className="bg-blue-500 h-4 rounded" style={{ width: `${uploadProgress}%` }}>
+                            <div className="tw:w-full tw:bg-gray-200 tw:dark:bg-gray-800 tw:rounded tw:h-4 tw:mt-2">
+                                <div className="tw:bg-blue-500 tw:h-4 tw:rounded" style={{ width: `${uploadProgress}%` }}>
                                 </div>
                             </div>
                         )}
 
-                        <div className="flex gap-2 mt-4">
-                            <label className="flex flex-col text-sm">
+                        <div className="tw:flex tw:gap-2 tw:mt-4">
+                            <label className="tw:flex tw:flex-col tw:text-sm">
                                 {t('alt', lang)}
                                 <input
                                     type="text" value={altText}
                                     onChange={(e) => setAltText(e.target.value)}
-                                    className="border border-gray-400 rounded px-2 py-1.5 text-sm"
+                                    className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"
                                 />
                             </label>
                         </div>
 
                         {/* دکمه آپلود و بستن */}
-                        <div className="flex flex-row gap-2 justify-end mt-4">
-                            <button className="rounded bg-green-500 hover:bg-green-400 px-4 py-2 text-white" onClick={handleUpload} disabled={isUploading}>
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                            <button className="tw:rounded tw:bg-green-500 tw:hover:bg-green-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleUpload} disabled={isUploading}>
                                 {t('add', lang)}
                             </button>
-                            <button className="rounded bg-gray-300 hover:bg-gray-200 px-4 py-2" onClick={() => setOpenUploadImage(false)}>
+                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
                                 {t('close', lang)}
                             </button>
                         </div>
@@ -213,29 +213,29 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
 
                 {activeTab === 'url' && (
                     <div>
-                        <label className="flex flex-col text-sm mb-2">
+                        <label className="tw:flex tw:flex-col tw:text-sm tw:mb-2">
                             {t('addressFile', lang)}
                             <input
                                 type="text"
                                 value={imageUrl}
                                 onChange={(e) => setImageUrl(e.target.value)}
-                                className="border border-gray-400 rounded px-2 py-1.5 text-sm"
+                                className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"
                                 placeholder=  {t('addAddressFile', lang)}
                             />
                         </label>
 
-                        <div className="flex gap-2">
-                            <label className="flex flex-col text-sm">
+                        <div className="tw:flex tw:gap-2">
+                            <label className="tw:flex tw:flex-col tw:text-sm">
                                 {t('alt', lang)}
-                                <input type="text" value={altText} onChange={(e) => setAltText(e.target.value)} className="border border-gray-400 rounded px-2 py-1.5 text-sm"/>
+                                <input type="text" value={altText} onChange={(e) => setAltText(e.target.value)} className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"/>
                             </label>
                         </div>
 
-                        <div className="flex flex-row gap-2 justify-end mt-4">
-                            <button className="rounded bg-blue-500 hover:bg-blue-400 px-4 py-2 text-white" onClick={handleInsertImageFromUrl}>
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                            <button className="tw:rounded tw:bg-blue-500 tw:hover:bg-blue-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleInsertImageFromUrl}>
                                 {t('add', lang)}
                             </button>
-                            <button className="rounded bg-gray-300 hover:bg-gray-200 px-4 py-2" onClick={() => setOpenUploadImage(false)}>
+                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
                                 {t('close', lang)}
                             </button>
                         </div>

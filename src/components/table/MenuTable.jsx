@@ -13,7 +13,7 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
     const alignTableLeft = () => {
         if (editor.isActive('table')) {
             editor.chain().focus().updateAttributes('table', {
-                class: 'w-fit border-collapse table-auto border border-gray-300 rounded-lg overflow-hidden shadow-md mr-auto'
+                class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:mr-auto'
             }).run();
             console.log('Updated table classes:', editor.getAttributes('table').class);
             const tableNode = editor.view.dom.querySelector('table');
@@ -24,7 +24,7 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
     const alignTableCenter = () => {
         if (editor.isActive('table')) {
             editor.chain().focus().updateAttributes('table', {
-                class: 'w-fit border-collapse table-auto border border-gray-300 rounded-lg overflow-hidden shadow-md mx-auto'
+                class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:mx-auto'
             }).run();
             console.log('Updated table classes:', editor.getAttributes('table').class);
             const tableNode = editor.view.dom.querySelector('table');
@@ -35,7 +35,7 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
     const alignTableRight = () => {
         if (editor.isActive('table')) {
             editor.chain().focus().updateAttributes('table', {
-                class: 'w-fit border-collapse table-auto border border-gray-300 rounded-lg overflow-hidden shadow-md ml-auto'
+                class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:ml-auto'
             }).run();
             console.log('Updated table classes:', editor.getAttributes('table').class);
             const tableNode = editor.view.dom.querySelector('table');
@@ -47,9 +47,9 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
         editor.chain().focus().deleteTable().run();
     };
     return (
-        <div className="flex flex-row ">
+        <div className="tw:flex tw:flex-row ">
             {isTableSelected && (
-                <div className="flex flex-row bg-red-100 rounded">
+                <div className="tw:flex tw:flex-row tw:bg-red-100 tw:rounded">
                     <button className="class-button" onClick={addRowAfter} title={t('addRowAfter', lang)}>
                         <AddRowAfterIcon/>
                     </button>

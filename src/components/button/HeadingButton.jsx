@@ -23,7 +23,7 @@ function HeadingButtons({ editor,lang}) {
 
     return (
         <div>
-            <select className="border border-gray-300 rounded p-1 text-sm w-28" value={currentLevel || ''} onChange={handleChange}>
+            <select className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm tw:w-28" value={currentLevel || ''} onChange={handleChange}>
                 <option value="">{t('heading', lang)}</option>
                 <option value="1">H1</option>
                 <option value="2">H2</option>

@@ -3,7 +3,7 @@ import {t} from "../Lang/i18n.js";
 const SizeFontButton = ({editor,lang}) => {
     return (
         <div>
-            <select className="border border-gray-300 rounded p-1 text-sm" onChange={(e) => {
+            <select className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm" onChange={(e) => {
                 const level = parseInt(e.target.value);
                 if (level) editor.chain().focus().setFontSize(level).run();
             }}>

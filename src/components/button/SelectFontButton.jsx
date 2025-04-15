@@ -6,7 +6,7 @@ const SelectFontButton = ({editor,fonts,lang}) => {
 
     return (
         <div>
-            <select value={font} className="border border-gray-300 rounded p-1 text-sm" onChange={(e) => {
+            <select value={font} className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm" onChange={(e) => {
                 const selectedFont = e.target.value;
                 setFont(selectedFont);
                 editor.chain().focus().setFontFamily(selectedFont).run(); // تغییر فونت با setFontFamily

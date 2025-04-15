@@ -12,7 +12,7 @@ export const CustomTable = Table.extend({
     addAttributes() {
         return {
             class: {
-                default: 'w-fit border-collapse table-auto border border-gray-300 rounded-lg overflow-hidden shadow-md mx-auto',
+                default: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:mx-auto',
                 renderHTML: attributes => ({
                     class: attributes.class, // کلاس‌ها رو به HTML منتقل می‌کنه
                 }),
@@ -27,7 +27,7 @@ export const CustomTable = Table.extend({
 export const CustomTableRow = TableRow.extend({
     renderHTML({ HTMLAttributes }) {
         return ['tr', mergeAttributes({
-            class: 'even:bg-gray-50 hover:bg-gray-100',
+            class: 'tw:even:bg-gray-50 tw:hover:bg-gray-100',
         }, HTMLAttributes), 0];
     },
 });
@@ -35,7 +35,7 @@ export const CustomTableRow = TableRow.extend({
 export const CustomTableHeader = TableHeader.extend({
     renderHTML({ HTMLAttributes }) {
         return ['th', mergeAttributes({
-            class: 'bg-gray-200 text-gray-700 font-semibold py-2 px-4 border-b border-r border-gray-300 text-right',
+            class: 'tw:bg-gray-200 tw:dark:bg-gray-800 tw:text-gray-700 tw:font-semibold tw:py-2 tw:px-4 tw:border-b tw:border-r tw:border-gray-300 tw:dark:border-gray-700 tw:text-right',
         }, HTMLAttributes), 0];
     },
 });
@@ -43,7 +43,7 @@ export const CustomTableHeader = TableHeader.extend({
 export const CustomTableCell = TableCell.extend({
     renderHTML({ HTMLAttributes }) {
         return ['td', mergeAttributes({
-            class: 'py-2 px-4 border-b border-r border-gray-300 text-right',
+            class: 'tw:py-2 tw:px-4 tw:border-b tw:border-r tw:border-gray-300 tw:dark:border-gray-700 tw:text-right',
         }, HTMLAttributes), 0];
     },
 });
@@ -83,7 +83,7 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
                 .focus()
                 .insertTable({ rows: parseInt(rows), cols: parseInt(cols), withHeaderRow: true })
                 .setNode('table', {
-                    class: 'w-fit border-collapse table-auto border border-gray-300 rounded-lg overflow-hidden shadow-md ml-auto'
+                    class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:ml-auto'
                 })
                 .run();
         }
@@ -91,31 +91,31 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
     };
 
     return (
-        <div className="relative">
+        <div className="tw:relative">
             <button className="class-button" onClick={()=>{setIsModalOpen(true)}} title={t('insertTable', lang)}>
                 <TableIcon />
             </button>
 
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/10 backdrop-blur-xs z-50">
-                    <div className="flex flex-col relative bg-white gap-3 p-6 rounded-lg shadow-lg w-96">
-                        <div className="flex flex-row justify-between items-center mb-1">
-                        <span className="font-bold"> {t('addTable', lang)}</span>
+                <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">
+                    <div className="tw:flex tw:flex-col tw:relative tw:bg-white tw:dark:bg-gray-600  tw:gap-3 tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-96">
+                        <div className="tw:flex tw:flex-row tw:justify-between tw:items-center tw:mb-1">
+                        <span className="tw:font-bold"> {t('addTable', lang)}</span>
                             <button onClick={() => {setIsModalOpen(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label={t('close', lang)}>
                                 <XIcon/>
                             </button>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <div className="flex flex-col gap-1">
+                        <div className="tw:flex tw:flex-col tw:gap-2">
+                            <div className="tw:flex tw:flex-col tw:gap-1">
                                 <label htmlFor="cols">{t('row', lang)}</label>
-                                <input value={rows} onChange={(e) => setRows(e.target.value)} type="text" className="p-1.5 text-gray-800 border border-gray-300 rounded px-1"/>
+                                <input value={rows} onChange={(e) => setRows(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                             </div>
-                            <div className="flex flex-col gap-1">
+                            <div className="tw:flex tw:flex-col tw:gap-1">
                                 <label htmlFor="cols">{t('col', lang)}</label>
-                                <input id="cols" value={cols} onChange={(e) => setCols(e.target.value)} type="text" className="p-1.5 text-gray-800 border border-gray-300 rounded px-1"/>
+                                <input id="cols" value={cols} onChange={(e) => setCols(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                             </div>
                         </div>
-                        <button className=" w-full p-2 bg-gray-300 rounded hover:bg-gray-400 cursor-pointer" onClick={() => insertTable()}>
+                        <button className=" tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => insertTable()}>
                             {t('add', lang)}
                         </button>
                     </div>

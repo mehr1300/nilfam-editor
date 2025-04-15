@@ -54,6 +54,7 @@ export const translations = {
         row : "سطر",
         col : "ستون",
         addTable : "افزودن جدول",
+        uploading : "در حال آپلود... ",
     },
     en: {
         bold: "Bold",
@@ -107,6 +108,7 @@ export const translations = {
         row : "Row",
         col : "Col",
         addTable : "Add Table",
+        uploading : "Uploading...",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

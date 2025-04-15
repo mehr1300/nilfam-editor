@@ -3,7 +3,7 @@ import Editor from "./lib/Editor.jsx";
 
 function App() {
   return (
-      <div className="flex flex-col p-20">
+      <div className="tw:flex tw:flex-col tw:p-20 tw:dark:bg-gray-900 tw:h-screen">
         <Editor lang="en"/>
       </div>
   )

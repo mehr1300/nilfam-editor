@@ -28,7 +28,7 @@ const LinkButton = ({editor,lang}) => {
 
     return (
         <div>
-            <button className="class-button data-active:bg-gray-300" data-active={editor.isActive('link') || null}
+            <button className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('link') || null}
                     onClick={()=>{showLink()}}
                     title={t('link', lang)}><LinkIcon/>
             </button>
@@ -39,18 +39,18 @@ const LinkButton = ({editor,lang}) => {
             {/*</button>*/}
 
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/10 backdrop-blur-xs z-50">
-                    <div className="flex flex-col relative bg-white gap-3 p-6 rounded-lg shadow-lg w-96">
-                        <div className="flex flex-row justify-between items-center mb-1">
-                            <span className="font-bold"> {t('addLink', lang)}</span>
-                            <button onClick={() => {setIsModalOpen(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label={t('close', lang)}>
+                <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">
+                    <div className="tw:flex tw:flex-col tw:relative tw:bg-white tw:dark:bg-gray-600  tw:gap-3 tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-96">
+                        <div className="tw:flex tw:flex-row tw:justify-between tw:items-center tw:mb-1">
+                            <span className="tw:font-bold"> {t('addLink', lang)}</span>
+                            <button onClick={() => {setIsModalOpen(false);}} className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500" aria-label={t('close', lang)}>
                                 <XIcon/>
                             </button>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <input value={value} onChange={(e) => setValue(e.target.value)} type="text" className="p-1.5 text-gray-800 border border-gray-300 rounded px-1"/>
+                        <div className="tw:flex tw:flex-col tw:gap-2">
+                            <input value={value} onChange={(e) => setValue(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                         </div>
-                        <button className="w-full p-2 bg-gray-300 rounded hover:bg-gray-400 cursor-pointer" onClick={() => addLink()}>
+                        <button className="tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => addLink()}>
                             {t('add', lang)}
                         </button>
                     </div>

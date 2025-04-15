@@ -1,115 +1,113 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(tw);
+@source "./**/*.{html,js,jsx,ts,tsx}";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .class-button {
-  @apply rounded text-gray-800 size-8 flex justify-center items-center hover:bg-gray-200 cursor-pointer;
+  @apply tw:rounded tw:text-gray-800 tw:dark:text-gray-900 tw:size-8 tw:flex tw:justify-center tw:items-center tw:hover:bg-gray-200 tw:dark:hover:bg-gray-500 tw:cursor-pointer;
 }
 
 .class-button_bubble {
-  @apply rounded  text-gray-800 size-6 flex justify-center items-center hover:bg-gray-200 cursor-pointer;
+  @apply tw:rounded  tw:text-gray-800 tw:size-6 tw:flex tw:justify-center tw:items-center tw:hover:bg-gray-200 tw:cursor-pointer;
 }
-
-
-/*//////////////////*/
 
  .ProseMirror pre.code-block {
-  @apply bg-gray-800 !text-left text-gray-200 p-4 rounded-lg overflow-x-auto font-mono whitespace-pre-wrap;
+  @apply tw:bg-gray-800 tw:!text-left tw:text-gray-200 tw:p-4 tw:rounded-lg tw:overflow-x-auto tw:font-mono tw:whitespace-pre-wrap;
 }
 
-
 .hljs {
-  @apply text-gray-200;
+  @apply tw:text-gray-200;
 }
 
 .hljs-keyword {
-  @apply text-blue-400 font-medium;
+  @apply tw:text-blue-400 tw:font-medium;
 }
 .hljs-built_in {
-  @apply text-cyan-300;
+  @apply tw:text-cyan-300;
 }
 .hljs-type {
-  @apply text-teal-300;
+  @apply tw:text-teal-300;
 }
 .hljs-class {
-  @apply text-teal-200;
+  @apply tw:text-teal-200;
 }
 .hljs-title {
-  @apply text-yellow-300;
+  @apply tw:text-yellow-300;
 }
 .hljs-title.function_ {
-  @apply text-yellow-300;
+  @apply tw:text-yellow-300;
 }
 .hljs-title.class_ {
-  @apply text-teal-200;
+  @apply tw:text-teal-200;
 }
 
 
 .hljs-string {
-  @apply text-orange-300;
+  @apply tw:text-orange-300;
 }
 .hljs-number {
-  @apply text-green-300;
+  @apply tw:text-green-300;
 }
 .hljs-literal {
-  @apply text-green-200;
+  @apply tw:text-green-200;
 }
 .hljs-regexp {
-  @apply text-red-300;
+  @apply tw:text-red-300;
 }
 
  .hljs-variable {
-  @apply text-gray-300;
+  @apply tw:text-gray-300;
 }
 .hljs-variable.language_ {
-  @apply text-red-400;
+  @apply tw:text-red-400;
 }
 .hljs-params {
-  @apply text-gray-400;
+  @apply tw:text-gray-400;
 }
 
 /* عملگرها و نمادها */
 .hljs-operator {
-  @apply text-gray-400;
+  @apply tw:text-gray-400;
 }
 .hljs-punctuation {
-  @apply text-gray-500;
+  @apply tw:text-gray-500;
 }
 
 /* کامنت‌ها */
 .hljs-comment {
-  @apply text-gray-600 italic;
+  @apply tw:text-gray-600 tw:italic;
 }
 
 
 .hljs-tag {
-  @apply text-blue-300;
+  @apply tw:text-blue-300;
 }
 .hljs-name {
-  @apply text-blue-300;
+  @apply tw:text-blue-300;
 }
 .hljs-attr {
-  @apply text-orange-200;
+  @apply tw:text-orange-200;
 }
 .hljs-attribute {
-  @apply text-orange-200;
+  @apply tw:text-orange-200;
 }
 
 /* متفرقه */
 .hljs-meta {
-  @apply text-gray-500;
+  @apply tw:text-gray-500;
 }
 .hljs-symbol {
-  @apply text-pink-300;
+  @apply tw:text-pink-300;
 }
 .hljs-section {
-  @apply text-indigo-300;
+  @apply tw:text-indigo-300;
 }
 
 .code-block {
-  @apply bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto font-mono whitespace-pre-wrap relative;
+  @apply tw:bg-gray-800 tw:text-gray-200 tw:p-4 tw:rounded-lg tw:overflow-x-auto tw:font-mono tw:whitespace-pre-wrap tw:relative;
 }
 
 .copy-button {
-  @apply absolute top-2 right-2 bg-gray-700 text-white text-sm px-2 py-1 rounded hover:bg-gray-600;
+  @apply tw:absolute tw:top-2 tw:right-2 tw:bg-gray-700 tw:text-white tw:text-sm tw:px-2 tw:py-1 tw:rounded tw:hover:bg-gray-600;
 }
 /*///////////////////*/
 
@@ -122,14 +120,6 @@
   url('assets/fonts/iranSans/Woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
 }
 
-
-/*body {*/
-/*  font-family: IRANSansXFaNum, sans-serif;*/
-/*}*/
-
-/*.nilfam-editor{*/
-/*  font-family: IRANSansXFaNum, sans-serif;*/
-/*}*/
 
 .add-font{
   font-family: IRANSansXFaNum, sans-serif;
@@ -145,7 +135,7 @@
 
 .ProseMirror ul li::before {
   content: "•";
-  position: absolute;
+  /*position: absolute;*/
   right: 0.8rem;
   left: auto;
   line-height: inherit;
@@ -168,21 +158,24 @@
 
 .ProseMirror ol li::before {
   content: counter(item) "-";
-  position: absolute;
+  /*position: absolute;*/
   right: 0.5rem;
   left: auto ;
   line-height: inherit;
   color: currentColor;
 }
 
-/* Make sure paragraph is inline */
 .ProseMirror ul li > p,
 .ProseMirror ol li > p {
   display: inline;
   margin: 0;
 }
 
+/*.ProseMirror ol li::before {*/
+/*   position: relative !important;*/
+/*}*/
 
-
-
+/*.ProseMirror ul li::before {*/
+/*  position: relative !important;*/
+/*}*/
 

@@ -57,14 +57,14 @@ const CodeButtons = ({ editor, lang }) => {
 
             {/* مدال انتخاب زبان */}
             {isLanguageModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-                        <h3 className="text-lg font-semibold mb-4">{t('selectCodeLanguage', lang)}</h3>
-                        <div className="flex flex-col gap-2">
+                <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">
+                    <div className="tw:bg-white tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-80">
+                        <h3 className="tw:text-lg tw:font-semibold tw:mb-4">{t('selectCodeLanguage', lang)}</h3>
+                        <div className="tw:flex tw:flex-col tw:gap-2">
                             {languages.map((langItem) => (
                                 <button
                                     key={langItem.value}
-                                    className="p-2 text-left rounded hover:bg-gray-100"
+                                    className="tw:p-2 tw:text-left tw:rounded tw:hover:bg-gray-100"
                                     onClick={() => applyCodeBlock(langItem.value)}
                                 >
                                     {langItem.label}
@@ -72,7 +72,7 @@ const CodeButtons = ({ editor, lang }) => {
                             ))}
                         </div>
                         <button
-                            className="mt-4 w-full p-2 bg-gray-300 rounded hover:bg-gray-400"
+                            className="tw:mt-4 tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400"
                             onClick={() => setIsLanguageModalOpen(false)}>
                             {t('close', lang)}
                         </button>

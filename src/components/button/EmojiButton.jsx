@@ -26,14 +26,14 @@ const EmojiButton = ({ editor, lang }) => {
     }, []);
 
     return (
-        <div className="relative" ref={containerRef}>
+        <div className="tw:relative" ref={containerRef}>
             <button className="class-button" title={t('emoji', lang)} onClick={toggleDropdown}>
                 <EmojiIcon />
             </button>
             {isOpen && (
-                <div className={`${Configs.RtlLang.includes(lang) ? "right-0" : "left-0"} absolute top-8 z-10`}>
-                    <div className="p-2 bg-gray-200 w-60 flex flex-col rounded">
-                        <div className="grid grid-cols-8 gap-2 pe-3 h-52 overflow-y-auto">
+                <div className={`${Configs.RtlLang.includes(lang) ? "tw:right-0" : "tw:left-0"} tw:absolute tw:top-8 tw:z-10`}>
+                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-800 tw:w-60 tw:flex tw:flex-col tw:rounded">
+                        <div className="tw:grid tw:grid-cols-8 tw:gap-2 tw:pe-3 tw:h-52 tw:overflow-y-auto">
                             {Emoji.map((emojiCode, index) => (
                                 <span
                                     key={index}
@@ -41,7 +41,7 @@ const EmojiButton = ({ editor, lang }) => {
                                         editor.chain().focus().insertContent(String.fromCodePoint(emojiCode)).run();
                                         setIsOpen(false);
                                     }}
-                                    className="text-lg hover:opacity-50 cursor-pointer">
+                                    className="tw:text-lg tw:hover:opacity-50 tw:cursor-pointer">
                                     {String.fromCodePoint(emojiCode)}
                                 </span>
                             ))}

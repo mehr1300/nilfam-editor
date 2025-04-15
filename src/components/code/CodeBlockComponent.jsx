@@ -12,11 +12,11 @@ export default function CodeBlockComponent({node}) {
     }
 
     return (
-        <NodeViewWrapper className="relative group my-2">
-            <pre className="p-3 bg-gray-800 !text-left text-white rounded-md overflow-auto relative">
+        <NodeViewWrapper className="tw:relative tw:group tw:my-2">
+            <pre className="tw:p-3 tw:bg-gray-800 tw:!text-left tw:text-white tw:rounded-md tw:overflow-auto tw:relative">
                 <NodeViewContent as="code"/>
            </pre>
-            <button onClick={copyToClipboard} className="absolute top-2 right-2 text-xs text-gray-300 cursor-pointer p-1 rounded hover:text-gray-200 hidden group-hover:block">
+            <button onClick={copyToClipboard} className="tw:absolute tw:top-2 tw:right-2 tw:text-xs tw:text-gray-300 tw:cursor-pointer tw:p-1 tw:rounded tw:hover:text-gray-200 tw:hidden tw:group-hover:block">
                 <CopyIcon/>
             </button>
         </NodeViewWrapper>

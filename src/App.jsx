@@ -4,7 +4,7 @@ import Editor from "./lib/Editor.jsx";
 function App() {
   return (
       <div className="tw:flex tw:flex-col tw:p-20 tw:dark:bg-gray-900 tw:h-screen">
-        <Editor lang="en"/>
+        <Editor lang="fa"/>
       </div>
   )
 }

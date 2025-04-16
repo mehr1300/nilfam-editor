@@ -27,9 +27,9 @@ const EmojiButton = ({ editor, lang }) => {
 
     return (
         <div className="tw:relative" ref={containerRef}>
-            <button className="class-button" title={t('emoji', lang)} onClick={toggleDropdown}>
+            <div className="class-button" title={t('emoji', lang)} onClick={toggleDropdown}>
                 <EmojiIcon />
-            </button>
+            </div>
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? "tw:right-0" : "tw:left-0"} tw:absolute tw:top-8 tw:z-10`}>
                     <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-800 tw:w-60 tw:flex tw:flex-col tw:rounded">

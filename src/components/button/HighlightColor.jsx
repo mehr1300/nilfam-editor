@@ -27,18 +27,18 @@ const HighlightColor = ({ editor,lang}) => {
 
     return (
         <div className="tw:relative" ref={containerRef}>
-            <button className="class-button" title={t('highlightText', lang)} onClick={toggleDropdown}>
+            <div className="class-button" title={t('highlightText', lang)} onClick={toggleDropdown}>
                 <HighlightIcon/>
-            </button>
+            </div>
 
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? "tw:right-0" : "tw:left-0"} tw:absolute tw:top-8  tw:z-10`}>
                     <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-800 tw:w-52 tw:flex tw:flex-col tw:rounded">
                         <div className="tw:flex tw:flex-row tw:justify-end tw:mb-2">
-                            <button onClick={() => editor.chain().focus().unsetMark('highlight').run()}
+                            <div onClick={() => editor.chain().focus().unsetMark('highlight').run()}
                                     className="tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-600 tw:dark:hover:bg-gray-700 tw:text-sm tw:px-2 tw:py-1 tw:rounded tw:cursor-pointer">
                                 {t('clear', lang)}
-                            </button>
+                            </div>
                         </div>
                         <div className="tw:grid tw:grid-cols-7 tw:gap-2 tw:pe-3 tw:h-52 tw:overflow-y-auto">
                             {Colors.map((color) => (

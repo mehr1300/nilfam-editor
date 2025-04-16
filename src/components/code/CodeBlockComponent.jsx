@@ -16,9 +16,9 @@ export default function CodeBlockComponent({node}) {
             <pre className="tw:p-3 tw:bg-gray-800 tw:!text-left tw:text-white tw:rounded-md tw:overflow-auto tw:relative">
                 <NodeViewContent as="code"/>
            </pre>
-            <button onClick={copyToClipboard} className="tw:absolute tw:top-2 tw:right-2 tw:text-xs tw:text-gray-300 tw:cursor-pointer tw:p-1 tw:rounded tw:hover:text-gray-200 tw:hidden tw:group-hover:block">
+            <div onClick={copyToClipboard} className="tw:absolute tw:top-2 tw:right-2 tw:text-xs tw:text-gray-300 tw:cursor-pointer tw:p-1 tw:rounded tw:hover:text-gray-200 tw:hidden tw:group-hover:block">
                 <CopyIcon/>
-            </button>
+            </div>
         </NodeViewWrapper>
     )
 }

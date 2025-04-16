@@ -92,18 +92,18 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
 
     return (
         <div className="tw:relative">
-            <button className="class-button" onClick={()=>{setIsModalOpen(true)}} title={t('insertTable', lang)}>
+            <div className="class-button" onClick={()=>{setIsModalOpen(true)}} title={t('insertTable', lang)}>
                 <TableIcon />
-            </button>
+            </div>
 
             {isModalOpen && (
                 <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">
                     <div className="tw:flex tw:flex-col tw:relative tw:bg-white tw:dark:bg-gray-600  tw:gap-3 tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-96">
                         <div className="tw:flex tw:flex-row tw:justify-between tw:items-center tw:mb-1">
                         <span className="tw:font-bold"> {t('addTable', lang)}</span>
-                            <button onClick={() => {setIsModalOpen(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label={t('close', lang)}>
+                            <div onClick={() => {setIsModalOpen(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label={t('close', lang)}>
                                 <XIcon/>
-                            </button>
+                            </div>
                         </div>
                         <div className="tw:flex tw:flex-col tw:gap-2">
                             <div className="tw:flex tw:flex-col tw:gap-1">
@@ -115,9 +115,9 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
                                 <input id="cols" value={cols} onChange={(e) => setCols(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                             </div>
                         </div>
-                        <button className=" tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => insertTable()}>
+                        <div className=" tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => insertTable()}>
                             {t('add', lang)}
-                        </button>
+                        </div>
                     </div>
                 </div>
             )}

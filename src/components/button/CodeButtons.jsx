@@ -43,9 +43,9 @@ const CodeButtons = ({ editor, lang }) => {
 
     return (
         <>
-            <button className="class-button" onClick={addCode} title={t('code', lang)}>
+            <div className="class-button" onClick={addCode} title={t('code', lang)}>
                 <CodeIcon/>
-            </button>
+            </div>
             {/*<button*/}
             {/*    className="class-button"*/}
             {/*    onClick={unsetCodeBlock}*/}
@@ -62,20 +62,20 @@ const CodeButtons = ({ editor, lang }) => {
                         <h3 className="tw:text-lg tw:font-semibold tw:mb-4">{t('selectCodeLanguage', lang)}</h3>
                         <div className="tw:flex tw:flex-col tw:gap-2">
                             {languages.map((langItem) => (
-                                <button
+                                <div
                                     key={langItem.value}
                                     className="tw:p-2 tw:text-left tw:rounded tw:hover:bg-gray-100"
                                     onClick={() => applyCodeBlock(langItem.value)}
                                 >
                                     {langItem.label}
-                                </button>
+                                </div>
                             ))}
                         </div>
-                        <button
+                        <div
                             className="tw:mt-4 tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400"
                             onClick={() => setIsLanguageModalOpen(false)}>
                             {t('close', lang)}
-                        </button>
+                        </div>
                     </div>
                 </div>
             )}

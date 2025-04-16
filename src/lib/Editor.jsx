@@ -10,7 +10,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import { ListItem } from '@tiptap/extension-list-item';
 
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import ResizeImageExtension from '../extensions/ResizeImageExtension.jsx';
 import ResizeVideoExtension from '../extensions/ResizeVideoExtension.jsx';
@@ -66,12 +66,12 @@ import {
 } from '../assets/icons/Icons.jsx';
 
 const Editor = ({
-                    lang = 'en',
-                    value,
+                    isDark = false,
+                    lang = "en",
+                    value = "",
                     onChange = () => {},
                     fonts = [],
                 }) => {
-    // 1) تعریف تمام stateها در ابتدای کامپوننت
     const [headingsList, setHeadingsList] = useState([]);
     const [htmlCode, setHtmlCode] = useState('');
     const [showHTML, setShowHTML] = useState(false);
@@ -80,12 +80,6 @@ const Editor = ({
     const [openUploadVideo, setOpenUploadVideo] = useState(false);
     const [openUploadAudio, setOpenUploadAudio] = useState(false);
 
-    // محتوای پیش‌فرض بر اساس زبان
-    const defaultContent = Configs.RtlLang.includes(lang)
-        ? '<p>شروع ویرایش...</p>'
-        : '<p>Start editing...</p>';
-
-    // 2) مقداردهی ادیتور با تمام اکستنشن‌ها در بالای بدنه تابع کامپوننت
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -140,7 +134,7 @@ const Editor = ({
             ResizeImageExtension,
             ResizeVideoExtension,
         ],
-        content: value || defaultContent,
+        content: value,
         immediatelyRender: false,
         onUpdate({ editor }) {
             onChange(editor.getHTML());
@@ -162,6 +156,14 @@ const Editor = ({
             },
         },
     });
+
+    useEffect(() => {
+        if (editor && value !== undefined) {
+            if (editor.getHTML() !== value) {
+                editor.commands.setContent(value);
+            }
+        }
+    }, [editor, value]);
 
     // اگر هنوز editor ساخته نشده باشد، می‌توان یک Loading یا null بازگرداند
     if (!editor) {
@@ -199,17 +201,14 @@ const Editor = ({
         }
     };
 
-    console.log(editor.isFocused)
-    console.log(editor)
-
     return (
-        <div
+        <div data-theme={isDark ? 'dark' : 'light'}
             className="tw:dark:bg-gray-800 tw:relative tw:nilfam-editor tw:flex tw:flex-col tw:p-0.5 tw:gap-0.5 tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:rounded-xl"
             dir={Configs.RtlLang.includes(lang) ? 'rtl' : 'ltr'}
         >
             {/* نام ادیتور یا هدر کوچک */}
             <div className="tw:add-font tw:dark:text-gray-200 tw:flex tw:text-sm tw:font-bold tw:pt-1 tw:justify-end tw:ltr:justify-start  tw:text-gray-600 tw:px-2">
-                Nilfam-Editor
+                Nilfam-Editor 1.1.2
             </div>
 
             {/* نوار ابزار بالا */}
@@ -225,25 +224,25 @@ const Editor = ({
 
                 {/* بخش دوم نوار ابزار (دکمه‌های بولد، رنگ، لینک، آپلود و ...) */}
                 <div className="tw:flex tw:flex-wrap tw:items-center tw:gap-1">
-                    <button className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('bold') || null} onClick={() => editor.chain().focus().toggleBold().run()} title={t('bold', lang)}>
+                    <div className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('bold') || null} onClick={() => editor.chain().focus().toggleBold().run()} title={t('bold', lang)}>
                         <BoldIcon />
-                    </button>
-                    <button className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('italic') || null} onClick={() => editor.chain().focus().toggleItalic().run()} title={t('italic', lang)}>
+                    </div>
+                    <div className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('italic') || null} onClick={() => editor.chain().focus().toggleItalic().run()} title={t('italic', lang)}>
                         <ItalicIcon />
-                    </button>
+                    </div>
 
                     <TextColor editor={editor} lang={lang} />
                     <BorderColor editor={editor} lang={lang} />
                     <HighlightColor editor={editor} lang={lang} />
 
                     <LinkButton editor={editor} lang={lang} />
-                    <button className="class-button" onClick={() => editor.chain().focus().unsetLink().run()} title={t('unsetLink', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().unsetLink().run()} title={t('unsetLink', lang)}>
                         <LinkOffIcon />
-                    </button>
+                    </div>
 
-                    <button className="class-button" onClick={() => editor.chain().focus().unsetTextStyle().clearNodes().run()} title={t('clearStyle', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().unsetTextStyle().clearNodes().run()} title={t('clearStyle', lang)}>
                         <StyleClearIcon />
-                    </button>
+                    </div>
 
                     <div className="class-button" title={t('image', lang)} onClick={() => setOpenUploadImage(!openUploadImage)}>
                         <PhotoIcon />
@@ -260,40 +259,40 @@ const Editor = ({
                     </div>
                     <UploadModalAudio editor={editor} openUploadAudio={openUploadAudio} setOpenUploadAudio={setOpenUploadAudio} lang={lang}/>
 
-                    <button className="class-button" onClick={() => editor.chain().focus().toggleBulletList().run()} title={t('list', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().toggleBulletList().run()} title={t('list', lang)}>
                         <ListIcon />
-                    </button>
-                    <button className="class-button" onClick={() => editor.chain().focus().toggleOrderedList().run()} title={t('listNumber', lang)}>
+                    </div>
+                    <div className="class-button" onClick={() => editor.chain().focus().toggleOrderedList().run()} title={t('listNumber', lang)}>
                         <ListNumberIcon />
-                    </button>
+                    </div>
 
-                    <button className="class-button" onClick={() => editor.chain().focus().setTextAlign('right').run()} title={t('alignRight', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().setTextAlign('right').run()} title={t('alignRight', lang)}>
                         <AlignRightIcon />
-                    </button>
-                    <button className="class-button" onClick={() => editor.chain().focus().setTextAlign('center').run()} title={t('alignCenter', lang)}>
+                    </div>
+                    <div className="class-button" onClick={() => editor.chain().focus().setTextAlign('center').run()} title={t('alignCenter', lang)}>
                         <AlignCenterIcon />
-                    </button>
-                    <button className="class-button" onClick={() => editor.chain().focus().setTextAlign('left').run()} title={t('alignLeft', lang)}>
+                    </div>
+                    <div className="class-button" onClick={() => editor.chain().focus().setTextAlign('left').run()} title={t('alignLeft', lang)}>
                         <AlignLeftIcon />
-                    </button>
-                    <button className="class-button" onClick={() => editor.chain().focus().setTextAlign('justify').run()} title={t('justify', lang)}>
+                    </div>
+                    <div className="class-button" onClick={() => editor.chain().focus().setTextAlign('justify').run()} title={t('justify', lang)}>
                         <AlignJustifyIcon />
-                    </button>
+                    </div>
 
-                    <button className="class-button" onClick={bringForward} title={t('forward', lang)}>
+                    <div className="class-button" onClick={bringForward} title={t('forward', lang)}>
                         <IndentDecreaseIcon />
-                    </button>
-                    <button className="class-button" onClick={sendBackward} title={t('backward', lang)}>
+                    </div>
+                    <div className="class-button" onClick={sendBackward} title={t('backward', lang)}>
                         <IndentIncreaseIcon />
-                    </button>
+                    </div>
 
                     <EmojiButton editor={editor} lang={lang} />
                     <InsertTableButton editor={editor} isTableSelected={isTableSelected} setIsTableSelected={setIsTableSelected} lang={lang}/>
 
                     <CodeButtons editor={editor} lang={lang} />
-                    <button className="class-button" onClick={toggleHTML}>
+                    <div className="class-button" onClick={toggleHTML}>
                         {showHTML ? <SourceCodeIcon /> : <HtmlIcon />}
-                    </button>
+                    </div>
 
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
                 </div>

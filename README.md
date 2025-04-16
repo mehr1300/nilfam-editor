@@ -4,7 +4,7 @@
 ![React](https://img.shields.io/badge/React-19.0.0-blue.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0.17-38B2AC.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Version](https://img.shields.io/badge/Version-1.0.4-brightgreen.svg)
+![Version](https://img.shields.io/badge/Version-1.1.1-brightgreen.svg)
 
 **Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for **React js** using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
 
@@ -186,6 +186,13 @@ const myFonts = [
 - **Styling**: Modify Tailwind CSS classes in `nilfam-editor/nilfam-editor.css` to match your design.
 
 ## Changelog
+
+### Version 1.1.1
+- Fixed class conflict in Tailwind version 4.
+- Added `dark mode` support.
+- Resolved alignment issues in lists for LTR and English languages.
+- Addressed reported issues.
+
 
 ### Version 1.0.4
 - Version 1.0.5 - Fixed hook order issue, improved Next.js 15 compatibility with manual installation and Turbopack support, and updated dependencies.

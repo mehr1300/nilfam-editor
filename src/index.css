@@ -3,7 +3,7 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .class-button {
-  @apply tw:rounded tw:text-gray-800 tw:dark:text-gray-900 tw:size-8 tw:flex tw:justify-center tw:items-center tw:hover:bg-gray-200 tw:dark:hover:bg-gray-500 tw:cursor-pointer;
+  @apply tw:rounded tw:text-gray-800 tw:dark:text-gray-300 tw:size-8 tw:flex tw:justify-center tw:items-center tw:hover:bg-gray-200 tw:dark:hover:bg-gray-800 tw:cursor-pointer;
 }
 
 .class-button_bubble {

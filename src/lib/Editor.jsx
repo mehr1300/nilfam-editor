@@ -9,6 +9,7 @@ import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import { ListItem } from '@tiptap/extension-list-item';
+import {HardBreak} from "@tiptap/extension-hard-break";
 
 import {useEffect, useState} from 'react';
 
@@ -64,6 +65,7 @@ import {
     SourceCodeIcon,
     StyleClearIcon,
 } from '../assets/icons/Icons.jsx';
+import {Extension} from "@tiptap/core";
 
 const Editor = ({
                     isDark = false,
@@ -80,6 +82,18 @@ const Editor = ({
     const [openUploadVideo, setOpenUploadVideo] = useState(false);
     const [openUploadAudio, setOpenUploadAudio] = useState(false);
 
+    const CustomEnter = Extension.create({
+        name: 'customEnter',
+        addKeyboardShortcuts() {
+            return {
+                'Enter': ({ editor }) => {
+                    editor.commands.setHardBreak(); // ایجاد <br> به‌جای <p>
+                    return true; // جلوگیری از رفتار پیش‌فرض
+                },
+            };
+        },
+    });
+
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -92,6 +106,9 @@ const Editor = ({
             }),
             HeadingWithAutoId.configure({
                 levels: [1, 2, 3, 4, 5, 6],
+                HTMLAttributes: {
+                    class: 'tw:font-bold tw:text-lg',
+                },
             }),
             Link.configure({
                 openOnClick: false,
@@ -114,6 +131,8 @@ const Editor = ({
                     class: 'tw:relative tw:pl-6 tw:rtl:pr-6 tw:rtl:pl-0 tw:ltr:pl-6 tw:ltr:pr-0 tw:my-1',
                 },
             }),
+            HardBreak,
+            CustomEnter,
             Image,
             Video,
             Audio,
@@ -142,18 +161,12 @@ const Editor = ({
             setHeadingsList(newHeadings);
         },
         editorProps: {
-            attributes: {
-                style: `
-          min-height: 300px;
-          cursor: text;
-          outline: none; `
-            },
-            handleClick(view) {
-                if (view.hasFocus()) {
-                    return true
-                }
-                return false
-            },
+            attributes: {style: ` min-height: 300px; cursor: text; outline: none;`},
+            //غیر فعال کردم برای رفع مشکل سلکت کردن
+            // handleClick(view) {
+            //     if (view.hasFocus()) return true
+            //     return false
+            // },
         },
     });
 
@@ -165,12 +178,11 @@ const Editor = ({
         }
     }, [editor, value]);
 
-    // اگر هنوز editor ساخته نشده باشد، می‌توان یک Loading یا null بازگرداند
     if (!editor) {
         return <div>Loading editor...</div>;
     }
 
-    // توابع کمکی بدون استفاده از هوک:
+
     const bringForward = () => {
         const dom = editor.view.domAtPos(editor.state.selection.from).node;
         if (dom && dom.style) {
@@ -203,12 +215,12 @@ const Editor = ({
 
     return (
         <div data-theme={isDark ? 'dark' : 'light'}
-            className="tw:dark:bg-gray-800 tw:relative tw:nilfam-editor tw:flex tw:flex-col tw:p-0.5 tw:gap-0.5 tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:rounded-xl"
+            className="tw:dark:bg-gray-900 tw:relative tw:nilfam-editor tw:flex tw:flex-col tw:p-0.5 tw:gap-0.5 tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:rounded-xl"
             dir={Configs.RtlLang.includes(lang) ? 'rtl' : 'ltr'}
         >
             {/* نام ادیتور یا هدر کوچک */}
             <div className="tw:add-font tw:dark:text-gray-200 tw:flex tw:text-sm tw:font-bold tw:pt-1 tw:justify-end tw:ltr:justify-start  tw:text-gray-600 tw:px-2">
-                Nilfam-Editor 1.1.2
+                Nilfam-Editor
             </div>
 
             {/* نوار ابزار بالا */}
@@ -312,7 +324,7 @@ const Editor = ({
                     data-active={editor.isFocused || null}
                     className={`${
                         Configs.RtlLang.includes(lang) ? 'tw:text-right' : 'tw:text-left'
-                    } tw:p-2 tw:dark:text-gray-300 tw:data-active:ring-2 tw:data-active:ring-red-200 tw:dark:data-active:ring-red-300 tw:min-h-[300px] tw:bg-white tw:dark:bg-gray-700 tw:!outline-none`}
+                    } tw:p-2 tw:dark:text-gray-300 tw:data-active:ring-2 tw:data-active:ring-red-200 tw:dark:data-active:ring-red-300 tw:min-h-[300px] tw:bg-white tw:dark:bg-gray-800 tw:!outline-none`}
                 />
             )}
 

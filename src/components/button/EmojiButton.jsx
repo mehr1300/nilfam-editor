@@ -32,7 +32,7 @@ const EmojiButton = ({ editor, lang }) => {
             </div>
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? "tw:right-0" : "tw:left-0"} tw:absolute tw:top-8 tw:z-10`}>
-                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-800 tw:w-60 tw:flex tw:flex-col tw:rounded">
+                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-60 tw:flex tw:flex-col tw:rounded">
                         <div className="tw:grid tw:grid-cols-8 tw:gap-2 tw:pe-3 tw:h-52 tw:overflow-y-auto">
                             {Emoji.map((emojiCode, index) => (
                                 <span

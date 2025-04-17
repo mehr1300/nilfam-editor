@@ -4,7 +4,7 @@ import {t} from "../Lang/i18n.js";
 const LineHeightButton = ({editor,lang}) => {
     return (
         <div>
-            <select className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm" onChange={(e) => {
+            <select className="tw:border tw:dark:text-gray-300 tw:dark:text-gray-300 tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm" onChange={(e) => {
                 const value = e.target.value;
                 editor.chain().focus().setLineHeight(value).run();
             }} value={editor.getAttributes('paragraph').lineHeight || '1.5'}>

@@ -33,17 +33,17 @@ const TextColor = ({editor,lang}) => {
 
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? "tw:right-0" : "tw:left-0"} tw:absolute tw:top-8  tw:z-10`}>
-                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-800 tw:w-52 tw:flex tw:flex-col tw:rounded">
+                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-52 tw:flex tw:flex-col tw:rounded">
                         <div className="tw:flex tw:flex-row tw:justify-end tw:mb-2">
                             <div onClick={() => {
                                 editor.chain().focus().setTextColor(null).run();
-                            }} className="tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-600 tw:dark:hover:bg-gray-700 tw:text-sm tw:px-2 tw:py-1 tw:rounded tw:cursor-pointer">
+                            }} className="tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-500 tw:dark:hover:bg-gray-600 tw:text-sm tw:px-2 tw:py-1 tw:rounded tw:cursor-pointer">
                                 {t('clear', lang)}
                             </div>
                         </div>
                         <div className="tw:grid tw:grid-cols-7 tw:gap-2 tw:pe-3 tw:h-52 tw:overflow-y-auto">
                             {Colors.map((color) => (
-                                <span key={color} className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:cursor-pointer tw:w-5 tw:h-5 tw:rounded tw:hover:opacity-70" style={{backgroundColor: color}} onClick={() => {
+                                <span key={color} className="tw:border tw:border-gray-300 tw:dark:border-gray-600 tw:cursor-pointer tw:w-5 tw:h-5 tw:rounded tw:hover:opacity-70" style={{backgroundColor: color}} onClick={() => {
                                     editor.chain().focus().setTextColor(color).run();
                                     setIsOpen(false);
                                 }}/>

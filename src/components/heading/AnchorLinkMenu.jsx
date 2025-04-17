@@ -31,13 +31,13 @@ function AnchorLinkMenu({ editor, headingsList, lang }) {
     }
 
     if (headingsList.length === 0) {
-        return <span className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1.5 tw:text-sm tw:w-52">
+        return <span className="tw:border tw:dark:text-gray-300 tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1.5 tw:text-sm tw:w-52">
            {t('noHeading', lang)}
         </span>
     }
 
     return (
-        <select className="tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm tw:w-52"
+        <select className="tw:border tw:dark:text-gray-300 tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:p-1 tw:text-sm tw:w-52"
                 onChange={handleSelectChange} defaultValue="">
             <option value="">{t('linkToHeading', lang)}</option>
             {headingsList.map(h => (

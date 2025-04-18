@@ -9,9 +9,8 @@ import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import { ListItem } from '@tiptap/extension-list-item';
-import {HardBreak} from "@tiptap/extension-hard-break";
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import ResizeImageExtension from '../extensions/ResizeImageExtension.jsx';
 import ResizeVideoExtension from '../extensions/ResizeVideoExtension.jsx';
@@ -65,7 +64,8 @@ import {
     SourceCodeIcon,
     StyleClearIcon,
 } from '../assets/icons/Icons.jsx';
-import {Extension} from "@tiptap/core";
+import {HardBreak} from "@tiptap/extension-hard-break";
+import {EnterSmartBreak} from "../extensions/EnterSmartBreak.js";
 
 const Editor = ({
                     isDark = false,
@@ -82,24 +82,39 @@ const Editor = ({
     const [openUploadVideo, setOpenUploadVideo] = useState(false);
     const [openUploadAudio, setOpenUploadAudio] = useState(false);
 
-    const CustomEnter = Extension.create({
-        name: 'customEnter',
-        addKeyboardShortcuts() {
-            return {
-                'Enter': ({ editor }) => {
-                    editor.commands.setHardBreak(); // ایجاد <br> به‌جای <p>
-                    return true; // جلوگیری از رفتار پیش‌فرض
-                },
-            };
-        },
-    });
+    function normalizeEmptyParas(html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html')
+        doc.querySelectorAll('p').forEach(p => {
+            let inner = p.innerHTML.trim()
+            if (
+                inner === '' ||
+                inner === '&nbsp;' ||
+                inner === '<br class="ProseMirror-trailingBreak">'
+            ) {
+                p.innerHTML = '<br>'
+            }
+        })
+        return doc.body.innerHTML
+    }
+    function preserveCaretPosition(editor, callback) {
+        const { from, to } = editor.state.selection;
+        callback();
+        editor.commands.setTextSelection({ from, to });
+    }
+
+    const skipNextContentSet = useRef(false);
 
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
                 codeBlock: false,
                 heading: false,
+                // hardBreak : false
             }),
+            // EnterSmartBreak,
+            // HardBreak,
+            // EnterWithBr,
+            // RemoveBrOnInput,
             CustomCodeBlock,
             Highlight.configure({
                 multicolor: true,
@@ -131,8 +146,6 @@ const Editor = ({
                     class: 'tw:relative tw:pl-6 tw:rtl:pr-6 tw:rtl:pl-0 tw:ltr:pl-6 tw:ltr:pr-0 tw:my-1',
                 },
             }),
-            HardBreak,
-            CustomEnter,
             Image,
             Video,
             Audio,
@@ -155,10 +168,32 @@ const Editor = ({
         ],
         content: value,
         immediatelyRender: false,
+        // onUpdate({ editor }) {
+        //     onChange(editor.getHTML());
+        //     const newHeadings = getHeadings(editor);
+        //     setHeadingsList(newHeadings);
+        // },
+        // onUpdate({ editor }) {
+        //     const rawHTML = editor.getHTML()     // چیزی که Tiptap تولید می‌کند
+        //     const normalizedHTML = normalizeEmptyParas(rawHTML)
+        //     onChange(normalizedHTML)
+        // },
+        // onUpdate({ editor }) {
+        //     preserveCaretPosition(editor, () => {
+        //         const rawHTML = editor.getHTML();
+        //         const normalizedHTML = normalizeEmptyParas(rawHTML);
+        //         editor.commands.setContent(normalizedHTML, false); // false برای جلوگیری از trigger کردن onUpdate دوباره
+        //     });
+        //     onChange(editor.getHTML())
+        // },
         onUpdate({ editor }) {
-            onChange(editor.getHTML());
             const newHeadings = getHeadings(editor);
             setHeadingsList(newHeadings);
+
+            const normalized = normalizeEmptyParas(editor.getHTML());
+            // از داخل ادیتور به والد می‌فرستیم
+            skipNextContentSet.current = true;      // یعنی این تغییر داخلی است
+            onChange(normalized);
         },
         editorProps: {
             attributes: {style: ` min-height: 300px; cursor: text; outline: none;`},
@@ -170,11 +205,26 @@ const Editor = ({
         },
     });
 
+    // useEffect(() => {
+    //     if (editor && value !== undefined) {
+    //         if (editor.getHTML() !== value) {
+    //             editor.commands.setContent(value);
+    //         }
+    //     }
+    // }, [editor, value]);
+
     useEffect(() => {
-        if (editor && value !== undefined) {
-            if (editor.getHTML() !== value) {
-                editor.commands.setContent(value);
-            }
+        if (!editor || value === undefined) return;
+
+        // اگر همین لحظه از ادیتور آمده، پرچم را خنثی کن و چیزی ننویس
+        if (skipNextContentSet.current) {
+            skipNextContentSet.current = false;
+            return;
+        }
+
+        // فقط وقتی واقعاً یک تغییر بیرونی بود
+        if (editor.getHTML() !== value) {
+            editor.commands.setContent(value);    // محتوا را جایگزین کن
         }
     }, [editor, value]);
 
@@ -312,7 +362,7 @@ const Editor = ({
 
             {showHTML ? (
                 <textarea
-                    className="tw:bg-gray-200 tw:dark:bg-gray-800 tw:p-2 tw:min-h-[300px]"
+                    className="tw:bg-gray-200 tw:dark:bg-gray-800 tw:p-2 tw:min-h-[300px] tw:dark:text-gray-300 "
                     rows={10}
                     value={htmlCode}
                     onChange={(e) => setHtmlCode(e.target.value)}

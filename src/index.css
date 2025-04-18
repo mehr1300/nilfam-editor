@@ -171,11 +171,8 @@
   margin: 0;
 }
 
-/*.ProseMirror ol li::before {*/
-/*   position: relative !important;*/
-/*}*/
+.tiptap br + br.ProseMirror-trailingBreak {
+  display: none;
+}
 
-/*.ProseMirror ul li::before {*/
-/*  position: relative !important;*/
-/*}*/
 

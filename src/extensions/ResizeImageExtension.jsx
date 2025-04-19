@@ -25,11 +25,11 @@ const ResizeImageExtension = Image.extend({
 
             // ریشه‌ی اصلی گره
             const $wrapper = document.createElement('div');
-            $wrapper.classList.add('flex');
+            $wrapper.classList.add('tw:flex');
 
             // کانتینری که قرار است عکس و کنترل‌ها در آن باشند
             const $container = document.createElement('div');
-            $container.classList.add('relative', 'cursor-pointer');
+            $container.classList.add('tw:relative', 'tw:cursor-pointer');
 
             // عنصری که عکس را نگه می‌دارد
             const $img = document.createElement('img');
@@ -57,28 +57,28 @@ const ResizeImageExtension = Image.extend({
             const paintPositionController = () => {
                 const $positionController = document.createElement('div');
                 $positionController.classList.add(
-                    'absolute',
-                    'top-0',
-                    'left-1/2',
-                    'w-[170px]',
-                    'h-[28px]',
-                    'z-[999]',
-                    'py-4',
-                    'px-2',
-                    'bg-white',
-                    'rounded',
-                    'border-1',
-                    'border-gray-400',
-                    'cursor-pointer',
-                    'transform',
-                    '-translate-x-1/2',
-                    '-translate-y-1/2',
-                    'flex',
-                    'justify-between',
-                    'items-center'
+                    'tw:absolute',
+                    'tw:top-0',
+                    'tw:left-1/2',
+                    'tw:w-[170px]',
+                    'tw:h-[28px]',
+                    'tw:z-[999]',
+                    'tw:py-4',
+                    'tw:px-2',
+                    'tw:bg-white',
+                    'tw:rounded',
+                    'tw:border-1',
+                    'tw:border-gray-400',
+                    'tw:cursor-pointer',
+                    'tw:transform',
+                    'tw:-translate-x-1/2',
+                    'tw:-translate-y-1/2',
+                    'tw:flex',
+                    'tw:justify-between',
+                    'tw:items-center'
                 );
 
-                const iconClasses = ['w-6', 'h-6', 'cursor-pointer', 'hover:bg-gray-200', 'p-0.5'];
+                const iconClasses = ['tw:w-6', 'tw:h-6', 'tw:cursor-pointer', 'tw:hover:bg-gray-200', 'tw:p-0.5'];
 
                 // دکمه چپ‌چین
                 const $leftController = createSvgElement(`
@@ -240,13 +240,13 @@ const ResizeImageExtension = Image.extend({
                 Array.from({ length: 1 }, (_, index) => {
                     const $dot = document.createElement('div');
                     $dot.classList.add(
-                        'absolute',
-                        'w-[12px]',
-                        'h-[12px]',
-                        'border',
-                        'border-gray-600',
-                        'bg-gray-200',
-                        'rounded-full'
+                        'tw:absolute',
+                        'tw:w-[12px]',
+                        'tw:h-[12px]',
+                        'tw:border',
+                        'tw:border-gray-600',
+                        'tw:bg-gray-200',
+                        'tw:zrounded-full'
                     );
                     $dot.setAttribute(
                         'style',

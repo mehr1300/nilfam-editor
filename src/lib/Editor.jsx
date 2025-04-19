@@ -1,20 +1,18 @@
-import { EditorContent, useEditor } from '@tiptap/react';
+import {EditorContent, useEditor} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Heading from '@tiptap/extension-heading';
 import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
-import { ListItem } from '@tiptap/extension-list-item';
+import {ListItem} from '@tiptap/extension-list-item';
 
 import {useEffect, useRef, useState} from 'react';
 
 import ResizeImageExtension from '../extensions/ResizeImageExtension.jsx';
 import ResizeVideoExtension from '../extensions/ResizeVideoExtension.jsx';
-import { CustomTable, CustomTableCell, CustomTableHeader, CustomTableRow, InsertTableButton } from '../components/table/CustomTable.jsx';
+import {CustomTable, CustomTableCell, CustomTableHeader, CustomTableRow, InsertTableButton} from '../components/table/CustomTable.jsx';
 
 import BorderColor from '../components/button/BorderColor.jsx';
 import TextColor from '../components/button/TextColor.jsx';
@@ -29,43 +27,23 @@ import HeadingButton from '../components/button/HeadingButton.jsx';
 import LineHeightButton from '../components/button/LineHeightButton.jsx';
 import MenuTable from '../components/table/MenuTable.jsx';
 
-import { FontSize } from '../extensions/FontSize.jsx';
-import { FontFamily } from '../extensions/FontFamily.jsx';
-import { Video } from '../extensions/Video.jsx';
-import { Audio } from '../extensions/Audio.jsx';
-import { LineHeightExtension } from '../extensions/LineHeightExtension.jsx';
+import {FontSize} from '../extensions/FontSize.jsx';
+import {FontFamily} from '../extensions/FontFamily.jsx';
+import {Video} from '../extensions/Video.jsx';
+import {Audio} from '../extensions/Audio.jsx';
+import {LineHeightExtension} from '../extensions/LineHeightExtension.jsx';
 
-import { t } from '../components/Lang/i18n.js';
-import { Configs } from '../components/config/Configs.js';
+import {t} from '../components/Lang/i18n.js';
+import {Configs} from '../components/config/Configs.js';
 
 import CodeButtons from '../components/button/CodeButtons.jsx';
-import { CustomCodeBlock } from '../components/code/CustomCodeBlock.js';
-import { HeadingWithAutoId } from '../extensions/HeadingWithAutoId.js';
+import {CustomCodeBlock} from '../components/code/CustomCodeBlock.js';
+import {HeadingWithAutoId} from '../extensions/HeadingWithAutoId.js';
 import AnchorLinkMenu from '../components/heading/AnchorLinkMenu.jsx';
-import { getHeadings } from '../components/heading/getHeadings.js';
+import {getHeadings} from '../components/heading/getHeadings.js';
 import LinkButton from '../components/button/LinkButton.jsx';
 
-import {
-    AlignCenterIcon,
-    AlignJustifyIcon,
-    AlignLeftIcon,
-    AlignRightIcon,
-    BoldIcon,
-    HtmlIcon,
-    IndentDecreaseIcon,
-    IndentIncreaseIcon,
-    ItalicIcon,
-    LinkOffIcon,
-    ListIcon,
-    ListNumberIcon,
-    MicrophoneIcon,
-    MovieIcon,
-    PhotoIcon,
-    SourceCodeIcon,
-    StyleClearIcon,
-} from '../assets/icons/Icons.jsx';
-import {HardBreak} from "@tiptap/extension-hard-break";
-import {EnterSmartBreak} from "../extensions/EnterSmartBreak.js";
+import {AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, BoldIcon, HtmlIcon, IndentDecreaseIcon, IndentIncreaseIcon, ItalicIcon, LinkOffIcon, ListIcon, ListNumberIcon, MicrophoneIcon, MovieIcon, PhotoIcon, SourceCodeIcon, StyleClearIcon,} from '../assets/icons/Icons.jsx';
 import BoxButton from "../components/button/BoxButton.jsx";
 import {ColoredBox} from "../extensions/ColoredBox.js";
 
@@ -150,7 +128,7 @@ const Editor = ({
                     class: 'tw:relative tw:pl-6 tw:rtl:pr-6 tw:rtl:pl-0 tw:ltr:pl-6 tw:ltr:pr-0 tw:my-1',
                 },
             }),
-            Image,
+
             Video,
             Audio,
             CustomTable.configure(),
@@ -169,6 +147,7 @@ const Editor = ({
             }),
             ResizeImageExtension,
             ResizeVideoExtension,
+            // Image,
         ],
         content: value,
         immediatelyRender: false,

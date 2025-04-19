@@ -143,12 +143,12 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
           </span>
                 </div>
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
-                    <button onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
+                    <div onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('uploadFile', lang)}
-                    </button>
-                    <button onClick={() => setActiveTab('url')} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
+                    </div>
+                    <div onClick={() => setActiveTab('url')} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
-                    </button>
+                    </div>
                 </div>
 
                 {/* محتوای تب‌ها */}
@@ -169,12 +169,12 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
                                             alt="preview"
                                             className="tw:w-20 tw:h-20 tw:object-cover tw:rounded"
                                         />
-                                        <button
+                                        <div
                                             className="tw:absolute tw:top-1 tw:right-1 tw:bg-red-500 tw:hover:bg-red-400 tw:text-white tw:rounded-full tw:p-1 tw:text-xs tw:cursor-pointer"
                                             onClick={() => handleRemoveImage(index)}
                                         >
                                             حذف
-                                        </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -201,12 +201,12 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
 
                         {/* دکمه آپلود و بستن */}
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
-                            <button className="tw:rounded tw:bg-green-500 tw:hover:bg-green-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleUpload} disabled={isUploading}>
+                            <div className="tw:rounded tw:bg-green-500 tw:hover:bg-green-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleUpload} disabled={isUploading}>
                                 {t('add', lang)}
-                            </button>
-                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
+                            </div>
+                            <div className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
                                 {t('close', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -232,12 +232,12 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
                         </div>
 
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
-                            <button className="tw:rounded tw:bg-blue-500 tw:hover:bg-blue-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleInsertImageFromUrl}>
+                            <div className="tw:rounded tw:bg-blue-500 tw:hover:bg-blue-400 tw:px-4 tw:py-2 tw:text-white" onClick={handleInsertImageFromUrl}>
                                 {t('add', lang)}
-                            </button>
-                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
+                            </div>
+                            <div className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => setOpenUploadImage(false)}>
                                 {t('close', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}

@@ -13,7 +13,7 @@ function App() {
     return (
         <div className="tw:flex tw:flex-col tw:p-20 tw:dark:bg-gray-900 tw:h-screen">
             <Editor  value={content} onChange={setContent}
-                     lang="fa" isDark={true}/>
+                     lang="fa" isDark={false}/>
         </div>
 
 

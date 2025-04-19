@@ -318,12 +318,12 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                             </div>
                         )}
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
-                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${isUploading || videos.length === 0 ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-green-500 tw:hover:bg-green-400'}`} onClick={handleUpload} disabled={isUploading || videos.length === 0}>
+                            <div className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${isUploading || videos.length === 0 ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-green-500 tw:hover:bg-green-400'}`} onClick={handleUpload} disabled={isUploading || videos.length === 0}>
                                 {t('add', lang)}
-                            </button>
-                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on upload tab");setOpenUploadVideo(false);}} disabled={isUploading}>
+                            </div>
+                            <div className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on upload tab");setOpenUploadVideo(false);}} disabled={isUploading}>
                                 {t('close', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -344,12 +344,12 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                         </label>
 
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
-                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!videoUrl.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertVideoFromUrl} disabled={!videoUrl.trim()}>
+                            <div className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!videoUrl.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertVideoFromUrl} disabled={!videoUrl.trim()}>
                                 {t('add', lang)}
-                            </button>
-                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on URL tab");setOpenUploadVideo(false);}}>
+                            </div>
+                            <div className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {console.log("Cancel button clicked on URL tab");setOpenUploadVideo(false);}}>
                                 {t('close', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -372,12 +372,12 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                             {t('embedDesc', lang)}
                         </p>
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
-                            <button className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!embedCode.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertEmbedCode} disabled={!embedCode.trim()}>
+                            <div className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!embedCode.trim() ? 'tw:bg-gray-400 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertEmbedCode} disabled={!embedCode.trim()}>
                                 {t('add', lang)}
-                            </button>
-                            <button className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {setOpenUploadVideo(false);}}>
+                            </div>
+                            <div className="tw:rounded tw:bg-gray-300 tw:hover:bg-gray-200 tw:px-4 tw:py-2" onClick={() => {setOpenUploadVideo(false);}}>
                                 {t('close', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}

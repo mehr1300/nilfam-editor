@@ -16,7 +16,8 @@ function AnchorLinkMenu({ editor, headingsList, lang }) {
                 .chain()
                 .focus()
                 .extendMarkRange('link')
-                .setLink({ href: `#${headingId}` })
+                .setLink({ href: `#${headingId}` ,class: 'custom-anchor tw:text-blue-600 tw:cursor-pointer tw:hover:text-blue-800'})
+                // .updateAttributes('link', { target: null, rel: null })
                 .run()
         } else {
              editor
@@ -24,7 +25,8 @@ function AnchorLinkMenu({ editor, headingsList, lang }) {
                 .focus()
                 .insertContent('لینک به هدینگ')
                 .extendMarkRange('link')
-                .setLink({ href: `#${headingId}` })
+                .setLink({ href: `#${headingId}`,class: 'custom-anchor tw:text-blue-600 tw:cursor-pointer tw:hover:text-blue-800' })
+                 // .updateAttributes('link', { target: null, rel: null })
                 .run()
         }
         e.target.value = ''

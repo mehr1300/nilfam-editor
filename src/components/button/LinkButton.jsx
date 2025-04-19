@@ -11,10 +11,24 @@ const LinkButton = ({editor,lang}) => {
         setIsModalOpen(true);
     };
 
+    // const addLink = () => {
+    //     if (value !== "") editor.chain().focus().setLink({href: value}).run()
+    //     setIsModalOpen(false)
+    // };
+
     const addLink = () => {
-        if (value !== "") editor.chain().focus().setLink({href: value}).run()
+        if (!value) {
+            setIsModalOpen(false)
+            return
+        }
+        const attrs = { href: value }
+        if (!value.startsWith('#') && !value.startsWith('/')) {
+            attrs.target = '_blank'
+            attrs.rel    = 'noopener noreferrer nofollow'
+        }
+        editor.chain().focus().extendMarkRange('link').setLink(attrs).run()
         setIsModalOpen(false)
-    };
+    }
 
     useEffect(() => {
         if(isModalOpen){

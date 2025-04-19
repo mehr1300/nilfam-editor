@@ -66,6 +66,8 @@ import {
 } from '../assets/icons/Icons.jsx';
 import {HardBreak} from "@tiptap/extension-hard-break";
 import {EnterSmartBreak} from "../extensions/EnterSmartBreak.js";
+import BoxButton from "../components/button/BoxButton.jsx";
+import {ColoredBox} from "../extensions/ColoredBox.js";
 
 const Editor = ({
                     isDark = false,
@@ -102,6 +104,16 @@ const Editor = ({
         editor.commands.setTextSelection({ from, to });
     }
 
+    const CustomLink = Link.configure({
+        openOnClick: false,            // هر تنظیم دلخواه دیگر
+        HTMLAttributes: {
+            class: 'tw:text-blue-600 tw:cursor-pointer tw:hover:text-blue-800',
+            target: null,                // ⬅️ حتماً همین‌جا
+            rel:    null,                // ⬅️ و این‌جا روی null
+        },
+    })
+
+
     const skipNextContentSet = useRef(false);
 
     const editor = useEditor({
@@ -109,12 +121,8 @@ const Editor = ({
             StarterKit.configure({
                 codeBlock: false,
                 heading: false,
-                // hardBreak : false
             }),
-            // EnterSmartBreak,
-            // HardBreak,
-            // EnterWithBr,
-            // RemoveBrOnInput,
+            ColoredBox,
             CustomCodeBlock,
             Highlight.configure({
                 multicolor: true,
@@ -125,12 +133,8 @@ const Editor = ({
                     class: 'tw:font-bold tw:text-lg',
                 },
             }),
-            Link.configure({
-                openOnClick: false,
-                HTMLAttributes: {
-                    class: 'tw:text-blue-500 tw:hover:text-blue-700',
-                },
-            }),
+
+            CustomLink,
             OrderedList.configure({
                 HTMLAttributes: {
                     class: 'tw:list-none tw:pr-0 tw:rtl:pl-0 tw:counter-reset: item',
@@ -357,6 +361,9 @@ const Editor = ({
                     </div>
 
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
+
+                    ss
+                    <BoxButton editor={editor} lang={lang} />
                 </div>
             </div>
 

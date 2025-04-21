@@ -55,6 +55,9 @@ export const translations = {
         col : "ستون",
         addTable : "افزودن جدول",
         uploading : "در حال آپلود... ",
+        coloredBox : "باکس رنگی",
+        selectColor : "انتخاب رنگ",
+        borderRadius : "روندی",
     },
     en: {
         bold: "Bold",
@@ -109,6 +112,9 @@ export const translations = {
         col : "Col",
         addTable : "Add Table",
         uploading : "Uploading...",
+        coloredBox : "Colored Box",
+        selectColor : "Select Color",
+        borderRadius : "Border Radius",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

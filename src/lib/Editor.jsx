@@ -44,7 +44,7 @@ import {getHeadings} from '../components/heading/getHeadings.js';
 import LinkButton from '../components/button/LinkButton.jsx';
 
 import {AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, BoldIcon, HtmlIcon, IndentDecreaseIcon, IndentIncreaseIcon, ItalicIcon, LinkOffIcon, ListIcon, ListNumberIcon, MicrophoneIcon, MovieIcon, PhotoIcon, SourceCodeIcon, StyleClearIcon,} from '../assets/icons/Icons.jsx';
-import BoxButton from "../components/button/BoxButton.jsx";
+import ColoredBoxButton from "../components/button/BoxButton.jsx";
 import {ColoredBox} from "../extensions/ColoredBox.js";
 
 const Editor = ({
@@ -341,8 +341,7 @@ const Editor = ({
 
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
 
-                    ss
-                    <BoxButton editor={editor} lang={lang} />
+                    <ColoredBoxButton editor={editor} lang={lang} />
                 </div>
             </div>
 

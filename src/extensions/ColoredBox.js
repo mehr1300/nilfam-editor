@@ -1,43 +1,40 @@
-// src/tiptap/nodes/ColoredBox.js
+// src/tiptap/extensions/ColoredBox.js   ← مسیر پیشنهادی
 import { Node } from '@tiptap/core';
 
 export const ColoredBox = Node.create({
     name: 'coloredBox',
 
     group: 'block',
-
     content: 'block+',
+    isolating: true,          // انتخاب راحت‌تر و جلوگیری از ادغام ناخواسته
+    defining: true,           // حفظ نود در دستورات split–join
 
     addAttributes() {
         return {
             backgroundColor: {
                 default: '#ffffff',
-                parseHTML: (element) => element.getAttribute('data-bg-color'),
-                renderHTML: (attributes) => ({
-                    'data-bg-color': attributes.backgroundColor,
-                    style: `background-color: ${attributes.backgroundColor}`,
-                }),
+                parseHTML: el => el.getAttribute('data-bg-color'),
+                renderHTML: attrs => ({
+                    'data-bg-color': attrs.backgroundColor,
+                    style: `background-color:${attrs.backgroundColor}`
+                })
             },
             borderRadius: {
                 default: '4px',
-                parseHTML: (element) => element.getAttribute('data-border-radius'),
-                renderHTML: (attributes) => ({
-                    'data-border-radius': attributes.borderRadius,
-                    style: `border-radius: ${attributes.borderRadius}`,
-                }),
-            },
+                parseHTML: el => el.getAttribute('data-border-radius'),
+                renderHTML: attrs => ({
+                    'data-border-radius': attrs.borderRadius,
+                    style: `border-radius:${attrs.borderRadius}`
+                })
+            }
         };
     },
 
     parseHTML() {
         return [
             {
-                tag: 'div.colored-box',
-                getAttrs: (element) => ({
-                    backgroundColor: element.getAttribute('data-bg-color') || '#ffffff',
-                    borderRadius: element.getAttribute('data-border-radius') || '4px',
-                }),
-            },
+                tag: 'div.colored-box'
+            }
         ];
     },
 
@@ -45,27 +42,35 @@ export const ColoredBox = Node.create({
         return [
             'div',
             {
-                class: 'colored-box tw-p-3 tw-my-2',
-                ...HTMLAttributes,
+                class: 'colored-box tw:p-3 tw:my-2',
+                ...HTMLAttributes
             },
-            0, // محتوای داخلی
+            0
         ];
     },
 
     addCommands() {
         return {
+            /** چند بلاک را در یک ColoredBox می‌پیچد */
             setColoredBox:
-                (attributes) =>
-                    ({ chain }) => {
+                attrs =>
+                    ({ chain, state }) => {
+                        // اگر همین الان داخل coloredBox هستیم دوباره wrap نشود
+                        const { $from } = state.selection;
+                        if ($from.node(-1).type.name === this.name) return false;
+
                         return chain()
-                            .setNode(this.name, attributes)
+                            .wrapIn(this.name, attrs) // ← تفاوت اصلی
                             .run();
                     },
+
+            /** خارج کردنِ بلاک‌های انتخاب‌شده از ColoredBox */
             unsetColoredBox:
                 () =>
-                    ({ chain }) => {
-                        return chain().setNode('paragraph').run();
-                    },
+                    ({ chain }) =>
+                        chain()
+                            .lift(this.name) // معادل unwrap
+                            .run()
         };
-    },
+    }
 });

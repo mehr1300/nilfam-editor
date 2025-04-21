@@ -76,11 +76,6 @@ const Editor = ({
         })
         return doc.body.innerHTML
     }
-    function preserveCaretPosition(editor, callback) {
-        const { from, to } = editor.state.selection;
-        callback();
-        editor.commands.setTextSelection({ from, to });
-    }
 
     const CustomLink = Link.configure({
         openOnClick: false,            // هر تنظیم دلخواه دیگر

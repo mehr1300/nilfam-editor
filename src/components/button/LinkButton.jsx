@@ -64,7 +64,7 @@ const LinkButton = ({editor,lang}) => {
                         <div className="tw:flex tw:flex-col tw:gap-2">
                             <input value={value} onChange={(e) => setValue(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                         </div>
-                        <div className="tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => addLink()}>
+                        <div className="tw:flex tw:justify-center tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => addLink()}>
                             {t('add', lang)}
                         </div>
                     </div>

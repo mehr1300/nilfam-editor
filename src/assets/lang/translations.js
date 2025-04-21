@@ -58,6 +58,8 @@ export const translations = {
         coloredBox : "باکس رنگی",
         selectColor : "انتخاب رنگ",
         borderRadius : "روندی",
+        close : "بستن",
+        selectCodeLanguage : "انتخاب زبان برنامه نویسی",
     },
     en: {
         bold: "Bold",
@@ -115,6 +117,8 @@ export const translations = {
         coloredBox : "Colored Box",
         selectColor : "Select Color",
         borderRadius : "Border Radius",
+        close : "Close",
+        selectCodeLanguage : "Select Code Language",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

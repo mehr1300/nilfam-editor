@@ -4,7 +4,7 @@
 ![React](https://img.shields.io/badge/React-19.0.0-blue.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0.17-38B2AC.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Version](https://img.shields.io/badge/Version-1.1.1-brightgreen.svg)
+![Version](https://img.shields.io/badge/Version-1.2.0-brightgreen.svg)
 
 **Nilfam Editor** is a powerful, customizable, and feature-rich text editor built for **React js** using the [Tiptap](https://tiptap.dev/) library. Designed to cater to both developers and end-users, it offers seamless support for right-to-left (RTL) languages like Persian (Farsi) and left-to-right (LTR) languages like English. Whether you're editing rich text, code blocks, tables, or multimedia content, Nilfam Editor provides a modern and intuitive experience with a sleek interface powered by **Tailwind CSS**.
 
@@ -62,13 +62,47 @@ function App() {
 
   return (
     <div className="flex flex-col p-20">
-      <NilfamEditor value={content} onChange={setContent} />
+      <NilfamEditor value={content} onChange={setContent} dark={false} lang="en"/>
     </div>
   );
 }
 
 export default App;
 ```
+
+### Basic Usage with Formik
+After installing, import and use the `NilfamEditor` component in your React app:
+
+```javascript
+import { useEffect, useState } from 'react';
+import { NilfamEditor } from 'nilfam-editor';
+import 'nilfam-editor/nilfam-editor.css';
+import {useFormik} from "formik";
+
+function App() {
+  const [content, setContent] = useState('<p>Start editing...</p>');
+
+    const initialValues = {title: "", body: "",};
+
+    const onSubmit = (values) => {console.log(values);};
+
+    const formik = useFormik({
+        initialValues,
+        onSubmit
+    });
+
+  return (
+    <div className="flex flex-col p-20">
+      <NilfamEditor value={formik.values.body} dark={false} lang="en"
+                    onChange={newContent => formik.setFieldValue("body", newContent)} />
+    </div>
+  );
+}
+
+export default App;
+```
+
+
 
 ### Persian (Farsi) and RTL Support (react-js)
 To enable Persian language with RTL (right-to-left) support, set the `lang` prop to `"fa"`:
@@ -186,6 +220,13 @@ const myFonts = [
 - **Styling**: Modify Tailwind CSS classes in `nilfam-editor/nilfam-editor.css` to match your design.
 
 ## Changelog
+
+### Version 1.2.0
+- Added colored box feature for enhanced visual presentation.
+- Fixed dark mode issues and resolved color inconsistencies.
+- Corrected image display and responsiveness problems.
+- Resolved conflicts with Formik integration.
+- Fixed spacing issues in text content.
 
 ### Version 1.1.1
 - Fixed class conflict in Tailwind version 4.

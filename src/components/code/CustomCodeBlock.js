@@ -10,12 +10,14 @@ import css from 'highlight.js/lib/languages/css';
 import php from 'highlight.js/lib/languages/php';
 import rust from 'highlight.js/lib/languages/rust';
 import go from 'highlight.js/lib/languages/rust';
+import xml from 'highlight.js/lib/languages/xml';
 
 // مقدار lowlight را بسازید و زبان‌ها را ثبت کنید
 const lowlight = createLowlight();
 lowlight.register('javascript', javascript);
 lowlight.register('python', python);
 lowlight.register('css', css);
+lowlight.register('html', xml);
 lowlight.register('php', php);
 lowlight.register('rust', rust);
 lowlight.register('go', go);

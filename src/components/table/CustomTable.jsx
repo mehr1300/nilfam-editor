@@ -115,7 +115,7 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
                                 <input id="cols" value={cols} onChange={(e) => setCols(e.target.value)} type="text" className="tw:p-1.5 tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                             </div>
                         </div>
-                        <div className=" tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => insertTable()}>
+                        <div className="tw:flex tw:justify-center tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400 tw:cursor-pointer" onClick={() => insertTable()}>
                             {t('add', lang)}
                         </div>
                     </div>

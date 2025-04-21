@@ -36,6 +36,7 @@ const CodeButtons = ({ editor, lang }) => {
         { value: 'javascript', label: 'JavaScript' },
         { value: 'python', label: 'Python' },
         { value: 'css', label: 'CSS' },
+        { value: 'html', label: 'HTML' },
         { value: 'php', label: 'PHP' },
         { value: 'rust', label: 'Rust' },
         { value: 'go', label: 'Go' },
@@ -58,13 +59,13 @@ const CodeButtons = ({ editor, lang }) => {
             {/* مدال انتخاب زبان */}
             {isLanguageModalOpen && (
                 <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">
-                    <div className="tw:bg-white tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-80">
+                    <div className="tw:bg-white tw:dark:bg-gray-600 tw:p-6 tw:rounded-lg tw:shadow-lg tw:w-80">
                         <h3 className="tw:text-lg tw:font-semibold tw:mb-4">{t('selectCodeLanguage', lang)}</h3>
                         <div className="tw:flex tw:flex-col tw:gap-2">
                             {languages.map((langItem) => (
                                 <div
                                     key={langItem.value}
-                                    className="tw:p-2 tw:text-left tw:rounded tw:hover:bg-gray-100"
+                                    className="tw:p-2 tw:cursor-pointer tw:dark:text-gray-300 tw:text-left tw:rounded tw:hover:bg-gray-100 tw:dark:bg-gray-500 tw:dark:hover:bg-gray-700"
                                     onClick={() => applyCodeBlock(langItem.value)}
                                 >
                                     {langItem.label}
@@ -72,7 +73,7 @@ const CodeButtons = ({ editor, lang }) => {
                             ))}
                         </div>
                         <div
-                            className="tw:mt-4 tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400"
+                            className="tw:flex tw:justify-center tw:mt-4 tw:w-full tw:p-2 tw:bg-gray-300 tw:dark:bg-gray-500 tw:rounded tw:hover:bg-gray-400"
                             onClick={() => setIsLanguageModalOpen(false)}>
                             {t('close', lang)}
                         </div>

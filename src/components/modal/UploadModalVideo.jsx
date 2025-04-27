@@ -187,47 +187,86 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
         setOpenUploadVideo(false);
     };
 
+
+
+    // const handleInsertEmbedCode = () => {
+    //     setErrorMessage('');
+    //     if (!embedCode.trim()) {
+    //         setErrorMessage('لطفاً کد iframe را وارد کنید.');
+    //         return;
+    //     }
+    //     try {
+    //         if (!editor) {
+    //             setErrorMessage('ادیتور در دسترس نیست.');
+    //             return;
+    //         }
+    //
+    //         // استخراج src از کد embed با regex
+    //         const iframeRegex = /<iframe[^>]+src=["']([^"']+)["']/i;
+    //         const match = embedCode.match(iframeRegex);
+    //         if (!match) {
+    //             setErrorMessage('لطفاً کد iframe معتبر وارد کنید.');
+    //             return;
+    //         }
+    //         const src = match[1]; // مثلاً: https://www.aparat.com/video/video/embed/videohash/u749nc0/vt/frame
+    //
+    //         // درج iframe در ادیتور
+    //         editor.chain().focus().insertIframe({
+    //             src: src,
+    //             allow: 'autoplay',
+    //             allowfullscreen: true,
+    //             webkitallowfullscreen: true,
+    //             mozallowfullscreen: true,
+    //             style: 'width: 100%; height: 400px;', // ارتفاع دلخواه
+    //         }).run();
+    //
+    //         setOpenUploadVideo(false);
+    //     } catch (error) {
+    //         console.error("Error inserting embed code:", error);
+    //         setErrorMessage('خطا در درج کد embed.');
+    //     }
+    // };
+
     const handleInsertEmbedCode = () => {
-        console.log("handleInsertEmbedCode triggered with embedCode:", embedCode);
-        setErrorMessage('');
+        setErrorMessage('')
+
         if (!embedCode.trim()) {
-            console.log("Embed code is empty");
-            setErrorMessage('لطفاً کد iframe را وارد کنید.');
-            return;
+            setErrorMessage('لطفاً کد iframe را وارد کنید.')
+            return
         }
-        const iframeRegex = /<iframe\s[^>]*src=["']([^"']+)["'][^>]*><\/iframe>/i;
-        const match = embedCode.trim().match(iframeRegex);
-        console.log("Result of iframe regex match:", match);
+
+        // فقط src را بکش بیرون
+        const match = embedCode.match(/<iframe[^>]+src=["']([^"']+)["']/i)
         if (!match) {
-            console.log("Embed code did not match the iframe regex");
-            setErrorMessage('لطفاً کد iframe معتبر وارد کنید (فقط iframe).');
-            return;
+            setErrorMessage('کد iframe معتبر نیست.')
+            return
         }
-        const srcValue = match[1];
-        console.log("Extracted src from embed code:", srcValue);
-        const isYoutube = srcValue.includes('youtube.com') || srcValue.includes('youtu.be');
-        const isAparat = srcValue.includes('aparat.com');
-        if (!isYoutube && !isAparat) {
-            console.log("Embed code src is not from Youtube or Aparat");
-            setErrorMessage('فقط iframe از دامنه‌های youtube.com یا aparat.com مجاز است.');
-            return;
+        const src = match[1]
+
+        const ok = editor
+            .chain()
+            .focus()
+            .insertIframe({
+                src,
+                allow: 'autoplay',
+                allowfullscreen: true,
+                webkitallowfullscreen: true,
+                mozallowfullscreen: true,
+                style: 'width:560px; height:315px;',
+            })
+            .run()
+
+        if (!ok) {
+            setErrorMessage('درج iframe ناموفق بود.')
+            return
         }
-        try {
-            if (!editor) {
-                console.error("Editor instance not available for embed code");
-                setErrorMessage('ادیتور در دسترس نیست.');
-                return;
-            }
-            const secureEmbed = embedCode.replace('<iframe', '<iframe loading="lazy" sandbox="allow-scripts allow-same-origin"');
-            console.log("Secure embed code to insert:", secureEmbed);
-            editor.chain().focus().insertContent(secureEmbed).run();
-            console.log("Embed code inserted successfully");
-            setOpenUploadVideo(false);
-        } catch (error) {
-            console.error("Error inserting embed code:", error);
-            setErrorMessage('خطا در درج کد embed.');
-        }
-    };
+
+        setOpenUploadVideo(false)   // ⬅️ مودال را حالا می‌بندیم
+    }
+
+
+
+
 
     return (
         <div

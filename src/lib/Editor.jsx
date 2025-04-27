@@ -8,7 +8,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import {ListItem} from '@tiptap/extension-list-item';
 
-import {useEffect, useRef, useState} from 'react';
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
 import ResizeImageExtension from '../extensions/ResizeImageExtension.jsx';
 import ResizeVideoExtension from '../extensions/ResizeVideoExtension.jsx';
@@ -46,14 +46,15 @@ import LinkButton from '../components/button/LinkButton.jsx';
 import {AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, BoldIcon, HtmlIcon, IndentDecreaseIcon, IndentIncreaseIcon, ItalicIcon, LinkOffIcon, ListIcon, ListNumberIcon, MicrophoneIcon, MovieIcon, PhotoIcon, SourceCodeIcon, StyleClearIcon,} from '../assets/icons/Icons.jsx';
 import ColoredBoxButton from "../components/button/BoxButton.jsx";
 import {ColoredBox} from "../extensions/ColoredBox.js";
+import ResizeIframeExtension from "../extensions/ResizeIframeExtension.jsx";
 
-const Editor = ({
-                    isDark = false,
-                    lang = "en",
-                    value = "",
-                    onChange = () => {},
-                    fonts = [],
-                }) => {
+const Editor = forwardRef(({
+                               isDark = false,
+                               lang = "en",
+                               value = "",
+                               onChange = () => {},
+                               fonts = [],
+                           }, ref) => {
     const [headingsList, setHeadingsList] = useState([]);
     const [htmlCode, setHtmlCode] = useState('');
     const [showHTML, setShowHTML] = useState(false);
@@ -95,6 +96,7 @@ const Editor = ({
                 codeBlock: false,
                 heading: false,
             }),
+            // Iframe,
             ColoredBox,
             CustomCodeBlock,
             Highlight.configure({
@@ -142,6 +144,7 @@ const Editor = ({
             }),
             ResizeImageExtension,
             ResizeVideoExtension,
+            ResizeIframeExtension
             // Image,
         ],
         content: value,
@@ -190,6 +193,15 @@ const Editor = ({
     //         }
     //     }
     // }, [editor, value]);
+
+    // متدهایی که از طریق ref در دسترس قرار می‌دیم
+    useImperativeHandle(ref, () => ({
+        insertContent: (content) => {
+            if (editor) {
+                editor.chain().focus().insertContent(content).run();
+            }
+        },
+    }));
 
     useEffect(() => {
         if (!editor || value === undefined) return;
@@ -364,6 +376,6 @@ const Editor = ({
             </div>
         </div>
     );
-};
+});
 
 export default Editor;

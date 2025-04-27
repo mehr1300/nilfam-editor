@@ -65,6 +65,7 @@ const ResizeImageExtension = Image.extend({
                     'tw:z-[999]',
                     'tw:py-4',
                     'tw:px-2',
+                    'tw:dark:bg-gray-600',
                     'tw:bg-white',
                     'tw:rounded',
                     'tw:border-1',
@@ -78,7 +79,7 @@ const ResizeImageExtension = Image.extend({
                     'tw:items-center'
                 );
 
-                const iconClasses = ['tw:w-6', 'tw:h-6', 'tw:cursor-pointer', 'tw:hover:bg-gray-200', 'tw:p-0.5'];
+                const iconClasses = ['tw:w-6', 'tw:h-6', 'tw:cursor-pointer','tw:dark:hover:bg-gray-800', 'tw:hover:bg-gray-200', 'tw:p-0.5'];
 
                 // دکمه چپ‌چین
                 const $leftController = createSvgElement(`

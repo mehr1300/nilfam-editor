@@ -1,48 +1,51 @@
-// extensions/ResizeVideoExtension.jsx
+// extensions/ResizeIframeExtension.jsx
 import { Node, mergeAttributes } from '@tiptap/core'
 
 export default Node.create({
-    name: 'video',
+    name: 'iframe',
     group: 'block',
     atom: true,
     selectable: true,
 
+    /* گزینه‌ها: اجازهٔ Drag در سطح نود */
     addOptions() {
-        return { draggable: true }              // اجازهٔ Drag برای نود
+        return { draggable: true }
     },
 
+    /* attributes */
     addAttributes() {
         return {
             src: {},
-            controls: { default: true },
             alt: { default: null },
-            align: { default: 'left' },           // left | center | right
-            style: { default: 'width:560px; height:auto; cursor:pointer;' },
+            align: { default: 'left' },              // left | center | right
+            style: { default: 'width:560px; height:315px; cursor:pointer;' },
         }
     },
 
-    parseHTML() { return [{ tag: 'video' }] },
+    /* schema */
+    parseHTML() { return [{ tag: 'iframe' }] },
     renderHTML({ HTMLAttributes }) {
-        // leaf ⇒ بدون 0
-        return ['video', mergeAttributes(HTMLAttributes, { controls: true })]
+        // leaf node ⇒ بدون "۰"
+        return ['iframe', mergeAttributes(HTMLAttributes)]
     },
 
+    /* command: درج آیفریم */
     addCommands() {
         return {
-            insertVideo:
+            insertIframe:
                 attrs =>
                     ({ commands }) =>
                         commands.insertContent({ type: this.name, attrs }),
         }
     },
 
-    /* ---------------- NodeView ---------------- */
+    /* -------- Node-View -------- */
     addNodeView() {
         return ({ node, editor, getPos }) => {
             const { view } = editor
             const { style, align } = node.attrs
 
-            /* wrapper flex */
+            /* wrapper برای چپ/وسط/راست */
             const wrap = document.createElement('div')
             wrap.style.cssText =
                 'display:flex;width:100%;justify-content:' +
@@ -52,12 +55,11 @@ export default Node.create({
             const box = document.createElement('div')
             box.style.cssText = `position:relative;display:inline-block;${style}`
 
-            /* ویدئو (بدون drag-handle) */
-            const video = document.createElement('video')
-            video.setAttribute('controls', 'true')
-            Object.entries(node.attrs).forEach(([k, v]) => v && video.setAttribute(k, v))
+            /* عنصر اصلی iframe (دیگر drag-handle نیست) */
+            const iframe = document.createElement('iframe')
+            Object.entries(node.attrs).forEach(([k, v]) => v && iframe.setAttribute(k, v))
 
-            /* ---------- toolbar ---------- */
+            /* نوار ابزار */
             const bar = document.createElement('div')
             bar.style.cssText =
                 'position:absolute;top:0;left:50%;transform:translate(-50%,-100%);' +
@@ -75,12 +77,13 @@ export default Node.create({
                 bar.appendChild(n)
             }
 
+            /* کمک برای dispatch */
             const dispatch = attrs =>
                 view.dispatch(view.state.tr.setNodeMarkup(getPos(), null, { ...node.attrs, ...attrs }))
             const saveSize  = ex => dispatch({ style: box.style.cssText, ...ex })
             const saveAlign = a  => dispatch({ align: a })
 
-            /* align */
+            /* دکمه‌هایِ align */
             btn('چپ',
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_left/default/20px.svg',
                 () => { wrap.style.justifyContent = 'flex-start'; saveAlign('left') })
@@ -91,16 +94,16 @@ export default Node.create({
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_right/default/20px.svg',
                 () => { wrap.style.justifyContent = 'flex-end';   saveAlign('right') })
 
-            /* alt */
+            /* ALT */
             btn('alt',
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/edit/default/20px.svg',
                 () => {
-                    const cur = video.getAttribute('alt') || ''
+                    const cur = iframe.getAttribute('alt') || ''
                     const txt = prompt('متن alt را وارد کنید:', cur)
-                    if (txt !== null) { video.setAttribute('alt', txt); saveSize({ alt: txt }) }
+                    if (txt !== null) { iframe.setAttribute('alt', txt); saveSize({ alt: txt }) }
                 })
 
-            /* delete */
+            /* حذف */
             btn('حذف',
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/delete/default/20px.svg',
                 () => {
@@ -108,11 +111,11 @@ export default Node.create({
                     view.dispatch(view.state.tr.delete(from, from + node.nodeSize))
                 })
 
-            /* ---------- drag-handle ✥ ---------- */
+            /* ـــ دستگیرهٔ Drag ✥ ـــ */
             const drag = document.createElement('span')
             drag.title = 'جابجایی'
             drag.setAttribute('draggable', 'true')
-            drag.classList.add('ProseMirror-drag-handle')          // تنها handle
+            drag.classList.add('ProseMirror-drag-handle')          // کلید Drag
             drag.style.cssText =
                 'width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;' +
                 'cursor:grab;border-radius:4px;'
@@ -120,22 +123,22 @@ export default Node.create({
                 '<img src="https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/open_with/default/20px.svg" width="20" height="20">'
             bar.appendChild(drag)
 
-            /* ---------- resize dot ---------- */
+            /* نقطهٔ ریسایز */
             const dot = document.createElement('div')
             dot.style.cssText =
                 'position:absolute;width:12px;height:12px;right:-6px;bottom:-6px;' +
                 'background:#ddd;border:1px solid #666;border-radius:50%;cursor:nwse-resize;'
             box.append(dot)
 
-            let sx = 0, sw = 0, aspect = 1
-            video.onloadedmetadata = () => (aspect = video.videoWidth / video.videoHeight)
+            let sx = 0, sw = 0, aspect = 560 / 315
             dot.onmousedown = e => {
-                e.preventDefault(); sx = e.clientX; sw = video.offsetWidth
+                e.preventDefault(); sx = e.clientX; sw = iframe.offsetWidth
+                aspect = iframe.offsetWidth / iframe.offsetHeight
                 const mm = mv => {
                     const w = Math.max(sw + (mv.clientX - sx), 80)
                     const h = w / aspect
-                    video.style.width = `${w}px`; video.style.height = `${h}px`
-                    box.style.width = `${w}px`;   box.style.height = `${h}px`
+                    iframe.style.width = `${w}px`; iframe.style.height = `${h}px`
+                    box.style.width = `${w}px`;    box.style.height = `${h}px`
                 }
                 const mu = () => { saveSize(); document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu) }
                 document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu)
@@ -143,7 +146,10 @@ export default Node.create({
 
             /* مونتاژ */
             wrap.appendChild(box)
-            box.append(video, bar, dot)
+            box.append(iframe, bar, dot)
+            box.onmouseenter = () => (box.style.outline = '1px dashed #888')
+            box.onmouseleave = () => (box.style.outline = 'none')
+
             return { dom: wrap }
         }
     },

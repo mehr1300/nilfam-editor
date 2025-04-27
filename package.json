@@ -31,7 +31,7 @@
     "./nilfam-editor.css": "./dist/nilfam-editor.css"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -4,7 +4,7 @@ import {t} from "../Lang/i18n.js";
 
 export default function UploadModalAudio({ openUploadAudio, setOpenUploadAudio, editor,lang}) {
     // نگه‌داری تب فعال: 'upload' یا 'url'
-    const [activeTab, setActiveTab] = useState('upload')
+    const [activeTab, setActiveTab] = useState('url')
 
     // حالت‌های مربوط به تب آپلود صدا
     const [audios, setAudios] = useState([])
@@ -147,27 +147,18 @@ export default function UploadModalAudio({ openUploadAudio, setOpenUploadAudio, 
             <div className="tw:bg-white tw:dark:bg-gray-600  tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:p-5 tw:w-full tw:max-w-2xl tw:flex tw:flex-col tw:gap-4 tw:md:my-10 tw:rounded tw:relative" onClick={(e) => e.stopPropagation()}>
                 {/* هدر مودال */}
                 <div className="tw:flex tw:flex-row tw:justify-between tw:items-center">
-                    <span className="tw:font-bold"> {t('addAudio', lang)}</span>
-                    <span
-                        onClick={() => setOpenUploadAudio(false)}
-                        className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500"
-                    >
+                    <span className="tw:font-bold tw:dark:text-gray-200"> {t('addAudio', lang)}</span>
+                    <span onClick={() => setOpenUploadAudio(false)} className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500">
                         <XIcon/>
                     </span>
                 </div>
 
                 {/* تب‌ها */}
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
-                    <div
-                        onClick={() => setActiveTab('upload')}
-                        className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}
-                    >
-                        {t('uploadFile', lang)}
-                    </div>
-                    <div
-                        onClick={() => setActiveTab('url')}
-                        className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}
-                    >
+                    {/*<div onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}
+                    {/*    {t('uploadFile', lang)}*/}
+                    {/*</div>*/}
+                    <div onClick={() => setActiveTab('url')} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
                     </div>
                 </div>
@@ -178,14 +169,7 @@ export default function UploadModalAudio({ openUploadAudio, setOpenUploadAudio, 
                         {/* ناحیه درگ‌ودراپ */}
                         <div className="tw:flex tw:flex-col tw:text-gray-500 tw:justify-center tw:items-center tw:border-2 tw:border-dashed tw:border-gray-500 tw:rounded-xl tw:h-30 tw:hover:border-gray-700 tw:hover:bg-gray-200 tw:dark:bg-gray-700 tw:hover:dark:bg-gray-800 tw:cursor-pointer tw:p-5" onClick={() => document.getElementById('audioFileInput').click()}>
                             {t('dragUpload', lang)}
-                            <input
-                                id="audioFileInput"
-                                type="file"
-                                accept="audio/*"
-                                multiple
-                                className="tw:hidden"
-                                onChange={handleFileSelect}
-                            />
+                            <input id="audioFileInput" type="file" accept="audio/*" multiple className="tw:hidden" onChange={handleFileSelect}/>
                         </div>
 
                         {/* پیش‌نمایش فایل‌های صوتی انتخاب شده */}
@@ -244,37 +228,29 @@ export default function UploadModalAudio({ openUploadAudio, setOpenUploadAudio, 
 
                 {activeTab === 'url' && (
                     <div>
-                        <label className="tw:flex tw:flex-col tw:text-sm tw:mb-2">
-                            {t('addressFile', lang)}
-                            <input
-                                type="text"
-                                value={audioUrl}
-                                onChange={(e) => setAudioUrl(e.target.value)}
-                                className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"
-                                placeholder= {t('addAddressFile', lang)}
-                            />
-                        </label>
 
-                        <div className="tw:flex tw:gap-2">
-                            <label className="tw:flex tw:flex-col tw:text-sm">
-                                {t('alt', lang)}
-                                <input
-                                    type="text"
-                                    value={altText}
-                                    onChange={(e) => setAltText(e.target.value)}
-                                    className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"
-                                />
-                            </label>
+                        <div className="tw:flex tw:flex-col tw:gap-3">
+
+                            <div className="tw:flex tw:flex-col tw:gap-1">
+                                <label className="tw:flex tw:flex-col tw:dark:text-gray-200 tw:text-sm ">{t('addressFile', lang)}</label>
+                                <input type="text" value={audioUrl} onChange={(e) => setAudioUrl(e.target.value)} className="tw:border tw:dark:text-gray-300 tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm" placeholder={t('addAddressFile', lang)}/>
+                            </div>
+
+                            <div className="tw:flex tw:flex-col tw:gap-1">
+                                <label className="tw:flex tw:flex-col tw:dark:text-gray-200 tw:text-sm">{t('alt', lang)}</label>
+                                <input type="text" value={altText} onChange={(e) => setAltText(e.target.value)} className="tw:border tw:dark:text-gray-300 tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"/>
+                            </div>
+
                         </div>
 
-                         {audioUrl && (
+                        {audioUrl && (
                             <div className="tw:mt-2">
                                 <p className="tw:text-sm tw:text-gray-600 tw:mb-1">پیش‌نمایش:</p>
-                                <audio controls src={audioUrl} className="tw:w-full" />
+                                <audio controls src={audioUrl} className="tw:w-full"/>
                             </div>
                         )}
 
-                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
+                        <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">
                             <div className={`tw:rounded tw:px-4 tw:py-2 tw:text-white ${!audioUrl ? 'tw:bg-blue-300 tw:cursor-not-allowed' : 'tw:bg-blue-500 tw:hover:bg-blue-400'}`} onClick={handleInsertAudioFromUrl} disabled={!audioUrl}>
                                 {t('add', lang)}
                             </div>

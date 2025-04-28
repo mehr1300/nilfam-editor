@@ -6,7 +6,7 @@ import {t} from "../Lang/i18n.js";
 
 export default function UploadModalImage({ openUploadImage, setOpenUploadImage, editor,lang}) {
     // تب فعال را نگه می‌داریم: 'upload' یا 'url'
-    const [activeTab, setActiveTab] = useState('upload')
+    const [activeTab, setActiveTab] = useState('url')
 
     // ---- states تب آپلود ----
     const [images, setImages] = useState([])
@@ -134,7 +134,7 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
             <div className="tw:bg-white tw:dark:bg-gray-600  tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:p-5 tw:w-full tw:max-w-2xl tw:flex tw:flex-col tw:gap-4 tw:md:my-10 tw:rounded tw:relative">
                 {/* هدر مودال */}
                 <div className="tw:flex tw:flex-row tw:justify-between tw:items-center">
-                    <span className="tw:font-bold">{t('addImage', lang)}</span>
+                    <span className="tw:font-bold tw:dark:text-gray-200">{t('addImage', lang)}</span>
                     <span
                         onClick={() => setOpenUploadImage(false)}
                         className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500"
@@ -143,9 +143,9 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
           </span>
                 </div>
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
-                    <div onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
-                        {t('uploadFile', lang)}
-                    </div>
+                    {/*<div onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}
+                    {/*    {t('uploadFile', lang)}*/}
+                    {/*</div>*/}
                     <div onClick={() => setActiveTab('url')} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
                     </div>
@@ -213,22 +213,22 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
 
                 {activeTab === 'url' && (
                     <div>
-                        <label className="tw:flex tw:flex-col tw:text-sm tw:mb-2">
-                            {t('addressFile', lang)}
-                            <input
-                                type="text"
-                                value={imageUrl}
-                                onChange={(e) => setImageUrl(e.target.value)}
-                                className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"
-                                placeholder=  {t('addAddressFile', lang)}
-                            />
-                        </label>
 
-                        <div className="tw:flex tw:gap-2">
-                            <label className="tw:flex tw:flex-col tw:text-sm">
-                                {t('alt', lang)}
-                                <input type="text" value={altText} onChange={(e) => setAltText(e.target.value)} className="tw:border tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"/>
-                            </label>
+                        <div className="tw:flex tw:flex-col tw:gap-3">
+                            <div className="tw:flex tw:flex-col tw:gap-1">
+                                <label className="tw:flex tw:flex-col tw:dark:text-gray-200 tw:text-sm ">
+                                    {t('addressFile', lang)}
+
+                                </label>
+                                <input type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="tw:border tw:dark:text-gray-300 tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm" placeholder={t('addAddressFile', lang)}/>
+                            </div>
+                            <div className="tw:flex tw:flex-col tw:gap-1">
+                                <label className="tw:flex tw:flex-col tw:dark:text-gray-200 tw:text-sm">
+                                    {t('alt', lang)}
+                                </label>
+                                <input type="text" value={altText} onChange={(e) => setAltText(e.target.value)} className="tw:border tw:dark:text-gray-300 tw:border-gray-400 tw:rounded tw:px-2 tw:py-1.5 tw:text-sm"/>
+
+                            </div>
                         </div>
 
                         <div className="tw:flex tw:flex-row tw:gap-2 tw:justify-end tw:mt-4">

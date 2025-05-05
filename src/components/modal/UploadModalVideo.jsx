@@ -283,20 +283,22 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
             <div className="tw:bg-white tw:dark:bg-gray-600  tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:p-5 tw:w-full tw:max-w-2xl tw:flex tw:flex-col tw:gap-4 tw:md:my-10 tw:rounded-lg tw:shadow-lg tw:relative">
                 <div className="tw:flex tw:flex-row tw:justify-between tw:items-center tw:mb-1">
                     <span className="tw:font-bold tw:dark:text-gray-200"> {t('addVideo', lang)}</span>
-                    <button onClick={() => {setOpenUploadVideo(false);}} className="cursor-pointer text-gray-700 hover:text-gray-500" aria-label= {t('close', lang)}>
+                    <div onClick={() => {setOpenUploadVideo(false);}}
+                         className="tw:cursor-pointer tw:dark:text-gray-400 tw:hover:dark:text-gray-500 tw:text-gray-700 tw:hover:text-gray-500"
+                         aria-label={t('close', lang)}>
                         <XIcon/>
-                    </button>
+                    </div>
                 </div>
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
                     {/*<button onClick={() => {setActiveTab('upload');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}
                     {/*    {t('uploadFile', lang)}*/}
                     {/*</button>*/}
-                    <button onClick={() => {setActiveTab('url');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
+                    <div onClick={() => {setActiveTab('url');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
-                    </button>
-                    <button onClick={() => {setActiveTab('embed');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'embed' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
+                    </div>
+                    <div onClick={() => {setActiveTab('embed');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'embed' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         Embed
-                    </button>
+                    </div>
                 </div>
                 {errorMessage && (
                     <div className="tw:text-red-600 tw:text-sm tw:p-2 tw:bg-red-50 tw:rounded-md tw:border tw:border-red-200">
@@ -311,9 +313,7 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                                 document.getElementById('videoInput').click();
                             }}
                         >
-                            <p className="tw:text-center tw:mb-2">
-                                {t('dragUpload', lang)}
-                            </p>
+                            <p className="tw:text-center tw:mb-2">{t('dragUpload', lang)}</p>
                             <p className="tw:text-xs tw:text-gray-400"> MP4, WebM, MOV, AVI</p>
                             <input
                                 id="videoInput"
@@ -331,7 +331,7 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                                     {videos.map((file, index) => (
                                         <div key={index} className="tw:relative tw:bg-gray-100 tw:rounded-md tw:p-2 tw:pr-8">
                                             <div className="tw:text-sm tw:truncate tw:max-w-xs">{file.name}</div>
-                                            <button
+                                            <div
                                                 className="tw:absolute tw:top-1 tw:right-1 tw:bg-red-500 tw:hover:bg-red-400 tw:text-white tw:rounded-full tw:w-5 tw:h-5 tw:flex tw:items-center tw:justify-center tw:text-xs tw:cursor-pointer"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
@@ -340,7 +340,7 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                                                 aria-label={t('delete', lang)}
                                             >
                                                 ×
-                                            </button>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

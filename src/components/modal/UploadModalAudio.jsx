@@ -148,9 +148,9 @@ export default function UploadModalAudio({ openUploadAudio, setOpenUploadAudio, 
                 {/* هدر مودال */}
                 <div className="tw:flex tw:flex-row tw:justify-between tw:items-center">
                     <span className="tw:font-bold tw:dark:text-gray-200"> {t('addAudio', lang)}</span>
-                    <span onClick={() => setOpenUploadAudio(false)} className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500">
+                    <div onClick={() => {setOpenUploadAudio(false);}} className="tw:cursor-pointer tw:dark:text-gray-400 tw:hover:dark:text-gray-500 tw:text-gray-700 tw:hover:text-gray-500" aria-label={t('close', lang)}>
                         <XIcon/>
-                    </span>
+                    </div>
                 </div>
 
                 {/* تب‌ها */}

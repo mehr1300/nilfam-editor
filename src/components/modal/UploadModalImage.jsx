@@ -135,12 +135,9 @@ export default function UploadModalImage({ openUploadImage, setOpenUploadImage, 
                 {/* هدر مودال */}
                 <div className="tw:flex tw:flex-row tw:justify-between tw:items-center">
                     <span className="tw:font-bold tw:dark:text-gray-200">{t('addImage', lang)}</span>
-                    <span
-                        onClick={() => setOpenUploadImage(false)}
-                        className="tw:cursor-pointer tw:text-gray-700 tw:hover:text-gray-500"
-                    >
-            <XIcon/>
-          </span>
+                    <div onClick={() => {setOpenUploadImage(false);}} className="tw:cursor-pointer tw:dark:text-gray-400 tw:hover:dark:text-gray-500 tw:text-gray-700 tw:hover:text-gray-500" aria-label={t('close', lang)}>
+                        <XIcon/>
+                    </div>
                 </div>
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
                     {/*<div onClick={() => setActiveTab('upload')} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}

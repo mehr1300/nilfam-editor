@@ -7,8 +7,9 @@ import {ColorBoxIcon} from "../../assets/icons/Icons.jsx";
 
 const ColoredBoxButton = ({ editor, lang }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedColor, setSelectedColor] = useState('#ffffff');
-    const [borderRadius, setBorderRadius] = useState('4px');
+    const [selectedColor, setSelectedColor] = useState("#000000");
+    const [borderRadius, setBorderRadius] = useState(4);
+    const [paddingBox, setPaddingBox] = useState(8);
     const containerRef = useRef(null);
 
     /* --- هندل‌های کمکی --- */
@@ -29,7 +30,8 @@ const ColoredBoxButton = ({ editor, lang }) => {
             .focus()
             .setColoredBox({
                 backgroundColor: selectedColor,
-                borderRadius
+                borderRadius  : `${borderRadius}px`,
+                paddingBox  : `${paddingBox}px`,
             }) // ← همان نام کامند جدید
             .run();
         setIsOpen(false);
@@ -54,49 +56,37 @@ const ColoredBoxButton = ({ editor, lang }) => {
 
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? 'tw:right-0' : 'tw:left-0'} tw:absolute tw:top-8 tw:z-10`}>
-                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-52 tw:flex tw:flex-col tw:rounded">
+                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-52 tw:flex tw:flex-col tw:gap-1 tw:rounded">
                         {/* دکمه حذف */}
-                        <div className="tw:flex tw:justify-end tw:mb-2">
-                            <button
-                                onClick={removeBox}
-                                className="tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-500 tw:dark:hover:bg-gray-600 tw:text-sm tw:px-2 tw:py-1 tw:rounded"
-                            >
+                        <div className="tw:flex tw:justify-end ">
+                            <div onClick={removeBox} className="tw:add-font tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-500 tw:dark:hover:bg-gray-600 tw:text-sm tw:px-2 tw:py-1 tw:rounded">
                                 {t('clear', lang)}
-                            </button>
+                            </div>
                         </div>
 
-                        {/* انتخاب رنگ */}
-                        <label className="tw:text-sm tw:mb-1">{t('selectColor', lang)}</label>
-                        <div className="tw:grid tw:grid-cols-7 tw:gap-2 tw:pe-3 tw:h-52 tw:overflow-y-auto">
-                            {Colors.map(color => (
-                                <span key={color} onClick={() => setSelectedColor(color)}
-                                      className={`${selectedColor === color ? "tw:border-3 tw:border-blue-500 tw:dark:border-gray-200" : "tw:border tw:border-gray-300  tw:dark:border-gray-600"}   tw:cursor-pointer tw:w-5 tw:h-5 tw:rounded tw:hover:opacity-70`}
-                                      style={{backgroundColor: color}}/>
-                            ))}
+                        <div>
+                            <label className="tw:text-sm tw:mb-1">{t('borderRadius', lang)}(px)</label>
+                            <input value={borderRadius} type="text" onChange={e => setBorderRadius(e.target.value)} className="  tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
+                        </div>
+                        <div>
+                            <label className="tw:text-sm tw:mb-1">{t('paddingBox', lang)}(px)</label>
+                            <input value={paddingBox} type="text" onChange={e => setPaddingBox(e.target.value)} className="  tw:text-gray-800 tw:dark:text-gray-300 tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded tw:px-1"/>
                         </div>
 
-                        {/* شعاع گوشه */}
-                        <label className="tw:text-sm tw:mb-1">{t('borderRadius', lang)}</label>
-                        <select
-                            value={borderRadius}
-                            onChange={e => setBorderRadius(e.target.value)}
-                            className="tw:w-full tw:p-1 tw:rounded tw:bg-gray-100 tw:dark:bg-gray-600 tw:mb-4"
-                        >
-                            {['0px', '4px', '8px', '12px', '16px'].map(r => (
-                                <option key={r} value={r}>
-                                    {r}
-                                </option>
-                            ))}
-                        </select>
 
-                        {/* اعمال */}
-                        <div className="tw:flex tw:justify-end">
-                            <button
-                                onClick={applyBox}
-                                className="tw:flex tw:flex-row tw:justify-center tw:items-center tw:h-8 tw:cursor-pointer tw:bg-blue-500 tw:hover:bg-blue-600 tw:text-white tw:text-sm tw:px-3  tw:rounded"
-                            >
+                        <div>
+                            <label className="tw:text-sm tw:mb-1">{t('selectColor', lang)}</label>
+                            <div className="tw:grid tw:grid-cols-7 tw:gap-2 tw:pe-3 tw:h-40 tw:overflow-y-auto">
+                                {Colors.map(color => (
+                                    <span key={color} onClick={() => setSelectedColor(color)} className={`${selectedColor === color ? "tw:border-3 tw:border-blue-500 tw:dark:border-gray-200" : "tw:border tw:border-gray-300  tw:dark:border-gray-600"}   tw:cursor-pointer tw:w-5 tw:h-5 tw:rounded tw:hover:opacity-70`} style={{backgroundColor: color}}/>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="tw:flex tw:justify-end tw:mt-2">
+                            <div onClick={applyBox} className="add-font tw:flex tw:flex-row tw:justify-center tw:items-center tw:h-8 tw:cursor-pointer tw:bg-blue-500 tw:hover:bg-blue-600 tw:text-white tw:text-sm tw:px-3  tw:rounded">
                                 {t('add', lang)}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>

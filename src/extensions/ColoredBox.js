@@ -1,76 +1,56 @@
-// src/tiptap/extensions/ColoredBox.js   ← مسیر پیشنهادی
-import { Node } from '@tiptap/core';
+import { Node, mergeAttributes } from '@tiptap/core'
 
 export const ColoredBox = Node.create({
     name: 'coloredBox',
-
     group: 'block',
     content: 'block+',
-    isolating: true,          // انتخاب راحت‌تر و جلوگیری از ادغام ناخواسته
-    defining: true,           // حفظ نود در دستورات split–join
+    defining: true,     // اجازه می‌دهد داخلش انتخاب انجام شود
+    draggable: false,
 
+    /* خصوصیات دیداری */
     addAttributes() {
         return {
             backgroundColor: {
-                default: '#ffffff',
-                parseHTML: el => el.getAttribute('data-bg-color'),
+                default   : '#ffffff',
+                parseHTML : el => el.style.backgroundColor || '#ffffff',
                 renderHTML: attrs => ({
-                    'data-bg-color': attrs.backgroundColor,
-                    style: `background-color:${attrs.backgroundColor}`
-                })
+                    style: `padding:${attrs.paddingBox};background-color:${attrs.backgroundColor};border-radius:${attrs.borderRadius}`,
+                }),
             },
             borderRadius: {
-                default: '4px',
-                parseHTML: el => el.getAttribute('data-border-radius'),
-                renderHTML: attrs => ({
-                    'data-border-radius': attrs.borderRadius,
-                    style: `border-radius:${attrs.borderRadius}`
-                })
-            }
-        };
-    },
-
-    parseHTML() {
-        return [
-            {
-                tag: 'div.colored-box'
-            }
-        ];
-    },
-
-    renderHTML({ HTMLAttributes }) {
-        return [
-            'div',
-            {
-                class: 'colored-box tw:p-3 tw:my-2',
-                ...HTMLAttributes
+                default   : '4px',
+                parseHTML : el => el.style.borderRadius || '4px',
+                renderHTML: () => ({}),             // در style بالا می‌آید
             },
-            0
-        ];
+            paddingBox: {
+                default   : '8px',
+                parseHTML : el => el.style.paddingBox || '8px',
+                renderHTML: () => ({}),             // در style بالا می‌آید
+            },
+        }
     },
 
+    /* HTML → داک ، داک → HTML */
+    parseHTML()     { return [{ tag: 'div[data-colored-box]' }] },
+    renderHTML({ HTMLAttributes }) {
+        return ['div', mergeAttributes({ 'data-colored-box': '' }, HTMLAttributes), 0]
+    },
+
+    /* کامندها */
     addCommands() {
         return {
-            /** چند بلاک را در یک ColoredBox می‌پیچد */
+            /** اگر داخل باکس باشیم فقط attribute را به‌روزرسانی می‌کند؛
+             *  وگرنه باکس تازه‌ای دور بازه‌ی انتخاب می‌کشد. */
             setColoredBox:
-                attrs =>
-                    ({ chain, state }) => {
-                        // اگر همین الان داخل coloredBox هستیم دوباره wrap نشود
-                        const { $from } = state.selection;
-                        if ($from.node(-1).type.name === this.name) return false;
+                attrs => ({ editor, commands }) => {
+                    return editor.isActive('coloredBox')
+                        ? commands.updateAttributes('coloredBox', attrs)
+                        : commands.wrapIn(this.name, attrs)
+                },
 
-                        return chain()
-                            .wrapIn(this.name, attrs) // ← تفاوت اصلی
-                            .run();
-                    },
-
-            /** خارج کردنِ بلاک‌های انتخاب‌شده از ColoredBox */
+            /** باکس را برمی‌دارد و محتوایش را آزاد می‌کند */
             unsetColoredBox:
-                () =>
-                    ({ chain }) =>
-                        chain()
-                            .lift(this.name) // معادل unwrap
-                            .run()
-        };
-    }
-});
+                () => ({ commands }) => commands.lift(this.name),
+        }
+    },
+})

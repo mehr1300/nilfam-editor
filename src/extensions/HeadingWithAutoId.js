@@ -8,29 +8,25 @@ function createSlug(text) {
         .replace(/[؟?.,،؛:]/g, '')
         .toLowerCase()
 }
-
 export const HeadingWithAutoId = Heading.extend({
+    /* ➊ تعریف اتریبیوت‌های id و class */
     addAttributes() {
         return {
             ...this.parent?.(),
 
-            /* id خودکار */
             id: {
-                default: null,
-                parseHTML: el => el.getAttribute('id'),
-                renderHTML: attrs => attrs.id ? { id: attrs.id } : {},
+                default    : null,
+                parseHTML  : el   => el.getAttribute('id'),
+                renderHTML : attrs => attrs.id ? { id: attrs.id } : {},
             },
 
-            /* کلاس ثابت anchor‑target */
             class: {
-                default: 'anchor-target',
-                parseHTML: el => {
-                    // اگر کلاس‌های دیگری هم وجود داشت آن‌ها را نگه می‌داریم
+                default    : 'anchor-target',          // همیشه این کلاس را داریم
+                parseHTML  : el   => {
                     const classes = el.getAttribute('class')?.split(/\s+/) ?? []
                     return [...new Set([...classes, 'anchor-target'])].join(' ')
                 },
-                renderHTML: attrs => {
-                    // اطمینان از حضور anchor-target در خروجی
+                renderHTML : attrs => {
                     const classes = new Set((attrs.class ?? '').split(/\s+/).filter(Boolean))
                     classes.add('anchor-target')
                     return { class: Array.from(classes).join(' ') }
@@ -39,31 +35,52 @@ export const HeadingWithAutoId = Heading.extend({
         }
     },
 
+    /* ➋ پلاگین ProseMirror برای مدیریت آیدی‌ها */
     addProseMirrorPlugins() {
         return [
             new Plugin({
                 appendTransaction: (transactions, oldState, newState) => {
+                    // اگر هیچ تغییری در داکیومنت رخ نداده، کاری نکن
                     if (!transactions.some(tr => tr.docChanged)) return null
 
                     const { doc } = newState
-                    const tr = newState.tr
+                    const tr       = newState.tr
                     let needUpdate = false
+
+                    /* جدولی برای شمارش تکرار اسلاگ‌ها */
+                    const slugCount = new Map()   // key = slug, value = تعداد دیده‌شده
 
                     doc.descendants((node, pos) => {
                         if (node.type.name !== 'heading') return
 
-                        let { id, class: cls = '' } = node.attrs
-                        let changed = false
+                        const text = node.textContent.trim()   // محتوای هدینگ
+                        let   { id, class: cls = '' } = node.attrs
+                        let   changed = false
 
-                        // ① افزودن id اگر نبود
-                        if (!id) {
-                            id = createSlug(node.textContent) || 'untitled'
+                        /* ① اگر متن خالی بود، آیدی را کاملاً پاک کن */
+                        if (!text) {
+                            if (id) {
+                                tr.setNodeMarkup(pos, undefined, { ...node.attrs, id: null })
+                                needUpdate = true
+                            }
+                            return
+                        }
+
+                        /* ② تولید اسلاگ + جلوگیری از تکرار */
+                        const base   = createSlug(text) || 'untitled'
+                        const seen   = slugCount.get(base) ?? 0
+                        const unique = seen === 0 ? base : `${base}-${seen}`
+
+                        slugCount.set(base, seen + 1)
+
+                        if (id !== unique) {
+                            id      = unique
                             changed = true
                         }
 
-                        // ② افزودن کلاس anchor‑target اگر نبود
+                        /* ③ اطمینان از وجود کلاس anchor-target */
                         if (!cls.split(/\s+/).includes('anchor-target')) {
-                            cls = `${cls} anchor-target`.trim()
+                            cls     = `${cls} anchor-target`.trim()
                             changed = true
                         }
 

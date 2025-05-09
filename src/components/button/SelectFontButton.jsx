@@ -11,9 +11,9 @@ const SelectFontButton = ({editor,fonts,lang}) => {
                 setFont(selectedFont);
                 editor.chain().focus().setFontFamily(selectedFont).run(); // تغییر فونت با setFontFamily
             }}>
-                <option value="">{ t('defaultFont', lang) }</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="">{ t('defaultFont', lang) }</option>
                 {fonts.map((item) => (
-                    <option key={item.value} value={item.value}>{item.label}</option>
+                    <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" key={item.value} value={item.value}>{item.label}</option>
                 ))}
                 {/*<option value="IRANSansXFaNum">فونت ایران سنس</option>*/}
                 {/*<option value="Kalameh">فونت کلمه</option>*/}

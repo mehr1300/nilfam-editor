@@ -1,19 +1,19 @@
-// utils/getHeadings.js
-
+// utils/getHeadings.ts
 export function getHeadings(editor) {
-    const headings = []
-    // اگر ادیتور یا state وجود نداشت، خالی برگرد
-    if (!editor?.state?.doc) return headings
+    const result = []
+    if (!editor?.state?.doc) return result
 
-    editor.state.doc.descendants((node) => {
-        if (node.type.name === 'heading') {
-            headings.push({
+    editor.state.doc.descendants(node => {
+        if (
+            node.type.name === 'heading' &&
+            node.textContent.trim()         // متن خالی نباشد
+        ) {
+            result.push({
                 level: node.attrs.level,
-                id: node.attrs.id,
-                text: node.textContent,
+                id   : node.attrs.id || '',   // اگر آیدی هنوز نساخته
+                text : node.textContent,
             })
         }
     })
-
-    return headings
+    return result
 }

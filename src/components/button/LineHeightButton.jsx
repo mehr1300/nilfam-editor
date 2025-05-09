@@ -8,13 +8,13 @@ const LineHeightButton = ({editor,lang}) => {
                 const value = e.target.value;
                 editor.chain().focus().setLineHeight(value).run();
             }} value={editor.getAttributes('paragraph').lineHeight || '1.5'}>
-                <option value="1">{ t('lineHeight', lang) } : 1</option>
-                <option value="1.15">{ t('lineHeight', lang) } : 1.15</option>
-                <option value="1.5">{ t('lineHeight', lang) } : 1.5</option>
-                <option value="1.8">{ t('lineHeight', lang) } : 1.8</option>
-                <option value="2">{ t('lineHeight', lang) } : 2</option>
-                <option value="2.5">{ t('lineHeight', lang) } : 2.5</option>
-                <option value="3">{ t('lineHeight', lang) } : 3</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="1">{ t('lineHeight', lang) } : 1</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="1.15">{ t('lineHeight', lang) } : 1.15</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="1.5">{ t('lineHeight', lang) } : 1.5</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="1.8">{ t('lineHeight', lang) } : 1.8</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="2">{ t('lineHeight', lang) } : 2</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="2.5">{ t('lineHeight', lang) } : 2.5</option>
+                <option className="tw:dark:bg-gray-700 tw:dark:text-gray-300" value="3">{ t('lineHeight', lang) } : 3</option>
             </select>
         </div>
     );

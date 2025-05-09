@@ -271,7 +271,7 @@ const Editor = forwardRef(({
                     <SizeFontButton editor={editor} lang={lang} />
                     <HeadingButton editor={editor} lang={lang} />
                     <LineHeightButton editor={editor} lang={lang} />
-                    <AnchorLinkMenu editor={editor} headingsList={headingsList} lang={lang} />
+                    <AnchorLinkMenu editor={editor} headingsList={headingsList} getHeadings={getHeadings} lang={lang} />
                 </div>
 
                 {/* بخش دوم نوار ابزار (دکمه‌های بولد، رنگ، لینک، آپلود و ...) */}

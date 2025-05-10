@@ -5,31 +5,56 @@ export default Node.create({
     name: 'iframe',
     group: 'block',
     atom: true,
+    draggable: true,
     selectable: true,
 
-    /* گزینه‌ها: اجازهٔ Drag در سطح نود */
-    addOptions() {
-        return { draggable: true }
-    },
-
-    /* attributes */
+    /* ─────────────── Attributes ─────────────── */
     addAttributes() {
         return {
-            src: {},
-            alt: { default: null },
-            align: { default: 'left' },              // left | center | right
-            style: { default: 'width:560px; height:315px; cursor:pointer;' },
+            src:   { default: null },
+            alt:   { default: null },
+            align: { default: 'left' },    // left | center | right
+            style: {
+                default: 'width:560px;height:315px;cursor:pointer;',
+            },
         }
     },
 
-    /* schema */
-    parseHTML() { return [{ tag: 'iframe' }] },
-    renderHTML({ HTMLAttributes }) {
-        // leaf node ⇒ بدون "۰"
-        return ['iframe', mergeAttributes(HTMLAttributes)]
+    /* ─────────────── Schema ─────────────── */
+    parseHTML() {
+        return [{ tag: 'iframe[src]' }]
     },
 
-    /* command: درج آیفریم */
+    /*
+     * این بخش تعیین می‌کند چه HTML در دیتابیس ذخیره شود.
+     * خصوصیت align منسوخ است؛ پس استایل مناسب را اضافه می‌کنیم.
+     */
+    renderHTML({ HTMLAttributes }) {
+        const { align = 'left', style = '' } = HTMLAttributes
+
+        // استایلی که وسط/راست/چپ را پیاده می‌کند
+        const extra =
+            align === 'center'
+                ? 'display:block;margin-left:auto;margin-right:auto;'
+                : align === 'right'
+                    ? 'float:right;margin-left:auto;'
+                    : 'float:left;'
+
+        return [
+            'iframe',
+            mergeAttributes(
+                HTMLAttributes,
+                {
+                    style: style + extra, // استایل قبلی + استایل ترازبندی
+                    align: null,          // حذف attr منسوخ
+                    //  اگر CSS جداگانه می‌خواهید به‌جای دو خط بالا:
+                    // class: `tiptap-iframe tiptap-iframe--${align}`,
+                },
+            ),
+        ]
+    },
+
+    /* ─────────────── Commands ─────────────── */
     addCommands() {
         return {
             insertIframe:
@@ -39,83 +64,117 @@ export default Node.create({
         }
     },
 
-    /* -------- Node-View -------- */
+    /* ─────────────── Node-View (برای ادیتور) ─────────────── */
     addNodeView() {
         return ({ node, editor, getPos }) => {
             const { view } = editor
             const { style, align } = node.attrs
 
-            /* wrapper برای چپ/وسط/راست */
+            /* ➊ wrapper برای نمایش زندهٔ چپ/وسط/راست در ادیتور */
             const wrap = document.createElement('div')
             wrap.style.cssText =
                 'display:flex;width:100%;justify-content:' +
-                (align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start')
+                (align === 'center'
+                    ? 'center'
+                    : align === 'right'
+                        ? 'flex-end'
+                        : 'flex-start')
 
-            /* container */
+            /* ➋ Container آیفریم */
             const box = document.createElement('div')
             box.style.cssText = `position:relative;display:inline-block;${style}`
 
-            /* عنصر اصلی iframe (دیگر drag-handle نیست) */
+            /* عنصر IFRAME */
             const iframe = document.createElement('iframe')
             Object.entries(node.attrs).forEach(([k, v]) => v && iframe.setAttribute(k, v))
 
-            /* نوار ابزار */
+            /* ➌ نوار ابزار کوچک بالاى ویدئو */
             const bar = document.createElement('div')
             bar.style.cssText =
                 'position:absolute;top:0;left:50%;transform:translate(-50%,-100%);' +
                 'display:flex;gap:4px;padding:2px 4px;background:#fff;border:1px solid #888;' +
                 'border-radius:4px;z-index:10;font-size:0;'
 
-            const btn = (title, svg, fn) => {
-                const n = document.createElement('span')
-                n.title = title
-                n.style.cssText =
+            const mkBtn = (title, svg, fn) => {
+                const btn = document.createElement('span')
+                btn.title = title
+                btn.style.cssText =
                     'width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;' +
                     'cursor:pointer;border-radius:4px;'
-                n.innerHTML = `<img src="${svg}" width="20" height="20">`
-                n.onclick = fn
-                bar.appendChild(n)
+                btn.innerHTML = `<img src="${svg}" width="20" height="20">`
+                btn.onclick = fn
+                bar.appendChild(btn)
             }
 
-            /* کمک برای dispatch */
+            /* dispatch کمکی */
             const dispatch = attrs =>
-                view.dispatch(view.state.tr.setNodeMarkup(getPos(), null, { ...node.attrs, ...attrs }))
+                view.dispatch(
+                    view.state.tr.setNodeMarkup(getPos(), null, { ...node.attrs, ...attrs }),
+                )
             const saveSize  = ex => dispatch({ style: box.style.cssText, ...ex })
             const saveAlign = a  => dispatch({ align: a })
 
-            /* دکمه‌هایِ align */
-            btn('چپ',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_left/default/20px.svg',
-                () => { wrap.style.justifyContent = 'flex-start'; saveAlign('left') })
-            btn('وسط',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_center/default/20px.svg',
-                () => { wrap.style.justifyContent = 'center';     saveAlign('center') })
-            btn('راست',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_right/default/20px.svg',
-                () => { wrap.style.justifyContent = 'flex-end';   saveAlign('right') })
+            /* ───────────── Buttons ───────────── */
 
-            /* ALT */
-            btn('alt',
+            // چپ
+            mkBtn(
+                'چپ',
+                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_left/default/20px.svg',
+                () => {
+                    wrap.style.justifyContent = 'flex-start'
+                    saveAlign('left')
+                },
+            )
+
+            // وسط
+            mkBtn(
+                'وسط',
+                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_center/default/20px.svg',
+                () => {
+                    wrap.style.justifyContent = 'center'
+                    saveAlign('center')
+                },
+            )
+
+            // راست
+            mkBtn(
+                'راست',
+                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_right/default/20px.svg',
+                () => {
+                    wrap.style.justifyContent = 'flex-end'
+                    saveAlign('right')
+                },
+            )
+
+            // ALT
+            mkBtn(
+                'alt',
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/edit/default/20px.svg',
                 () => {
                     const cur = iframe.getAttribute('alt') || ''
                     const txt = prompt('متن alt را وارد کنید:', cur)
-                    if (txt !== null) { iframe.setAttribute('alt', txt); saveSize({ alt: txt }) }
-                })
+                    if (txt !== null) {
+                        iframe.setAttribute('alt', txt)
+                        saveSize({ alt: txt })
+                    }
+                },
+            )
 
-            /* حذف */
-            btn('حذف',
+            // حذف
+            mkBtn(
+                'حذف',
                 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/delete/default/20px.svg',
                 () => {
                     const from = getPos()
                     view.dispatch(view.state.tr.delete(from, from + node.nodeSize))
-                })
+                },
+            )
 
-            /* ـــ دستگیرهٔ Drag ✥ ـــ */
+            // Drag-handle
             const drag = document.createElement('span')
             drag.title = 'جابجایی'
             drag.setAttribute('draggable', 'true')
-            drag.classList.add('ProseMirror-drag-handle')          // کلید Drag
+            drag.classList.add('ProseMirror-drag-handle')
             drag.style.cssText =
                 'width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;' +
                 'cursor:grab;border-radius:4px;'
@@ -123,28 +182,39 @@ export default Node.create({
                 '<img src="https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/open_with/default/20px.svg" width="20" height="20">'
             bar.appendChild(drag)
 
-            /* نقطهٔ ریسایز */
+            /* ➍ نقطهٔ resize پایین راست */
             const dot = document.createElement('div')
             dot.style.cssText =
                 'position:absolute;width:12px;height:12px;right:-6px;bottom:-6px;' +
                 'background:#ddd;border:1px solid #666;border-radius:50%;cursor:nwse-resize;'
             box.append(dot)
 
-            let sx = 0, sw = 0, aspect = 560 / 315
+            let sx = 0,
+                sw = 0,
+                aspect = 560 / 315
             dot.onmousedown = e => {
-                e.preventDefault(); sx = e.clientX; sw = iframe.offsetWidth
+                e.preventDefault()
+                sx = e.clientX
+                sw = iframe.offsetWidth
                 aspect = iframe.offsetWidth / iframe.offsetHeight
                 const mm = mv => {
                     const w = Math.max(sw + (mv.clientX - sx), 80)
                     const h = w / aspect
-                    iframe.style.width = `${w}px`; iframe.style.height = `${h}px`
-                    box.style.width = `${w}px`;    box.style.height = `${h}px`
+                    iframe.style.width = `${w}px`
+                    iframe.style.height = `${h}px`
+                    box.style.width = `${w}px`
+                    box.style.height = `${h}px`
                 }
-                const mu = () => { saveSize(); document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu) }
-                document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu)
+                const mu = () => {
+                    saveSize()
+                    document.removeEventListener('mousemove', mm)
+                    document.removeEventListener('mouseup', mu)
+                }
+                document.addEventListener('mousemove', mm)
+                document.addEventListener('mouseup', mu)
             }
 
-            /* مونتاژ */
+            /* ➎ مونتاژ نهایی */
             wrap.appendChild(box)
             box.append(iframe, bar, dot)
             box.onmouseenter = () => (box.style.outline = '1px dashed #888')
@@ -154,3 +224,8 @@ export default Node.create({
         }
     },
 })
+
+/*  اگر از کلاس به‌جای استایل اینلاین استفاده کنید، در CSS سایت (یا فایل SCSS) بنویسید:
+.tiptap-iframe--center { display:block; margin:0 auto; }
+.tiptap-iframe--right  { float:right; margin-left:auto; }
+*/

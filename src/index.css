@@ -175,11 +175,25 @@
   display: none;
 }
 
+/*.ProseMirror blockquote {*/
+/*  border-right: 3px solid #ccc;*/
+/*  padding-right: 1em;*/
+/*  margin-left: 0;*/
+/*  font-style: italic;*/
+/*  color: #555;*/
+/*  margin-right: 20px;*/
+/*}*/
+
 .ProseMirror blockquote {
-  border-right: 3px solid #ccc;
-  padding-right: 1em;
+  border-right: 3px solid #8b5cf6;
   margin-left: 0;
-  font-style: italic;
   color: #555;
   margin-right: 20px;
+  background-color: #ede9fe;
+  display: inline-flex;
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+.ProseMirror blockquote::after {
+  content: '”';
 }

@@ -31,7 +31,7 @@ import MenuTable from '../components/table/MenuTable.jsx';
 import {FontSize} from '../extensions/FontSize.jsx';
 import {FontFamily} from '../extensions/FontFamily.jsx';
 import {Video} from '../extensions/Video.jsx';
-import {Audio} from '../extensions/Audio.jsx';
+
 import {LineHeightExtension} from '../extensions/LineHeightExtension.jsx';
 
 import {t} from '../components/Lang/i18n.js';
@@ -43,6 +43,7 @@ import {HeadingWithAutoId} from '../extensions/HeadingWithAutoId.js';
 import AnchorLinkMenu from '../components/heading/AnchorLinkMenu.jsx';
 import {getHeadings} from '../components/heading/getHeadings.js';
 import LinkButton from '../components/button/LinkButton.jsx';
+import Audio from '../extensions/Audio.jsx'
 
 import {
     AlignCenterIcon,
@@ -355,14 +356,8 @@ const Editor = forwardRef(({
                     <div className="class-button" onClick={toggleHTML}>
                         {showHTML ? <SourceCodeIcon /> : <HtmlIcon />}
                     </div>
-
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
-
                     <ColoredBoxButton editor={editor} lang={lang} />
-                    ///مشکل سیو شدن در جدول
-                    // مشکل صوت
-                    //مشکل آیکون و تعویض بهضی
-
                 </div>
             </div>
 

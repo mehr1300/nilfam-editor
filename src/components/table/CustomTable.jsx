@@ -125,4 +125,4 @@ export const InsertTableButton = ({ editor, setIsTableSelected, isTableSelected,
     );
 };
 
-export default CustomTable;
+

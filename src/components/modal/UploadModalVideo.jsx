@@ -290,9 +290,9 @@ export default function UploadModalVideo({ openUploadVideo, setOpenUploadVideo, 
                     </div>
                 </div>
                 <div className="tw:flex tw:border-b tw:border-gray-300 tw:dark:border-gray-700 tw:mb-2">
-                    {/*<button onClick={() => {setActiveTab('upload');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}
+                    {/*<div onClick={() => {setActiveTab('upload');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'upload' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>*/}
                     {/*    {t('uploadFile', lang)}*/}
-                    {/*</button>*/}
+                    {/*</div>*/}
                     <div onClick={() => {setActiveTab('url');setErrorMessage('');}} className={`tw:py-2 tw:px-4 ${activeTab === 'url' ? 'tw:border-b-2 tw:border-blue-500 tw:text-blue-500' : 'tw:text-gray-600 tw:dark:text-gray-300'}`}>
                         {t('directLink', lang)}
                     </div>

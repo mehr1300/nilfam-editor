@@ -8,6 +8,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import {ListItem} from '@tiptap/extension-list-item';
 
+
 import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
 import ResizeImageExtension from '../extensions/ResizeImageExtension.jsx';
@@ -43,10 +44,31 @@ import AnchorLinkMenu from '../components/heading/AnchorLinkMenu.jsx';
 import {getHeadings} from '../components/heading/getHeadings.js';
 import LinkButton from '../components/button/LinkButton.jsx';
 
-import {AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, BoldIcon, HtmlIcon, IndentDecreaseIcon, IndentIncreaseIcon, ItalicIcon, LinkOffIcon, ListIcon, ListNumberIcon, MicrophoneIcon, MovieIcon, PhotoIcon, SourceCodeIcon, StyleClearIcon,} from '../assets/icons/Icons.jsx';
+import {
+    AlignCenterIcon,
+    AlignJustifyIcon,
+    AlignLeftIcon,
+    AlignRightIcon,
+    BlockquoteIcon,
+    BoldIcon,
+    HtmlIcon,
+    IndentDecreaseIcon,
+    IndentIncreaseIcon,
+    ItalicIcon,
+    LinkOffIcon,
+    ListIcon,
+    ListNumberIcon,
+    MicrophoneIcon,
+    MovieIcon,
+    PhotoIcon,
+    SourceCodeIcon,
+    StyleClearIcon,
+} from '../assets/icons/Icons.jsx';
 import ColoredBoxButton from "../components/button/BoxButton.jsx";
 import {ColoredBox} from "../extensions/ColoredBox.js";
 import ResizeIframeExtension from "../extensions/ResizeIframeExtension.jsx";
+import IndentExtension from "../extensions/IndentExtension.jsx";
+import CustomBlockquote from "../extensions/CustomBlockquote.jsx";
 
 const Editor = forwardRef(({
                                isDark = false,
@@ -96,7 +118,8 @@ const Editor = forwardRef(({
                 codeBlock: false,
                 heading: false,
             }),
-            // Iframe,
+            IndentExtension.configure({ lang: lang }),
+            CustomBlockquote,
             ColoredBox,
             CustomCodeBlock,
             Highlight.configure({
@@ -223,22 +246,6 @@ const Editor = forwardRef(({
     }
 
 
-    const bringForward = () => {
-        const dom = editor.view.domAtPos(editor.state.selection.from).node;
-        if (dom && dom.style) {
-            let currentZ = parseInt(dom.style.zIndex) || 0;
-            dom.style.zIndex = currentZ + 1;
-        }
-    };
-
-    const sendBackward = () => {
-        const dom = editor.view.domAtPos(editor.state.selection.from).node;
-        if (dom && dom.style) {
-            let currentZ = parseInt(dom.style.zIndex) || 0;
-            dom.style.zIndex = currentZ - 1;
-        }
-    };
-
     // سوییچ بین نمایش HTML و WYSIWYG
     const toggleHTML = () => {
         if (!showHTML) {
@@ -331,11 +338,14 @@ const Editor = forwardRef(({
                         <AlignJustifyIcon />
                     </div>
 
-                    <div className="class-button" onClick={bringForward} title={t('forward', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().indent().run()} title={t('forward', lang)}>
                         <IndentDecreaseIcon />
                     </div>
-                    <div className="class-button" onClick={sendBackward} title={t('backward', lang)}>
+                    <div className="class-button" onClick={() => editor.chain().focus().outdent().run()} title={t('backward', lang)}>
                         <IndentIncreaseIcon />
+                    </div>
+                    <div className="class-button" onClick={() => editor.chain().focus().toggleBlockquote().run()} title={t('blockquote', lang)}>
+                        <BlockquoteIcon />
                     </div>
 
                     <EmojiButton editor={editor} lang={lang} />
@@ -349,6 +359,10 @@ const Editor = forwardRef(({
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
 
                     <ColoredBoxButton editor={editor} lang={lang} />
+                    ///مشکل سیو شدن در جدول
+                    // مشکل صوت
+                    //مشکل آیکون و تعویض بهضی
+
                 </div>
             </div>
 

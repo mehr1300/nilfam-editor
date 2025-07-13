@@ -263,21 +263,41 @@ export const XIcon = () => (
 )
 
 export const AddRowAfterIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="18" height="18" x="3" y="3" rx="2"/>
-        <path d="M3 12h18"/>
-        <path d="M12 3v18"/>
-        <path d="M9 15h6"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-row-insert-top">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z"/>
+        <path d="M12 9v-4"/>
+        <path d="M10 7l4 0"/>
     </svg>
 )
-export const AddColumnAfter = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="18" height="18" x="3" y="3" rx="2"/>
-        <path d="M12 3v18"/>
-        <path d="M3 9h18"/>
-        <path d="M15 6v6"/>
+
+export const AddColumnAfterIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-column-insert-right">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M6 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1z"/>
+        <path d="M15 12l4 0"/>
+        <path d="M17 10l0 4"/>
     </svg>
 )
+
+export const RemoveColumnIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-row-remove">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z"/>
+        <path d="M10 16l4 4"/>
+        <path d="M10 20l4 -4"/>
+    </svg>
+)
+
+export const RemoveRowIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-column-remove">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M6 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1z"/>
+        <path d="M16 10l4 4"/>
+        <path d="M16 14l4 -4"/>
+    </svg>
+)
+
 export const AlignTableRightIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-layout-align-right">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -285,6 +305,7 @@ export const AlignTableRightIcon = () => (
         <path d="M4 9m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"/>
     </svg>
 )
+
 export const AlignTableCenterIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-layout-align-middle">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -293,6 +314,7 @@ export const AlignTableCenterIcon = () => (
         <path d="M9 6m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
     </svg>
 )
+
 export const AlignTableLeftIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-layout-align-left">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -300,6 +322,7 @@ export const AlignTableLeftIcon = () => (
         <path d="M8 9m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"/>
     </svg>
 )
+
 export const TrashIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 6h18"/>
@@ -369,5 +392,18 @@ export const ColorBoxIcon = () => (
         <path d="M11 17h2"/>
         <path d="M9 12h6"/>
         <path d="M10 7h4"/>
+    </svg>
+)
+
+
+export const BlockquoteIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-blockquote">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 15h15"/>
+            <path d="M21 19h-15"/>
+            <path d="M15 11h6"/>
+            <path d="M21 7h-6"/>
+            <path d="M9 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2"/>
+            <path d="M3 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2"/>
     </svg>
 )

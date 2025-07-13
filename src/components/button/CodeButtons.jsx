@@ -47,14 +47,14 @@ const CodeButtons = ({ editor, lang }) => {
             <div className="class-button" onClick={addCode} title={t('code', lang)}>
                 <CodeIcon/>
             </div>
-            {/*<button*/}
+            {/*<div*/}
             {/*    className="class-button"*/}
             {/*    onClick={unsetCodeBlock}*/}
             {/*    title={t('unsetCode', lang)}*/}
             {/*    disabled={!editor?.isActive('codeBlock')} // غیرفعال اگه روی کد نباشیم*/}
             {/*>*/}
             {/*    <CodeOffIcon/>*/}
-            {/*</button>*/}
+            {/*</div>*/}
 
             {/* مدال انتخاب زبان */}
             {isLanguageModalOpen && (

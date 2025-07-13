@@ -175,4 +175,11 @@
   display: none;
 }
 
-
+.ProseMirror blockquote {
+  border-right: 3px solid #ccc;
+  padding-right: 1em;
+  margin-left: 0;
+  font-style: italic;
+  color: #555;
+  margin-right: 20px;
+}

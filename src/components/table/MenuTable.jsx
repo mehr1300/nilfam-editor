@@ -1,7 +1,7 @@
 import {t} from "../Lang/i18n.js";
-import {AddColumnAfter, AddRowAfterIcon, AlignTableCenterIcon, AlignTableLeftIcon, AlignTableRightIcon, TrashIcon} from "../../assets/icons/Icons.jsx";
+import {AddColumnAfterIcon, AddRowAfterIcon, AlignTableCenterIcon, AlignTableLeftIcon, AlignTableRightIcon, RemoveColumnIcon, RemoveRowIcon, TrashIcon} from "../../assets/icons/Icons.jsx";
 
-const MenuTable = ({editor,isTableSelected,lang}) => {
+const MenuTable = ({ editor, isTableSelected, lang }) => {
     const addRowAfter = () => {
         editor.chain().focus().addRowAfter().run();
     };
@@ -10,14 +10,19 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
         editor.chain().focus().addColumnAfter().run();
     };
 
+    const deleteRow = () => {
+        editor.chain().focus().deleteRow().run();
+    };
+
+    const deleteColumn = () => {
+        editor.chain().focus().deleteColumn().run();
+    };
+
     const alignTableLeft = () => {
         if (editor.isActive('table')) {
             editor.chain().focus().updateAttributes('table', {
                 class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:mr-auto'
             }).run();
-            console.log('Updated table classes:', editor.getAttributes('table').class);
-            const tableNode = editor.view.dom.querySelector('table');
-            console.log('DOM table classes:', tableNode ? tableNode.className : 'No table in DOM');
         }
     };
 
@@ -26,9 +31,6 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
             editor.chain().focus().updateAttributes('table', {
                 class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:mx-auto'
             }).run();
-            console.log('Updated table classes:', editor.getAttributes('table').class);
-            const tableNode = editor.view.dom.querySelector('table');
-            console.log('DOM table classes:', tableNode ? tableNode.className : 'No table in DOM');
         }
     };
 
@@ -37,40 +39,41 @@ const MenuTable = ({editor,isTableSelected,lang}) => {
             editor.chain().focus().updateAttributes('table', {
                 class: 'tw:w-fit tw:border-collapse tw:table-auto tw:border tw:border-gray-300 tw:dark:border-gray-700 tw:rounded-lg tw:overflow-hidden tw:shadow-md tw:ml-auto'
             }).run();
-            console.log('Updated table classes:', editor.getAttributes('table').class);
-            const tableNode = editor.view.dom.querySelector('table');
-            console.log('DOM table classes:', tableNode ? tableNode.className : 'No table in DOM');
         }
     };
 
     const deleteTable = () => {
         editor.chain().focus().deleteTable().run();
     };
+
     return (
-        <div className="tw:flex tw:flex-row ">
+        <div className="tw:flex tw:flex-row">
             {isTableSelected && (
                 <div className="tw:flex tw:flex-row tw:bg-red-100 tw:rounded">
-                    <button className="class-button" onClick={addRowAfter} title={t('addRowAfter', lang)}>
-                        <AddRowAfterIcon/>
-                    </button>
-                    <button className="class-button" onClick={addColumnAfter} title={t('addColumnAfter', lang)}>
-                        <AddColumnAfter/>
-                    </button>
-                    <button className="class-button" onClick={alignTableRight} title={t('alignTableRight', lang)}>
-                        <AlignTableRightIcon/>
-                    </button>
-
-                    <button className="class-button" onClick={alignTableCenter} title={t('alignTableCenter', lang)}>
-                        <AlignTableCenterIcon/>
-                    </button>
-
-                    <button className="class-button" onClick={alignTableLeft} title={t('alignTableLeft', lang)}>
-                        <AlignTableLeftIcon/>
-                    </button>
-
-                    <button className="class-button" onClick={deleteTable} title={t('delete', lang)}>
-                        <TrashIcon/>
-                    </button>
+                    <div className="class-button" onClick={addRowAfter} title={t('addRowAfter', lang)}>
+                        <AddRowAfterIcon />
+                    </div>
+                    <div className="class-button" onClick={addColumnAfter} title={t('addColumnAfter', lang)}>
+                        <AddColumnAfterIcon/>
+                    </div>
+                    <div className="class-button" onClick={deleteRow} title={t('deleteRow', lang)}>
+                        <RemoveColumnIcon/>
+                    </div>
+                    <div className="class-button" onClick={deleteColumn} title={t('deleteColumn', lang)}>
+                        <RemoveRowIcon/>
+                    </div>
+                    <div className="class-button" onClick={alignTableRight} title={t('alignTableRight', lang)}>
+                        <AlignTableRightIcon />
+                    </div>
+                    <div className="class-button" onClick={alignTableCenter} title={t('alignTableCenter', lang)}>
+                        <AlignTableCenterIcon />
+                    </div>
+                    <div className="class-button" onClick={alignTableLeft} title={t('alignTableLeft', lang)}>
+                        <AlignTableLeftIcon />
+                    </div>
+                    <div className="class-button" onClick={deleteTable} title={t('deleteTable', lang)}>
+                        <TrashIcon />
+                    </div>
                 </div>
             )}
         </div>

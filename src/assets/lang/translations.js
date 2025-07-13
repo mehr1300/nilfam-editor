@@ -61,6 +61,7 @@ export const translations = {
         paddingBox : "حاشیه",
         close : "بستن",
         selectCodeLanguage : "انتخاب زبان برنامه نویسی",
+        blockquote : "نقل قول",
     },
     en: {
         bold: "Bold",
@@ -121,6 +122,7 @@ export const translations = {
         paddingBox : "Padding Box",
         close : "Close",
         selectCodeLanguage : "Select Code Language",
+        blockquote : "Blockquote",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

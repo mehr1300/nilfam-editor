@@ -46,11 +46,11 @@ const LinkButton = ({editor,lang}) => {
                     onClick={()=>{showLink()}}
                     title={t('link', lang)}><LinkIcon/>
             </div>
-            {/*<button className="class-button data-active:bg-gray-300" data-active={editor.isActive('link') || null} onClick={() => {*/}
+            {/*<div className="class-button data-active:bg-gray-300" data-active={editor.isActive('link') || null} onClick={() => {*/}
             {/*    const url = prompt('آدرس لینک:');*/}
             {/*    if (url) editor.chain().focus().setLink({href: url}).run();*/}
             {/*}} title={t('link', lang)}><LinkIcon/>*/}
-            {/*</button>*/}
+            {/*</div>*/}
 
             {isModalOpen && (
                 <div className="tw:fixed tw:inset-0 tw:flex tw:items-center tw:justify-center tw:bg-black/10 tw:backdrop-blur-xs tw:z-50">

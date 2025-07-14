@@ -56,7 +56,7 @@ const ColoredBoxButton = ({ editor, lang }) => {
 
             {isOpen && (
                 <div className={`${Configs.RtlLang.includes(lang) ? 'tw:right-0' : 'tw:left-0'} tw:absolute tw:top-8 tw:z-10`}>
-                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-52 tw:flex tw:flex-col tw:gap-1 tw:rounded">
+                    <div className="tw:p-2 tw:bg-gray-200 tw:dark:bg-gray-700 tw:w-68 tw:flex tw:flex-col tw:gap-1 tw:rounded">
                         {/* دکمه حذف */}
                         <div className="tw:flex tw:justify-end ">
                             <div onClick={removeBox} className="tw:add-font tw:bg-gray-300 tw:hover:bg-gray-400 tw:dark:bg-gray-500 tw:dark:hover:bg-gray-600 tw:text-sm tw:px-2 tw:py-1 tw:rounded">
@@ -76,7 +76,7 @@ const ColoredBoxButton = ({ editor, lang }) => {
 
                         <div>
                             <label className="tw:text-sm tw:mb-1">{t('selectColor', lang)}</label>
-                            <div className="tw:grid tw:grid-cols-7 tw:gap-2 tw:pe-3 tw:h-40 tw:overflow-y-auto">
+                            <div className="tw:grid tw:grid-cols-11 tw:gap-2 tw:pe-3 tw:h-40 tw:overflow-y-auto">
                                 {Colors.map(color => (
                                     <span key={color} onClick={() => setSelectedColor(color)} className={`${selectedColor === color ? "tw:border-3 tw:border-blue-500 tw:dark:border-gray-200" : "tw:border tw:border-gray-300  tw:dark:border-gray-600"}   tw:cursor-pointer tw:w-5 tw:h-5 tw:rounded tw:hover:opacity-70`} style={{backgroundColor: color}}/>
                                 ))}

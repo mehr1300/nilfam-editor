@@ -1,4 +1,3 @@
-// extensions/ResponsiveIframe.jsx
 import { Node, mergeAttributes } from '@tiptap/core'
 
 /*
@@ -31,7 +30,19 @@ export default Node.create({
 
     /* ───────── Schema ───────── */
     parseHTML() {
-        return [{ tag: 'iframe[src]' }]
+        return [
+            {
+                tag: 'iframe[src]',
+                getAttrs: (dom) => ({
+                    src: dom.getAttribute('src'),
+                    alt: dom.getAttribute('alt'),
+                    align: dom.getAttribute('data-align') || 'left',
+                    width: parseInt(dom.getAttribute('data-width')) || 560,
+                    allowfullscreen: dom.hasAttribute('allowfullscreen') ? '' : null,
+                    allow: dom.getAttribute('allow') || 'fullscreen; picture-in-picture; autoplay',
+                }),
+            },
+        ]
     },
 
     /* ───────── renderHTML (خروجی سایت) ───────── */
@@ -59,6 +70,8 @@ export default Node.create({
                     {
                         style: iframeStyle,
                         align: null,               // صفت منسوخ
+                        'data-align': align,       // ذخیره برای parse
+                        'data-width': width,       // ذخیره برای parse
                         allowfullscreen: '',
                         allow: HTMLAttributes.allow,
                     },
@@ -177,9 +190,3 @@ export default Node.create({
         }
     },
 })
-
-/*
-CSS جایگزین اختیاری:
-.responsive-iframe{position:relative;width:100%;max-width:560px;aspect-ratio:16/9;}
-.responsive-iframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-*/

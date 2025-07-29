@@ -7,7 +7,7 @@ import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Highlight from '@tiptap/extension-highlight';
 import {ListItem} from '@tiptap/extension-list-item';
-
+import Underline from '@tiptap/extension-underline';
 
 import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
@@ -63,7 +63,7 @@ import {
     MovieIcon,
     PhotoIcon,
     SourceCodeIcon,
-    StyleClearIcon,
+    StyleClearIcon, UnderLineIcon,
 } from '../assets/icons/Icons.jsx';
 import ColoredBoxButton from "../components/button/BoxButton.jsx";
 import {ColoredBox} from "../extensions/ColoredBox.js";
@@ -121,6 +121,7 @@ const Editor = forwardRef(({
             }),
             IndentExtension.configure({ lang: lang }),
             CustomBlockquote,
+            Underline,
             ColoredBox,
             CustomCodeBlock,
             Highlight.configure({
@@ -289,6 +290,9 @@ const Editor = forwardRef(({
                     </div>
                     <div className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('italic') || null} onClick={() => editor.chain().focus().toggleItalic().run()} title={t('italic', lang)}>
                         <ItalicIcon />
+                    </div>
+                    <div className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('underline') || null} onClick={() => editor.chain().focus().toggleUnderline().run()} title={t('underline', lang)}>
+                        <UnderLineIcon />
                     </div>
 
                     <TextColor editor={editor} lang={lang} />

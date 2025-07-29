@@ -1,4 +1,3 @@
-// extensions/ResizeVideoExtension.jsx
 import { Node, mergeAttributes } from '@tiptap/core'
 
 export default Node.create({
@@ -20,7 +19,40 @@ export default Node.create({
     },
 
     /* ─────────── Schema ─────────── */
-    parseHTML() { return [{ tag: 'video[src]' }] },
+    parseHTML() {
+        return [
+            {
+                tag: 'video[src]',
+                getAttrs: (dom) => {
+                    const domStyle = dom.getAttribute('style') || '';
+
+                    // استخراج align از استایل (برای حفظ بعد از لود)
+                    let align = 'left';
+                    if (domStyle.includes('margin-left:auto') && domStyle.includes('margin-right:auto')) {
+                        align = 'center';
+                    } else if (domStyle.includes('float:right')) {
+                        align = 'right';
+                    }
+
+                    // تمیز کردن style: حذف قسمت‌های ترازبندی، نگه داشتن width/height/cursor
+                    const cleanStyle = domStyle
+                        .replace(/float:\s*\w+;\s*/g, '')
+                        .replace(/display:\s*block;\s*/g, '')
+                        .replace(/margin-left:\s*auto;\s*/g, '')
+                        .replace(/margin-right:\s*auto;\s*/g, '')
+                        .trim();
+
+                    return {
+                        src: dom.getAttribute('src'),
+                        alt: dom.getAttribute('alt'),
+                        controls: dom.hasAttribute('controls'),
+                        align,
+                        style: cleanStyle || 'width:560px;height:auto;cursor:pointer;',
+                    };
+                },
+            },
+        ];
+    },
 
     /*
      * خروجی HTMLِ ذخیره‌شده
@@ -215,12 +247,3 @@ export default Node.create({
         }
     },
 })
-
-/* ───────── CSS (اختیاری) ─────────
-اگر ترجیح می‌دهید به‌جای استایل اینلاین، کلاس بدهید
-|--> در renderHTML مقدار  style را حذف کنید و بنویسید:
-     class: `tiptap-video tiptap-video--${align}`,
-سپس در CSS:
-.tiptap-video--center{display:block;margin:0 auto}
-.tiptap-video--right {float:right;margin-left:auto}
-─────────────────────────────────*/

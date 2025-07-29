@@ -194,6 +194,6 @@
   border-radius: 6px;
   padding: 4px 10px;
 }
-.ProseMirror blockquote::after {
-  content: '”';
-}
+/*.ProseMirror blockquote::after {*/
+/*  content: '”';*/
+/*}*/

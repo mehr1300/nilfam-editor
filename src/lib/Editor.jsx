@@ -363,8 +363,9 @@ const Editor = forwardRef(({
                     <div className="class-button" onClick={toggleHTML}>
                         {showHTML ? <SourceCodeIcon /> : <HtmlIcon />}
                     </div>
-                    {/*<MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />*/}
                     <ColoredBoxButton editor={editor} lang={lang} />
+
+                    <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 import {t} from "../Lang/i18n.js";
 import {
-    AddColumnAfterIcon,
+    AddColumnAfterIcon, AddHeaderTable,
     AddRowAfterIcon,
     AlignTableCenterIcon,
     AlignTableLeftIcon,
@@ -64,7 +64,28 @@ const MenuTable = ({ editor, isTableSelected, lang }) => {
         editor.chain().focus().splitCell().run();
     };
 
+    const hasHeaderRow = () => {
+        const { $from } = editor.state.selection;
+        let depth = $from.depth;
+        while (depth > 0) {
+            const node = $from.node(depth);
+            if (node.type.name === 'table') {
+                const firstRow = node.content.child(0);
+                if (firstRow.content.child(0).type.name === 'tableHeader') {
+                    return true;
+                }
+                return false;
+            }
+            depth--;
+        }
+        return false;
+    };
 
+    const addHeaderRow = () => {
+        if (!hasHeaderRow()) {
+            editor.chain().focus().toggleHeaderRow().run();
+        }
+    };
 
     return (
         <div className="tw:flex tw:flex-row">
@@ -91,8 +112,6 @@ const MenuTable = ({ editor, isTableSelected, lang }) => {
                     <div className="class-button" onClick={alignTableLeft} title={t('alignTableLeft', lang)}>
                         <AlignTableLeftIcon />
                     </div>
-
-
                     <div className="class-button" onClick={mergeCells} title={t('mergeCells', lang)}>
 
                         <MergeIcon />
@@ -100,7 +119,9 @@ const MenuTable = ({ editor, isTableSelected, lang }) => {
                     <div className="class-button" onClick={splitCell} title={t('splitCell', lang)}>
                         <SplitIcon />
                     </div>
-
+                    <div className="class-button" onClick={addHeaderRow} title={t('addHeaderRow', lang)}>
+                        <AddHeaderTable />
+                    </div>
                     <div className="class-button" onClick={deleteTable} title={t('deleteTable', lang)}>
                         <TrashIcon />
                     </div>

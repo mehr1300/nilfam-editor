@@ -341,8 +341,27 @@ export const TrashIcon = () => (
     </svg>
 )
 
-// MergeIcon
 export const MergeIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-alias">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 12v-7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-7"/>
+        <path d="M3 10h18"/>
+        <path d="M10 3v10"/>
+        <path d="M2 17a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-4z"/>
+    </svg>
+);
+
+export const SplitIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-off">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M7 3h12a2 2 0 0 1 2 2v12m-.585 3.413a1.994 1.994 0 0 1 -1.415 .587h-14a2 2 0 0 1 -2 -2v-14c0 -.55 .223 -1.05 .583 -1.412"/>
+        <path d="M3 10h7m4 0h7"/>
+        <path d="M10 3v3m0 4v11"/>
+        <path d="M3 3l18 18"/>
+    </svg>
+);
+
+export const AddHeaderTable = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-row">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
         <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"/>
@@ -355,16 +374,7 @@ export const MergeIcon = () => (
     </svg>
 );
 
-// SplitIcon
-export const SplitIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-off">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M7 3h12a2 2 0 0 1 2 2v12m-.585 3.413a1.994 1.994 0 0 1 -1.415 .587h-14a2 2 0 0 1 -2 -2v-14c0 -.55 .223 -1.05 .583 -1.412"/>
-            <path d="M3 10h7m4 0h7"/>
-            <path d="M10 3v3m0 4v11"/>
-            <path d="M3 3l18 18"/>
-    </svg>
-);
+
 
 export const CodeIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-code">

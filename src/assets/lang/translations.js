@@ -65,6 +65,8 @@ export const translations = {
         underline : "زیر خط",
         mergeCells : "ترکیب",
         splitCell : "جداسازی",
+        formatPainterCopy : "کپی استایل",
+        formatPainterPaste : "افزودن استایل",
     },
     en: {
         bold: "Bold",
@@ -129,6 +131,8 @@ export const translations = {
         underline : "Underline",
         mergeCells : "Merge Cells",
         splitCell : "Split Cell",
+        formatPainterCopy : "Format Painter Copy",
+        formatPainterPaste : "Format Painter Paste",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

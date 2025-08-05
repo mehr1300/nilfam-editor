@@ -51,7 +51,7 @@ import {
     AlignLeftIcon,
     AlignRightIcon,
     BlockquoteIcon,
-    BoldIcon,
+    BoldIcon, FormatPainterCopyIcon, FormatPainterPasteIcon,
     HtmlIcon,
     IndentDecreaseIcon,
     IndentIncreaseIcon,
@@ -70,6 +70,7 @@ import {ColoredBox} from "../extensions/ColoredBox.js";
 import ResizeIframeExtension from "../extensions/ResizeIframeExtension.jsx";
 import IndentExtension from "../extensions/IndentExtension.jsx";
 import CustomBlockquote from "../extensions/CustomBlockquote.jsx";
+import {FormatPainterExtension} from "../extensions/FormatPainterExtension.jsx";
 
 const Editor = forwardRef(({
                                isDark = false,
@@ -119,6 +120,7 @@ const Editor = forwardRef(({
                 codeBlock: false,
                 heading: false,
             }),
+            FormatPainterExtension,
             IndentExtension.configure({ lang: lang }),
             CustomBlockquote,
             Underline,
@@ -265,6 +267,7 @@ const Editor = forwardRef(({
         }
     };
 
+
     return (
         <div data-theme={isDark ? 'dark' : 'light'}
             className="tw:dark:bg-gray-900 tw:relative tw:nilfam-editor tw:flex tw:flex-col tw:p-0.5 tw:gap-0.5 tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:rounded-xl"
@@ -288,6 +291,8 @@ const Editor = forwardRef(({
 
                 {/* بخش دوم نوار ابزار (دکمه‌های بولد، رنگ، لینک، آپلود و ...) */}
                 <div className="tw:flex tw:flex-wrap tw:items-center tw:gap-1">
+
+
                     <div className="class-button tw:data-active:bg-gray-300 tw:dark:data-active:bg-gray-700" data-active={editor.isActive('bold') || null} onClick={() => editor.chain().focus().toggleBold().run()} title={t('bold', lang)}>
                         <BoldIcon />
                     </div>
@@ -364,6 +369,13 @@ const Editor = forwardRef(({
                         {showHTML ? <SourceCodeIcon /> : <HtmlIcon />}
                     </div>
                     <ColoredBoxButton editor={editor} lang={lang} />
+
+                    <div className="class-button" onClick={()=>{editor.commands.copyFormat()}} title={t('formatPainterCopy', lang)}>
+                        <FormatPainterCopyIcon/>
+                    </div>
+                    <div className="class-button" onClick={()=>{editor.commands.pasteFormat()}} >
+                        <FormatPainterPasteIcon/>
+                    </div>
 
                     <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
                 </div>

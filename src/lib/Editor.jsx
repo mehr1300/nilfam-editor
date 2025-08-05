@@ -154,6 +154,9 @@ const Editor = forwardRef(({
             Video,
             Audio,
             CustomTable.configure(),
+            // CustomTable.configure({
+            //     resizable: true,
+            // }),
             CustomTableRow,
             CustomTableHeader,
             CustomTableCell,
@@ -360,7 +363,7 @@ const Editor = forwardRef(({
                     <div className="class-button" onClick={toggleHTML}>
                         {showHTML ? <SourceCodeIcon /> : <HtmlIcon />}
                     </div>
-                    <MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />
+                    {/*<MenuTable editor={editor} isTableSelected={isTableSelected} lang={lang} />*/}
                     <ColoredBoxButton editor={editor} lang={lang} />
                 </div>
             </div>

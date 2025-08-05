@@ -197,3 +197,17 @@
 /*.ProseMirror blockquote::after {*/
 /*  content: '”';*/
 /*}*/
+
+
+/* Highlight برای سلول‌های selected */
+.ProseMirror td.selectedCell,
+.ProseMirror th.selectedCell {
+  background-color: rgba(173, 216, 230, 0.4) !important; /* آبی روشن شفاف، یا هر رنگی که می‌خوای */
+  outline: 1px solid #007bff; /* optional: border برای وضوح بیشتر */
+}
+
+/* optional: hover برای سلول‌ها */
+.ProseMirror td:hover,
+.ProseMirror th:hover {
+  background-color: rgba(200, 200, 200, 0.1);
+}

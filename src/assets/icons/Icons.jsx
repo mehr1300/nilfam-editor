@@ -341,12 +341,37 @@ export const TrashIcon = () => (
     </svg>
 )
 
+// MergeIcon
+export const MergeIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-row">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"/>
+        <path d="M9 3l-6 6"/>
+        <path d="M14 3l-7 7"/>
+        <path d="M19 3l-7 7"/>
+        <path d="M21 6l-4 4"/>
+        <path d="M3 10h18"/>
+        <path d="M10 10v11"/>
+    </svg>
+);
+
+// SplitIcon
+export const SplitIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-table-off">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 3h12a2 2 0 0 1 2 2v12m-.585 3.413a1.994 1.994 0 0 1 -1.415 .587h-14a2 2 0 0 1 -2 -2v-14c0 -.55 .223 -1.05 .583 -1.412"/>
+            <path d="M3 10h7m4 0h7"/>
+            <path d="M10 3v3m0 4v11"/>
+            <path d="M3 3l18 18"/>
+    </svg>
+);
+
 export const CodeIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-code">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M7 8l-4 4l4 4"/>
-        <path d="M17 8l4 4l-4 4"/>
-        <path d="M14 4l-4 16"/>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 8l-4 4l4 4"/>
+            <path d="M17 8l4 4l-4 4"/>
+            <path d="M14 4l-4 16"/>
     </svg>
 )
 

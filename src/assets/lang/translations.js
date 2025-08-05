@@ -63,6 +63,8 @@ export const translations = {
         selectCodeLanguage : "انتخاب زبان برنامه نویسی",
         blockquote : "نقل قول",
         underline : "زیر خط",
+        mergeCells : "ترکیب",
+        splitCell : "جداسازی",
     },
     en: {
         bold: "Bold",
@@ -125,6 +127,8 @@ export const translations = {
         selectCodeLanguage : "Select Code Language",
         blockquote : "Blockquote",
         underline : "Underline",
+        mergeCells : "Merge Cells",
+        splitCell : "Split Cell",
     },
     // اگر زبان دیگری مثل عربی، فرانسوی، ترکی و ... خواستید، همینجا اضافه کنید
 };

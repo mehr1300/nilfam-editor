@@ -24,6 +24,8 @@ export const CustomTable = Table.extend({
     },
 });
 
+
+
 export const CustomTableRow = TableRow.extend({
     renderHTML({ HTMLAttributes }) {
         return ['tr', mergeAttributes({

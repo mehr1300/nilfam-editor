@@ -1,5 +1,15 @@
 import {t} from "../Lang/i18n.js";
-import {AddColumnAfterIcon, AddRowAfterIcon, AlignTableCenterIcon, AlignTableLeftIcon, AlignTableRightIcon, RemoveColumnIcon, RemoveRowIcon, TrashIcon} from "../../assets/icons/Icons.jsx";
+import {
+    AddColumnAfterIcon,
+    AddRowAfterIcon,
+    AlignTableCenterIcon,
+    AlignTableLeftIcon,
+    AlignTableRightIcon,
+    MergeIcon,
+    RemoveColumnIcon,
+    RemoveRowIcon, SplitIcon,
+    TrashIcon
+} from "../../assets/icons/Icons.jsx";
 
 const MenuTable = ({ editor, isTableSelected, lang }) => {
     const addRowAfter = () => {
@@ -46,6 +56,16 @@ const MenuTable = ({ editor, isTableSelected, lang }) => {
         editor.chain().focus().deleteTable().run();
     };
 
+    const mergeCells = () => {
+        editor.chain().focus().mergeCells().run();
+    };
+
+    const splitCell = () => {
+        editor.chain().focus().splitCell().run();
+    };
+
+
+
     return (
         <div className="tw:flex tw:flex-row">
             {isTableSelected && (
@@ -71,9 +91,21 @@ const MenuTable = ({ editor, isTableSelected, lang }) => {
                     <div className="class-button" onClick={alignTableLeft} title={t('alignTableLeft', lang)}>
                         <AlignTableLeftIcon />
                     </div>
+
+
+                    <div className="class-button" onClick={mergeCells} title={t('mergeCells', lang)}>
+
+                        <MergeIcon />
+                    </div>
+                    <div className="class-button" onClick={splitCell} title={t('splitCell', lang)}>
+                        <SplitIcon />
+                    </div>
+
                     <div className="class-button" onClick={deleteTable} title={t('deleteTable', lang)}>
                         <TrashIcon />
                     </div>
+
+
                 </div>
             )}
         </div>

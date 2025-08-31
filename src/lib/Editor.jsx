@@ -271,11 +271,10 @@ const Editor = forwardRef(({
     return (
         <div data-theme={isDark ? 'dark' : 'light'}
             className="tw:dark:bg-gray-900 tw:relative tw:nilfam-editor tw:flex tw:flex-col tw:p-0.5 tw:gap-0.5 tw:border tw:border-gray-200 tw:dark:border-gray-700 tw:rounded-xl"
-            dir={Configs.RtlLang.includes(lang) ? 'rtl' : 'ltr'}
-        >
+            dir={Configs.RtlLang.includes(lang) ? 'rtl' : 'ltr'}>
             {/* نام ادیتور یا هدر کوچک */}
             <div className="tw:add-font tw:dark:text-gray-200 tw:flex tw:text-sm tw:font-bold tw:pt-1 tw:justify-end tw:ltr:justify-start  tw:text-gray-600 tw:px-2">
-                Nilfam-Editor
+                Nilfam-Editor 1.4
             </div>
 
             {/* نوار ابزار بالا */}

@@ -7,13 +7,26 @@ const ResizeImageExtension = Image.extend({
         return {
             ...this.parent?.(),
             style: {
-                default: 'width: 100%; height: auto; cursor: pointer;',
+                default: 'width: 100%; max-width: 100%; height: auto; cursor: pointer;',
                 parseHTML: element => {
                     const width = element.getAttribute('width');
-                    return width
-                        ? `width: ${width}px; height: auto; cursor: pointer;`
+                    const parsedStyle = width
+                        ? `width: ${width}px; max-width: 100%; height: auto; cursor: pointer;`
                         : element.style.cssText;
+                    // Ensure height is auto and max-width is present
+                    let styleObj = {};
+                    parsedStyle.split(';').forEach(part => {
+                        const [key, value] = part.split(':').map(s => s.trim());
+                        if (key) styleObj[key] = value;
+                    });
+                    styleObj.height = 'auto';
+                    if (!styleObj['max-width']) styleObj['max-width'] = '100%';
+                    return Object.entries(styleObj).map(([k, v]) => `${k}: ${v};`).join(' ');
                 },
+            },
+            loading: {
+                default: 'lazy',
+                parseHTML: element => element.getAttribute('loading'),
             },
         };
     },
@@ -21,7 +34,7 @@ const ResizeImageExtension = Image.extend({
     addNodeView() {
         return ({ node, editor, getPos }) => {
             const { view } = editor;
-            const { style } = node.attrs;
+            const { style, loading } = node.attrs;
 
             // ریشه‌ی اصلی گره
             const $wrapper = document.createElement('div');
@@ -37,9 +50,17 @@ const ResizeImageExtension = Image.extend({
             // به‌روزرسانی نود در State تیپ‌تپ
             const dispatchNodeView = (extraAttrs = {}) => {
                 if (typeof getPos === 'function') {
+                    const currentStyle = $img.style;
+                    let styleString = '';
+                    if (currentStyle.width) styleString += `width: ${currentStyle.width}; `;
+                    styleString += 'max-width: 100%; height: auto; ';
+                    if (currentStyle.margin) styleString += `margin: ${currentStyle.margin}; `;
+                    if (currentStyle.borderRadius) styleString += `border-radius: ${currentStyle.borderRadius}; `;
+                    if (currentStyle.cursor) styleString += `cursor: ${currentStyle.cursor}; `;
+
                     const newAttrs = {
                         ...node.attrs,
-                        style: $img.style.cssText, // استایل‌های جدید را حتماً ذخیره کنید
+                        style: styleString.trim(),
                         ...extraAttrs,
                     };
                     view.dispatch(view.state.tr.setNodeMarkup(getPos(), null, newAttrs));
@@ -190,26 +211,28 @@ const ResizeImageExtension = Image.extend({
                 }
             });
 
-            // ذخیره عرض و ارتفاع اولیه برای حفظ نسبت
-            const originalWidth = $img.width;
-            const originalHeight = $img.height;
-            const aspectRatio = originalWidth / originalHeight;
+            // تنظیم height به auto همیشه
+            $img.style.height = 'auto';
+            $container.style.height = 'auto';
 
             // متغیرهای تغییر اندازه
             let isResizing = false;
             let startX = 0;
             let startWidth = 0;
+            let aspectRatio = 1;
+
+            $img.addEventListener('load', () => {
+                aspectRatio = $img.naturalWidth / $img.naturalHeight;
+            });
 
             const onMouseMove = e => {
                 if (!isResizing) return;
                 const deltaX = e.clientX - startX;
                 const newWidth = startWidth - deltaX;
-                const newHeight = newWidth / aspectRatio;
-
                 $img.style.width = `${Math.max(newWidth, 10)}px`;
-                $img.style.height = `${Math.max(newHeight, 10)}px`;
-                $container.style.width = `${Math.max(newWidth, 10)}px`;
-                $container.style.height = `${Math.max(newHeight, 10)}px`;
+                $img.style.height = 'auto';
+                $container.style.width = 'auto';
+                $container.style.height = 'auto';
             };
 
             const onMouseUp = () => {
@@ -226,7 +249,7 @@ const ResizeImageExtension = Image.extend({
                 // افزودن کلاس‌ها و استایل مخصوص حالت انتخاب
                 $container.setAttribute(
                     'style',
-                    `position: relative; border: 1.5px dashed #6C6C6C; ${style}`
+                    `position: relative;border: 1.5px dashed #6C6C6C; ${style}`
                 );
 
                 // نقاط تغییر اندازه
@@ -238,7 +261,7 @@ const ResizeImageExtension = Image.extend({
                     `bottom: ${dotPosition}; right: ${dotPosition}; cursor: nwse-resize;`,
                 ];
 
-                Array.from({ length: 1 }, (_, index) => {
+                Array.from({ length: 4 }, (_, index) => {
                     const $dot = document.createElement('div');
                     $dot.classList.add(
                         'tw:absolute',
@@ -279,6 +302,16 @@ const ResizeImageExtension = Image.extend({
                 dom: $wrapper,
             };
         };
+    },
+
+    renderHTML({ node }) {
+        const attrs = { ...node.attrs };
+        if (attrs.style) {
+            attrs.style += ' max-width: 100%; height: auto;';
+        } else {
+            attrs.style = 'max-width: 100%; height: auto;';
+        }
+        return ['img', attrs];
     },
 });
 

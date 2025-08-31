@@ -1,6 +1,6 @@
 import './App.css'
 import Editor from "./lib/Editor.jsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
 
     return (
         <div className="tw:flex tw:flex-col tw:p-20 tw:dark:bg-gray-900 tw:h-screen">
-            <Editor  value={content} onChange={setContent}
+            <Editor  value={content} onChange={setContent} lang="fa"
                      isDark={false}/>
         </div>
 

@@ -274,7 +274,7 @@ const Editor = forwardRef(({
             dir={Configs.RtlLang.includes(lang) ? 'rtl' : 'ltr'}>
             {/* نام ادیتور یا هدر کوچک */}
             <div className="tw:add-font tw:dark:text-gray-200 tw:flex tw:text-sm tw:font-bold tw:pt-1 tw:justify-end tw:ltr:justify-start  tw:text-gray-600 tw:px-2">
-                Nilfam-Editor 1.4
+                Nilfam-Editor
             </div>
 
             {/* نوار ابزار بالا */}

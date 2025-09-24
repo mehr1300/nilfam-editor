@@ -7,79 +7,72 @@ export default Node.create({
     draggable: true,
     selectable: true,
 
-    /** ویژگی‌ها (Attributes) */
+    /* ───────── Attributes ───────── */
     addAttributes() {
         return {
-            src:       { default: null },
-            controls:  { default: true },
-            alt:       { default: null },
-            align:     { default: 'left' },    // چپ | وسط | راست
-            style:     { default: 'width:560px;height:auto;cursor:pointer;' },
+            src: { default: null },       // لینک فایل صوتی
+            controls: { default: true },  // همیشه true
+            alt: { default: null },
+            align: { default: 'left' },   // left | center | right
+            width: { default: 560 },
         }
     },
 
-    /** تعریف Schema */
+    /* ───────── Schema ───────── */
     parseHTML() {
         return [
             {
-                tag: 'audio[src]',
-                getAttrs: (dom) => {
-                    const domStyle = dom.getAttribute('style') || '';
-
-                    // استخراج align از استایل (برای حفظ بعد از لود)
-                    let align = 'left';
-                    if (domStyle.includes('margin-left:auto') && domStyle.includes('margin-right:auto')) {
-                        align = 'center';
-                    } else if (domStyle.includes('float:right')) {
-                        align = 'right';
-                    }
-
-                    // تمیز کردن style: حذف قسمت‌های ترازبندی، نگه داشتن width/height/cursor
-                    const cleanStyle = domStyle
-                        .replace(/float:\s*\w+;\s*/g, '')
-                        .replace(/display:\s*block;\s*/g, '')
-                        .replace(/margin-left:\s*auto;\s*/g, '')
-                        .replace(/margin-right:\s*auto;\s*/g, '')
-                        .trim();
-
-                    return {
-                        src: dom.getAttribute('src'),
-                        alt: dom.getAttribute('alt'),
-                        controls: dom.hasAttribute('controls'),
-                        align,
-                        style: cleanStyle || 'width:560px;height:auto;cursor:pointer;',
-                    };
-                },
+                tag: 'div.audio-wrapper audio[src]',
+                getAttrs: (dom) => ({
+                    src: dom.getAttribute('src'),
+                    alt: dom.getAttribute('alt'),
+                    controls: dom.hasAttribute('controls'),
+                    align: dom.getAttribute('data-align') || 'left',
+                    width: parseInt(dom.getAttribute('data-width')) || 560,
+                }),
             },
-        ];
-    },
-
-    /** خروجی HTML */
-    renderHTML({ HTMLAttributes }) {
-        const { align = 'left', style = '' } = HTMLAttributes
-
-        // استایل برای ترازبندی
-        const extra =
-            align === 'center'
-                ? 'display:block;margin-left:auto;margin-right:auto;'
-                : align === 'right'
-                    ? 'float:right;margin-left:auto;'
-                    : 'float:left;'
-
-        return [
-            'audio',
-            mergeAttributes(
-                HTMLAttributes,
-                {
-                    controls: true,            // همیشه controls داشته باشه
-                    style: style + extra,      // استایل اصلی + ترازبندی
-                    align: null,               // حذف ویژگی منسوخ align
-                },
-            ),
+            {
+                // fallback اگر فقط audio ذخیره شده بود
+                tag: 'audio[src]',
+                getAttrs: (dom) => ({
+                    src: dom.getAttribute('src'),
+                    alt: dom.getAttribute('alt'),
+                    controls: dom.hasAttribute('controls'),
+                    align: dom.getAttribute('data-align') || 'left',
+                    width: parseInt(dom.getAttribute('data-width')) || 560,
+                }),
+            },
         ]
     },
 
-    /** دستورات (Commands) */
+    /* ───────── renderHTML (خروجی نهایی) ───────── */
+    renderHTML({ HTMLAttributes }) {
+        const { align = 'left', width = 560 } = HTMLAttributes
+        const wrapStyle =
+            `display:block;max-width:${width}px;width:100%;` +
+            (align === 'center'
+                ? 'margin-inline:auto;'
+                : align === 'right'
+                    ? 'margin-left:auto;'
+                    : 'margin-right:auto;')
+
+        return [
+            'div',
+            { class: 'audio-wrapper', style: wrapStyle },
+            [
+                'audio',
+                mergeAttributes(HTMLAttributes, {
+                    controls: true,
+                    style: 'width:100%;', // فقط عرض
+                    align: null,
+                    'data-align': align,
+                    'data-width': width,
+                }),
+            ],
+        ]
+    },
+
+    /* ───────── Commands ───────── */
     addCommands() {
         return {
             insertAudio:
@@ -89,39 +82,38 @@ export default Node.create({
         }
     },
 
-    /** نمایش در ادیتور (Node-View) */
+    /* ───────── NodeView (نمایش در ادیتور) ───────── */
     addNodeView() {
         return ({ node, editor, getPos }) => {
             const { view } = editor
-            const { style, align } = node.attrs
+            const { align, width } = node.attrs
 
-            /** wrapper برای ترازبندی در ادیتور */
+            // ظرف اصلی
             const wrap = document.createElement('div')
             wrap.style.cssText =
                 'display:flex;width:100%;justify-content:' +
-                (align === 'center'
-                    ? 'center'
-                    : align === 'right'
-                        ? 'flex-end'
-                        : 'flex-start')
+                (align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start')
 
-            /** کانتینر اصلی */
             const box = document.createElement('div')
-            box.style.cssText = `position:relative;display:inline-block;${style}`
+            box.style.cssText = `position:relative;width:${width}px;max-width:100%;`
 
-            /** عنصر صوتی */
+            // پلیر صوتی
             const audio = document.createElement('audio')
             audio.setAttribute('controls', 'true')
-            Object.entries(node.attrs).forEach(([k, v]) => v && audio.setAttribute(k, v))
+            Object.entries(node.attrs).forEach(([k, v]) => {
+                if (v == null) return
+                if (['align', 'width'].includes(k)) return
+                audio.setAttribute(k, v)
+            })
+            audio.style.cssText = 'width:100%;'
 
-            /** نوار ابزار بالای فایل صوتی */
+            // نوار ابزار
             const bar = document.createElement('div')
             bar.style.cssText =
                 'position:absolute;top:0;left:50%;transform:translate(-50%,-100%);' +
                 'display:flex;gap:4px;padding:2px 4px;background:#fff;border:1px solid #888;' +
                 'border-radius:4px;z-index:10;font-size:0;'
 
-            /** تابع کمکی برای ساخت دکمه‌ها */
             const mkBtn = (title, svg, fn) => {
                 const btn = document.createElement('span')
                 btn.title = title
@@ -133,78 +125,51 @@ export default Node.create({
                 bar.appendChild(btn)
             }
 
-            /** تابع‌های کمکی برای ذخیره تغییرات */
             const dispatch = attrs =>
                 view.dispatch(
                     view.state.tr.setNodeMarkup(getPos(), null, { ...node.attrs, ...attrs }),
                 )
-            const saveAlign = a => dispatch({ align: a })
 
-            /** دکمه‌های ترازبندی */
-            mkBtn(
-                'چپ',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_left/default/20px.svg',
-                () => {
-                    wrap.style.justifyContent = 'flex-start'
-                    saveAlign('left')
-                },
-            )
-            mkBtn(
-                'وسط',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_center/default/20px.svg',
-                () => {
-                    wrap.style.justifyContent = 'center'
-                    saveAlign('center')
-                },
-            )
-            mkBtn(
-                'راست',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_right/default/20px.svg',
-                () => {
-                    wrap.style.justifyContent = 'flex-end'
-                    saveAlign('right')
-                },
-            )
+            const saveAlign = a => {
+                wrap.style.justifyContent = a === 'center' ? 'center' : a === 'right' ? 'flex-end' : 'flex-start'
+                dispatch({ align: a })
+            }
 
-            /** ویرایش alt */
-            mkBtn(
-                'alt',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/edit/default/20px.svg',
-                () => {
-                    const cur = audio.getAttribute('alt') || ''
-                    const txt = prompt('متن alt را وارد کنید:', cur)
-                    if (txt !== null) {
-                        audio.setAttribute('alt', txt)
-                        dispatch({ alt: txt })
-                    }
-                },
-            )
+            // دکمه‌های ترازبندی
+            mkBtn('چپ', 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_left/default/20px.svg', () => saveAlign('left'))
+            mkBtn('وسط', 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_center/default/20px.svg', () => saveAlign('center'))
+            mkBtn('راست', 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/format_align_right/default/20px.svg', () => saveAlign('right'))
 
-            /** حذف فایل صوتی */
-            mkBtn(
-                'حذف',
-                'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/delete/default/20px.svg',
-                () => {
-                    const from = getPos()
-                    view.dispatch(view.state.tr.delete(from, from + node.nodeSize))
-                },
-            )
+            // دکمه alt
+            mkBtn('alt', 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/edit/default/20px.svg', () => {
+                const cur = audio.getAttribute('alt') || ''
+                const txt = prompt('متن alt را وارد کنید:', cur)
+                if (txt !== null) {
+                    audio.setAttribute('alt', txt)
+                    dispatch({ alt: txt })
+                }
+            })
 
-            /** دستگیره جابجایی (Drag Handle) */
+            // دکمه حذف
+            mkBtn('حذف', 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/delete/default/20px.svg', () => {
+                const from = getPos()
+                view.dispatch(view.state.tr.delete(from, from + node.nodeSize))
+            })
+
+            // drag handle
             const drag = document.createElement('span')
             drag.title = 'جابجایی'
-            drag.setAttribute('draggable', 'true')
             drag.classList.add('ProseMirror-drag-handle')
+            drag.setAttribute('draggable', 'true')
             drag.style.cssText =
-                'width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;' +
-                'cursor:grab;border-radius:4px;'
+                'width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;cursor:grab;border-radius:4px;'
             drag.innerHTML =
                 '<img src="https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/open_with/default/20px.svg" width="20" height="20">'
             bar.appendChild(drag)
 
-            /** مونتاژ نهایی */
             wrap.appendChild(box)
             box.append(audio, bar)
+
             return { dom: wrap }
         }
     },
